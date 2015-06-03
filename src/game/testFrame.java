@@ -16,11 +16,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
 
-//noch ein kommentargg
+
 
 /**
  * Created by Chris on 09.05.2015.
- * hier steht ja eigentlich was anderes.r
  */
 public class testFrame extends JPanel implements Runnable, KeyListener {
 
