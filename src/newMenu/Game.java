@@ -101,6 +101,7 @@ public class Game {
 		frame.remove(panel);
 		changePanel(option);
 		frame.setVisible(true);
+		//hallo
 		
 		
 	}
