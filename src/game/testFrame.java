@@ -44,7 +44,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     
     
 
-//testcommentad
+//testcomment
     public testFrame() {
         this.setFocusable(true);
         this.addKeyListener(this);
