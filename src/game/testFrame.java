@@ -16,10 +16,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
 
-
+//noch ein kommentar
 
 /**
  * Created by Chris on 09.05.2015.
+ * hier steht ja eigentlich was anderes.
  */
 public class testFrame extends JPanel implements Runnable, KeyListener {
 
@@ -43,8 +44,6 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     static Wheel rad = new Wheel(190, 110, 4, 1);
     
     
-
-//testcommentYEAA so jetzt
     public testFrame() {
         this.setFocusable(true);
         this.addKeyListener(this);
