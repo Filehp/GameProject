@@ -46,7 +46,7 @@ class DrawFrame extends JFrame {
 
     public static final int DEFAULT_HEIGHT = 400;
 }
-
+////hallo
 /**
  * A component that displays rectangles and ellipses.
  */
