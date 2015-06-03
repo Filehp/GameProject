@@ -1,6 +1,6 @@
 package game;
 
-
+//test
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -122,18 +122,18 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         //Kollision abfangen
         if(missile.size()>0) {
             for (int i = 0; i < missile.size(); i++) {
-                //Auf Kollision mit rad prüfen
+                //Auf Kollision mit rad prÃ¼fen
 
                 boolean Kollirad = missile.get(i).collidesWithWheel(rad);
 
-                //Auf kollision mit Speiche prüfen
+                //Auf kollision mit Speiche prÃ¼fen
                 boolean Kollispeiche = missile.get(i).coollidesWithSpokes(rad.getSpokesList());
 
                 //Kollision mit Rad
                 if (Kollirad && Kollispeiche==false) {
                     //Was soll passieren wenn das Geschoss auf das Rad trifft?
 
-                    //Speiche wird dan der Stelle hinzugefügt
+                    //Speiche wird dan der Stelle hinzugefÃ¼gt
                     rad.addSpokes(missile.get(i).getX());
                     //Geschoss wird entfernt
                     missile.remove(i);
