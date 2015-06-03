@@ -100,12 +100,9 @@ public class Game {
 		frame.setVisible(false);
 		frame.remove(panel);
 		changePanel(option);
-<<<<<<< HEAD
 		frame.setVisible(true);	
-=======
-		frame.setVisible(true);
-		
->>>>>>> branch 'master' of https://github.com/Filehp/GameProject.git
+
+
 		
 	}
 	
