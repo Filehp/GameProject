@@ -115,7 +115,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         if(this.direction!=null) {
             Kanone.moveCanon(this.direction);
         }
-        //GEschoss abfeuern
+        //Geschoss abfeuern
 
             this.missilnumber = Kanone.shotMissile(canon, missile);
             if (this.missilnumber != 99) {
