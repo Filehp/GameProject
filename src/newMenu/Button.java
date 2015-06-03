@@ -74,10 +74,10 @@ public class Button extends JButton {
 		public void mousePressed(MouseEvent me) {
 			new Thread(new Runnable() {
 				public void run() {
-					for (float i = 1f; i >= 0.6f; i -= .1f) {
+					for (float i = 1f; i >= 0.5f; i -= .1f) {
 						setAlpha(i);
 						try {
-							// Thread.sleep(1);
+							//Thread.sleep(1);
 						} catch (Exception e) {
 						}
 					}
