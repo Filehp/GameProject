@@ -16,8 +16,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
 
-//wadwdwagawgafwafaegasd
-
 /**
  * Created by Chris on 09.05.2015.
  */
@@ -182,7 +180,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
             System.out.println(missilespeed);
         }
     }
-
+//testcomment
     @Override
     public void keyReleased(KeyEvent e) {
         direction=null;
