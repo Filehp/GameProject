@@ -20,7 +20,7 @@ import java.util.*;
 
 /**
  * Created by Chris on 09.05.2015.
- * hier steht ja eigentlich was anderes.
+ * hier steht ja eigentlich was anderes.r
  */
 public class testFrame extends JPanel implements Runnable, KeyListener {
 
