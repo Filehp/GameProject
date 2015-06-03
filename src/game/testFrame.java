@@ -4,7 +4,14 @@ package game;
 
 import javax.swing.*;
 import javax.swing.Timer;
+
+import newMenu.Button;
+import newMenu.Difficulty;
+import newMenu.Game;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
@@ -16,6 +23,8 @@ import java.util.*;
  */
 public class testFrame extends JPanel implements Runnable, KeyListener {
 
+	Icon backIcon = new ImageIcon("resources/Back.png");
+	private Button back = new Button(backIcon);
 
     int x = 400;
     int y = 400;
@@ -32,11 +41,22 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     boolean startSpokes = true;
     static Canon Kanone = new Canon(150, 300);
     static Wheel rad = new Wheel(190, 110, 4, 1);
+    
+    
 
 
     public testFrame() {
         this.setFocusable(true);
         this.addKeyListener(this);
+        
+        back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				Game.changePanel("levelmenu", testFrame.this);
+			}
+		});
 
     }
 
@@ -80,6 +100,9 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     @Override
     public void paintComponent(Graphics canon){
         super.paintComponent(canon);
+        
+        back.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 300, 275, 55);
+        add(back);
 
         //Rad laden
         rad.loadWheel(canon, startSpokes);
@@ -131,6 +154,8 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
             }
         }
     }
+    
+    
 
 
 
