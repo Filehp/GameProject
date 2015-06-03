@@ -100,10 +100,7 @@ public class Game {
 		frame.setVisible(false);
 		frame.remove(panel);
 		changePanel(option);
-		frame.setVisible(true);
-		//hallo
-
-		
+		frame.setVisible(true);	
 		
 	}
 	
