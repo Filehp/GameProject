@@ -69,14 +69,18 @@ public class Menu extends JComponent {
 	protected void paintComponent(Graphics g) {
 		g.drawImage(logo, 0, 0, null); // Draws the logo
 
-		// Sets up the buttons position
-		singleplayer.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 100,
-				275, 55);
-		multiplayer.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2, 275, 55);
-		scoreboard.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 100, 275,
-				55);
-		settings.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 200, 275, 55);
-		quit.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 300, 275, 55);
+		// Sets up the buttons position		
+		
+		singleplayer.setBounds(getButtonX(), getButtonY() - Game.HEIGHT / 100 * 25 / 2, 
+				getButtonWidth(), getButtonHeight());
+		multiplayer.setBounds(getButtonX(), getButtonY(), 
+				getButtonWidth(), getButtonHeight());
+		scoreboard.setBounds(getButtonX(), getButtonY() + Game.HEIGHT / 100 * 25 / 2, 
+				getButtonWidth(), getButtonHeight());
+		settings.setBounds(getButtonX(), getButtonY() + Game.HEIGHT / 100 * 25, 
+				getButtonWidth(), getButtonHeight());
+		quit.setBounds(getButtonX(), getButtonY() + Game.HEIGHT / 100 * 75 / 2, 
+				getButtonWidth(), getButtonHeight());
 
 		// Adds buttons to the gui
 		add(singleplayer);
@@ -85,6 +89,22 @@ public class Menu extends JComponent {
 		add(settings);
 		add(quit);
 
+	}
+	public static int getButtonX() {
+		int x = Game.WIDTH / 2 - Game.WIDTH / 100 * 20;
+		return x;		
+	}
+	public static int getButtonY() {
+		int y = Game.HEIGHT / 2;
+		return y;		
+	}
+	public static int getButtonWidth() {
+		int width = Game.WIDTH / 100 * 20 * 2;
+		return width;		
+	}
+	public static int getButtonHeight() {
+		int height = Game.HEIGHT / 13;
+		return height;		
 	}
 
 }
