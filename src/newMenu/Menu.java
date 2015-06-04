@@ -23,8 +23,7 @@ public class Menu extends JComponent {
 	private Button scoreboard = new Button(scoreIcon);
 	private Button settings = new Button(settingsIcon);
 	private Button quit = new Button(quitIcon);
-	private Image logo = new ImageIcon(getClass()
-			.getResource("/background.png")).getImage();
+//	private Image logo = new ImageIcon(getClass().getResource("/background.png")).getImage();
 
 	// Constructor sets up listeners; switches the panel
 	public Menu() {
@@ -67,7 +66,7 @@ public class Menu extends JComponent {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.drawImage(logo, 0, 0, null); // Draws the logo
+		//g.drawImage(logo, 0, 0, null); // Draws the logo
 
 		// Sets up the buttons position		
 		
