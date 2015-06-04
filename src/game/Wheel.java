@@ -31,6 +31,7 @@ public class Wheel {
     public void loadWheel(Graphics wheel, boolean startAdd){
         //Wheel laden
         Graphics2D g2 = (Graphics2D) wheel;
+        g2.setPaint(new Color(0, 128, 128));
         Ellipse2D circle = new Ellipse2D.Double();
         circle.setFrameFromCenter(this.wheelX, this.wheelY, this.wheelX + radius, this.wheelY + radius); ///(x-achse, y-achse, RadiusX , RadiusY)
         g2.draw(circle);
