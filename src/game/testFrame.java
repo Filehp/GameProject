@@ -1,7 +1,5 @@
 package game;
 
-//test
-
 import javax.swing.*;
 import javax.swing.Timer;
 
@@ -16,15 +14,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
 
-//dats
-
 /**
  * Created by Chris on 09.05.2015.
  */
 public class testFrame extends JPanel implements Runnable, KeyListener {
-
-	Icon backIcon = new ImageIcon("resources/Back.png");
-	private Button back = new Button(backIcon);
 
     int x = 400;
     int y = 400;
@@ -46,15 +39,6 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     public testFrame() {
         this.setFocusable(true);
         this.addKeyListener(this);
-        
-        back.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			
-				Game.changePanel("levelmenu", testFrame.this);
-			}
-		});
 
     }
 
@@ -99,9 +83,6 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     public void paintComponent(Graphics canon){
         super.paintComponent(canon);
         
-        back.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 300, 275, 55);
-        add(back);
-
         //Rad laden
         rad.loadWheel(canon, startSpokes);
         this.startSpokes = false;
@@ -182,7 +163,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
             System.out.println(missilespeed);
         }
     }
-//testcomment
+
     @Override
     public void keyReleased(KeyEvent e) {
         direction=null;
