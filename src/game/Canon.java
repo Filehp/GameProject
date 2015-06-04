@@ -10,29 +10,38 @@ import java.util.ArrayList;
  */
 public class Canon {
     public int missileCounter;
-    private int x;
-    private int y;
-    private int canonX = this.x/100*37;
-    private int canonY = this.y/100*75;
-    private int canonWigth = this.x/100*3;
-    private int canonHeigth = this.x/100*10;
+    private int canonX;
+    private int canonY;
+    private int canonWigth;
+    private int canonHeigth;
     private int xPositionMissile;
     private int yPositionMissile;
-    private int grenzeLinks = this.x/100*18;
-    private int grenzeRechts = this.x/100*75;
-    private int radiusMissel= this.x/100*3;
+    private int grenzeLinks;
+    private int grenzeRechts;
+    private int radiusMissel;
     public ArrayList<Missile> missile=new ArrayList< Missile>();
 
     //Constructor
     public Canon(int x, int y, int missleCounter){
-        this.x = x;
-        this.y = y;
+        this.canonX = x/100*37;
+        this.canonY = y/100*75;
+        this.canonWigth = x/100*3;
+        this.canonHeigth = x/100*10;
+        this.grenzeLinks = x/100*18;
+        this.grenzeRechts = x/100*75;
+        this.radiusMissel= x/100*3;
         this.missileCounter = missileCounter;
     }
     public Canon(int x, int y){
-        this.x = x;
-        this.y = y;
+        System.out.println(x + "and"+ y);
         this.missileCounter = 15;
+        this.canonX = x/100*37;
+        this.canonY = y/100*75;
+        this.canonWigth = x/100*10;
+        this.canonHeigth = y/100*3;
+        this.grenzeLinks = x/100*18;
+        this.grenzeRechts = x/100*75;
+        this.radiusMissel= x/100*3;
     }
 
     public void canonLoad(Graphics canon) {
@@ -62,10 +71,7 @@ public class Canon {
         }
     }
 
-    public int getAbschussPositionX(){
-        return this.xPositionMissile = this.canonX +(canonWigth/2)-radiusMissel;
-
-    }
+    public int getAbschussPositionX(){ return this.xPositionMissile = this.canonX +(canonWigth/2)-radiusMissel/2; }
     public int getAbschussPositionY(){
         return this.yPositionMissile = this.canonY -(canonHeigth/2);
     }

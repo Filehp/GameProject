@@ -13,10 +13,10 @@ public class Missile {
     private double speed;
 
 
-    public Missile(int x, int y, double speed){
-        this.x = x;
-        radius = x/100*10;
-        this.y = y;
+    public Missile(int x, int positionX, int positionY, double speed){
+        this.x = positionX;
+        radius = x/100*3 ;
+        this.y = positionY;
         this.speed = speed;
     }
 

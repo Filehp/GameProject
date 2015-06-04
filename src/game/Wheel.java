@@ -10,11 +10,10 @@ import java.util.ArrayList;
  */
 public class Wheel {
 
-    private int x;
-    private int y;
-    private int wheelX = this.x/100*47;
-    private int wheelY = this.y/100*27;
-    private int radius = this.x/100*12;
+
+    private int wheelX;
+    private int wheelY;
+    private int radius;
     private int speed;
     private  double winkel;
     private int numberSpokes;
@@ -22,8 +21,9 @@ public class Wheel {
 
 
     public Wheel(int x, int y, int numberStartSpokes, int speed){
-        this.x = x;
-        this.y = y;
+        wheelX = x/100*47;
+        wheelY = y/100*27;
+        radius = x/100*12;
         this.numberSpokes = numberStartSpokes;
         this.speed = speed;
     }

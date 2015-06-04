@@ -19,8 +19,8 @@ import java.util.*;
  */
 public class testFrame extends JPanel implements Runnable, KeyListener {
 
-    int x;
-    int y;
+    static int x;
+    static int y;
 
     boolean time=true;
     long starttime = System.currentTimeMillis();
@@ -33,14 +33,15 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
 
     boolean startSpokes = true;
 
-
-    Canon Kanone = new Canon(x, y);
-    Wheel rad = new Wheel(x, y, 4, 1);
+    private Canon Kanone;
+    private Wheel rad;
     
     
     public testFrame(int x, int y) {
         this.setFocusable(true);
         this.addKeyListener(this);
+        Kanone = new Canon(x, y);
+        rad = new Wheel(x, y, 4, 1);
         this.x = x;
         this.y = y;
     }
@@ -79,6 +80,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         rad.spinWheel();
         //KAnone Laden
         Kanone.canonLoad(canon);
+        Kanone.getXY();
         //Kanone bewegen
         if(this.direction!=null) {
             Kanone.moveCanon(this.direction);
@@ -158,7 +160,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         direction=null;
         if(e.getKeyCode()==32) {
             if (Kanone.getMissileCounter() > 0) {
-                this.missile.add(new Missile(Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
+                this.missile.add(new Missile(this.x, Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
                 shotMissile = true;
                 Kanone.shotedmissile();
                 missilespeed = 0;
