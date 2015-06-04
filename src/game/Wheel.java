@@ -12,7 +12,9 @@ public class Wheel {
 
     private int x;
     private int y;
-    private int radius;
+    private int wheelX = this.x/100*47;
+    private int wheelY = this.y/100*27;
+    private int radius = this.x/100*12;
     private int speed;
     private  double winkel;
     private int numberSpokes;
@@ -22,7 +24,6 @@ public class Wheel {
     public Wheel(int x, int y, int numberStartSpokes, int speed){
         this.x = x;
         this.y = y;
-        radius = 50;
         this.numberSpokes = numberStartSpokes;
         this.speed = speed;
     }
@@ -31,7 +32,7 @@ public class Wheel {
         //Wheel laden
         Graphics2D g2 = (Graphics2D) wheel;
         Ellipse2D circle = new Ellipse2D.Double();
-        circle.setFrameFromCenter(this.x, this.y, this.x + radius, this.y + radius); ///(x-achse, y-achse, RadiusX , RadiusY)
+        circle.setFrameFromCenter(this.wheelX, this.wheelY, this.wheelX + radius, this.wheelY + radius); ///(x-achse, y-achse, RadiusX , RadiusY)
         g2.draw(circle);
         if(startAdd) {
             //addspokes
@@ -50,7 +51,7 @@ public class Wheel {
             //System.out.println(spoke.getWinkel());
             double newWinkel = spoke.getWinkel()+this.speed;
             spoke.setWinkel(newWinkel);
-            spoke.moveSpoke(newWinkel, this.radius, this.x, this.y);
+            spoke.moveSpoke(newWinkel, this.radius, this.wheelX, this.wheelY);
         }
 
 
@@ -60,7 +61,7 @@ public class Wheel {
         double startwinkel = 360/this.numberSpokes;
         double winkelposition=startwinkel;
         for(int i = 0;i<this.numberSpokes;i++ ){
-            this.spokesList.add(new Spokes(winkelposition, this.radius, this.x, this.y)) ;
+            this.spokesList.add(new Spokes(winkelposition, this.radius, this.wheelX, this.wheelY)) ;
             winkelposition = winkelposition+startwinkel;
             //System.out.println(numberSpokes);
             //System.out.println(startwinkel);
@@ -71,17 +72,17 @@ public class Wheel {
     public  void addSpokes(int xKollision){
         //Winkel berechen aus X und Y Koodinaten
         System.out.println(xKollision);
-        double radWinkel2 = Math.acos((xKollision-this.x)/radius); //X_koordinate durch die x Koodinate der Kollision nehmen
+        double radWinkel2 = Math.acos((xKollision-this.wheelX)/radius); //X_koordinate durch die x Koodinate der Kollision nehmen
         double aktuellerWinkel = (radWinkel2*180)/Math.PI;
         System.out.println(aktuellerWinkel);
-        this.spokesList.add(new Spokes(aktuellerWinkel, this.radius, this.x, this.y));
+        this.spokesList.add(new Spokes(aktuellerWinkel, this.radius, this.wheelX, this.wheelY));
 
     }
     public int getX(){
-        return this.x;
+        return this.wheelX;
     }
     public int getY(){
-        return this.y;
+        return this.wheelY;
     }
     public int getRadius(){
         return this.radius;
