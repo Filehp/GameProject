@@ -2,7 +2,8 @@ package game;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
-///Test digger
+//noch ein comment
+
 
 /**
  * Hallo WELT
