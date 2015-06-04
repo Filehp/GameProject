@@ -19,8 +19,8 @@ import java.util.*;
  */
 public class testFrame extends JPanel implements Runnable, KeyListener {
 
-    int x = 400;
-    int y = 400;
+    int x;
+    int y;
 
     boolean time=true;
     long starttime = System.currentTimeMillis();
@@ -32,14 +32,20 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     public ArrayList<Missile> missile = new ArrayList<>();
 
     boolean startSpokes = true;
-    static Canon Kanone = new Canon(150, 300);
-    static Wheel rad = new Wheel(190, 110, 4, 1);
+
+
+    Canon Kanone = new Canon(x, y);
+
+    int wheelX = this.x/100*47;
+    int wheelY = this.y/100*27;
+    Wheel rad = new Wheel(wheelX, wheelY, 4, 1);
     
     
-    public testFrame() {
+    public testFrame(int x, int y) {
         this.setFocusable(true);
         this.addKeyListener(this);
-
+        this.x = x;
+        this.y = y;
     }
 
 
@@ -64,20 +70,6 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         }
     }
 
-
-    /*public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        testFrame panel = new testFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        frame.add(panel);
-
-        new Thread(panel).start();
-
-        Kanone.getXY();
-        frame.setVisible(true);
-
-    }*/
 
     @Override
     public void paintComponent(Graphics canon){
