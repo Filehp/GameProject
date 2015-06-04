@@ -59,10 +59,10 @@ public class Difficulty extends JComponent {
 		// g.drawImage(logo, 320, 10, null); // Draws the logo
 
 		// Sets up the buttons position
-		easy.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 100, 275, 55);
-		medium.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2, 275, 55);
-		hard.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 100, 275, 55);
-		back.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 300, 275, 55);
+		easy.setBounds(Menu.getButtonX(), Menu.getButtonY() - Game.HEIGHT / 100 * 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+		medium.setBounds(Menu.getButtonX(), Menu.getButtonY(), Menu.getButtonWidth(), Menu.getButtonHeight());
+		hard.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
 
 		// Adds buttons to the gui
 		add(easy);

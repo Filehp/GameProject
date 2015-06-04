@@ -30,7 +30,7 @@ public class MultiplayerMenu extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 
-		back.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 300, 275, 55);
+		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
 
 		add(back);
 

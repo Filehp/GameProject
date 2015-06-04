@@ -81,7 +81,7 @@ public class Scoreboard extends JComponent {
 		 * }
 		 */
 
-		back.setBounds(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 300, 275, 55);
+		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
 
 		add(title);
 		add(back);
