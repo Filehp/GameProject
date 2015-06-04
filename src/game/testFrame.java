@@ -6,6 +6,7 @@ import javax.swing.Timer;
 import newMenu.Button;
 import newMenu.Difficulty;
 import newMenu.Game;
+import newMenu.MenuPanel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -162,6 +163,12 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
             }
             System.out.println(missilespeed);
         }
+        if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+        	//openMenu();
+        	
+        }
+        	
+        	
     }
 
     @Override
@@ -177,5 +184,10 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         }
 
     }
+    
+    /*public void openMenu(){
+    	new MenuPanel();
+    	
+    }*/
 }
 

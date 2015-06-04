@@ -16,7 +16,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Music allows us to play music in background.
- * I've used "Singleton" pattern here. It allows me to pass an instance between different objects.  
  */
 public class Music {
 	private File f;
