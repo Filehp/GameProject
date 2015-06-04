@@ -35,10 +35,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
 
 
     Canon Kanone = new Canon(x, y);
-
-    int wheelX = this.x/100*47;
-    int wheelY = this.y/100*27;
-    Wheel rad = new Wheel(wheelX, wheelY, 4, 1);
+    Wheel rad = new Wheel(x, y, 4, 1);
     
     
     public testFrame(int x, int y) {
