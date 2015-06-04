@@ -52,7 +52,15 @@ public class Game {
 		frame.setResizable(false);
 		frame.setLocation(centerX, centerY);
 		frame.pack();
-		frame.setVisible(true);	
+		frame.setVisible(true);
+		
+		
+		/**
+		 * Starts the music
+		 */
+		
+		//Music music = new Music();
+		//music.playMusic();
 	}
 
 
