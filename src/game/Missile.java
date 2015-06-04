@@ -23,7 +23,7 @@ public class Missile {
 
     public void loadMissile(Graphics missile){
 
-        missile.setColor(Color.GREEN);
+        missile.setColor(Color.BLACK);
         missile.fillOval(this.x, this.y, this.radius, this.radius);
         //missile.setColor(Color.BLACK);
         //missile.drawRect(this.x, this.y, 15, 15);

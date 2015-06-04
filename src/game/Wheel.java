@@ -21,8 +21,8 @@ public class Wheel {
 
 
     public Wheel(int x, int y, int numberStartSpokes, int speed){
-        wheelX = x/100*47;
-        wheelY = y/100*27;
+        wheelX = x/100*52;
+        wheelY = y/100*28;
         radius = x/100*12;
         this.numberSpokes = numberStartSpokes;
         this.speed = speed;
