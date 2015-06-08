@@ -27,7 +27,7 @@ public class Canon {
         this.canonY = y/100*75;
         this.canonWigth = x/100*3;
         this.canonHeigth = x/100*10;
-        this.grenzeLinks = x/100*18;
+        this.grenzeLinks = x/100*30;
         this.grenzeRechts = x/100*75;
         this.radiusMissel= x/100*3;
         this.missileCounter = missileCounter;
@@ -39,7 +39,7 @@ public class Canon {
         this.canonY = y/100*75;
         this.canonWigth = x/100*10;
         this.canonHeigth = y/100*3;
-        this.grenzeLinks = x/100*18;
+        this.grenzeLinks = x/100*30;
         this.grenzeRechts = x/100*75;
         this.radiusMissel= x/100*3;
     }

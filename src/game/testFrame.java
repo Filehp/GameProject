@@ -23,11 +23,15 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     static int y;
 
     boolean time=true;
+    int timer = 270000;
+    int minuten;
+    int sekunden;
     long starttime = System.currentTimeMillis();
 
     String direction;
     boolean shotMissile = false;
     double missilespeed = 0;
+    int loadBar=0;
     int missilnumber = 99;
     public ArrayList<Missile> missile = new ArrayList<>();
 
@@ -44,6 +48,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         rad = new Wheel(x, y, 4, 1);
         this.x = x;
         this.y = y;
+
     }
 
 
@@ -54,8 +59,12 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
             try {
                 Thread.sleep(20);
 
+                //Zeit wird berechnet und geprüft
                 long currentTime = System.currentTimeMillis()-starttime;
-                if(currentTime>=60000){
+                int currentTimeOutput = (int) (timer - currentTime);
+                minuten = (int) currentTimeOutput/1000/60;
+                sekunden = (int) currentTimeOutput/1000%60;
+                if(currentTime>=timer){
                     time = false;
                     System.out.println("Timeout");
                 }
@@ -80,7 +89,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         rad.spinWheel();
         //KAnone Laden
         Kanone.canonLoad(canon);
-        Kanone.getXY();
+
         //Kanone bewegen
         if(this.direction!=null) {
             Kanone.moveCanon(this.direction);
@@ -123,6 +132,18 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
                 }
             }
         }
+        //Verbleibende Zeit anzeigen
+        canon.setFont(new Font("default", Font.BOLD, 20));
+        if(sekunden>=10) {
+            canon.drawString("0"+minuten + ":" + sekunden, 75, 540);
+        }else{
+            canon.drawString("0" +minuten + ":0" + sekunden, 75, 540);
+        }
+        //Schussstärke anzeigen
+        canon.clearRect(350,520,80,20);
+        canon.setColor(Color.BLUE);
+        canon.fillRect(350,520,loadBar,20);
+
     }
     
     
@@ -148,6 +169,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         if(e.getKeyCode()==32){
             shotMissile = false;
             this.missilespeed = (missilespeed+0.5);
+            this.loadBar = (int) this.missilespeed*8;
             if(missilespeed>=10){
                 missilespeed=10;
             }

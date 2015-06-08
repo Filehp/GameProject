@@ -75,10 +75,10 @@ public class Wheel {
 
     public  void addSpokes(int xKollision){
         //Winkel berechen aus X und Y Koodinaten
-        System.out.println(xKollision);
+        // System.out.println(xKollision);
         double radWinkel2 = Math.acos((xKollision-this.wheelX)/radius); //X_koordinate durch die x Koodinate der Kollision nehmen
         double aktuellerWinkel = (radWinkel2*180)/Math.PI;
-        System.out.println(aktuellerWinkel);
+        //System.out.println(aktuellerWinkel);
         this.spokesList.add(new Spokes(aktuellerWinkel, this.radius, this.wheelX, this.wheelY));
 
     }
