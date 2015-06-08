@@ -61,10 +61,10 @@ public class LevelMenu extends JComponent {
 		// g.drawImage(logo, 320, 10, null); // Draws the logo
 
 		// Sets up the buttons position
-		level1.setBounds(Game.WIDTH / 2 - Game.WIDTH / 2 / (100 * 33), Game.HEIGHT / 2 - 100, 150, 100);
-		level2.setBounds(Game.WIDTH / 2 - Game.WIDTH / 2 / (100 * 33), Game.HEIGHT / 2 - 100, 150, 100);
-		level3.setBounds(Game.WIDTH / 2 - 200, Game.HEIGHT / 2 + 100, 150, 100);
-		level4.setBounds(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 + 100, 150, 100);
+		level1.setBounds(Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 - Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
+		level2.setBounds(Game.WIDTH / 2 + Game.WIDTH / 9, Game.HEIGHT / 2 - Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
+		level3.setBounds(Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 + Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
+		level4.setBounds(Game.WIDTH / 2 + Game.WIDTH / 9, Game.HEIGHT / 2 + Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
 		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, 
 				Menu.getButtonWidth(), Menu.getButtonHeight());
 
