@@ -46,7 +46,7 @@ public class Canon {
 
     public void canonLoad(Graphics canon) {
 
-        canon.setColor(Color.RED);
+        canon.setColor(Color.BLACK);
         canon.fillRect(this.canonX, this.canonY, canonWigth, canonHeigth);
     }
 

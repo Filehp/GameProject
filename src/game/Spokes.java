@@ -27,6 +27,7 @@ public class Spokes {
     public void loadSpoke(Graphics spoke) {
         Graphics2D g2 = (Graphics2D) spoke;
         g2.setPaint(new Color(0, 128, 128)); // a dull blue-green
+        g2.setStroke(new BasicStroke(3));
         g2.drawLine((int) this.x_koordinateStart, (int) this.y_koordinateStart, (int) this.x_koordinateEnd, (int) this.y_koordinateEnd);
 
         Ellipse2D circle = new Ellipse2D.Double();

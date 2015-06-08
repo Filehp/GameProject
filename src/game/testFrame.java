@@ -87,7 +87,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         }
         //Geschoss abfeuern
 
-            this.missilnumber = Kanone.shotMissile(canon, missile);
+            this.missilnumber = Kanone.shotMissile( canon, missile);
             if (this.missilnumber != 99) {
                 //System.out.println(missilnumber);
                 missile.remove(this.missilnumber);

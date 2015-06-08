@@ -35,7 +35,9 @@ public class Wheel {
         g2.setPaint(new Color(0, 128, 128));
         Ellipse2D circle = new Ellipse2D.Double();
         circle.setFrameFromCenter(this.wheelX, this.wheelY, this.wheelX + radius, this.wheelY + radius); ///(x-achse, y-achse, RadiusX , RadiusY)
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         g2.draw(circle);
+        g2.fill(circle);
         if(startAdd) {
             //addspokes
             addSpokes();
