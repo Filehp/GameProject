@@ -144,16 +144,16 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
 
         }
         //Verbleibende Zeit anzeigen
-        canon.setFont(new Font("default", Font.BOLD, 20));
+        canon.setFont(new Font("default", Font.BOLD, this.y/100*3));
         if(sekunden>=10) {
-            canon.drawString("0"+minuten + ":" + sekunden, 75, 540);
+            canon.drawString("0"+minuten + ":" + sekunden, this.x/100*14, this.y/100*88);
         }else{
-            canon.drawString("0" +minuten + ":0" + sekunden, 75, 540);
+            canon.drawString("0" +minuten + ":0" + sekunden, this.x/100*14, this.y/100*88);
         }
         //Schussstärke anzeigen
-        canon.clearRect(350,520,100,20);
+        canon.clearRect(this.x/100*64,this.y/100*85,this.x/100*18,this.y/100*3);
         canon.setColor(new Color(0, 128, 128));
-        canon.fillRect(350,520,loadBar,20);
+        canon.fillRect(this.x/100*64,this.y/100*85,loadBar,this.y/100*3);
 
     }
     
