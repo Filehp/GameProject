@@ -85,7 +85,7 @@ public class Game {
 			panel.add(new Settings(), BorderLayout.CENTER); break;
 			
 		case "testFrame":
-			testFrame level = new testFrame(Game.getWindowWidth(),Game.getWindowHeight());
+			testFrame level = new testFrame(Game.getWindowWidth(),Game.getWindowHeight(),10,270000,4,1);
 			level.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT2 * SCALE)); 
 			level.setBackground(new Color(190, 190, 190)); 
 			level.setLayout(new BorderLayout());

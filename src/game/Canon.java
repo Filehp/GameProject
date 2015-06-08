@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by Chris on 09.05.2015.
  */
 public class Canon {
-    public int missileCounter;
+    private int missileCounter;
     private int canonX;
     private int canonY;
     private int canonWigth;
@@ -22,15 +22,15 @@ public class Canon {
     public ArrayList<Missile> missile=new ArrayList< Missile>();
 
     //Constructor
-    public Canon(int x, int y, int missleCounter){
+    public Canon(int x, int y, int missileCount){
         this.canonX = x/100*37;
         this.canonY = y/100*75;
-        this.canonWigth = x/100*3;
-        this.canonHeigth = x/100*10;
+        this.canonWigth = x/100*10;
+        this.canonHeigth = x/100*3;
         this.grenzeLinks = x/100*30;
         this.grenzeRechts = x/100*75;
         this.radiusMissel= x/100*3;
-        this.missileCounter = missileCounter;
+        this.missileCounter = missileCount;
     }
     public Canon(int x, int y){
         System.out.println(x + "and"+ y);

@@ -23,7 +23,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     static int y;
 
     boolean time=true;
-    int timer = 270000;
+    int timer;
     int minuten;
     int sekunden;
     long starttime = System.currentTimeMillis();
@@ -33,6 +33,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     double missilespeed = 0;
     int loadBar=0;
     int missilnumber = 99;
+    int missileClip;
     public ArrayList<Missile> missile = new ArrayList<>();
 
     boolean startSpokes = true;
@@ -41,11 +42,13 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     private Wheel rad;
     
     
-    public testFrame(int x, int y) {
+    public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
         this.setFocusable(true);
         this.addKeyListener(this);
-        Kanone = new Canon(x, y);
-        rad = new Wheel(x, y, 4, 1);
+        this.timer = time;
+        this.missileClip = missileClip;
+        Kanone = new Canon(x, y, missileClip);
+        rad = new Wheel(x, y, startSpokes, speedWheel);
         this.x = x;
         this.y = y;
 
@@ -140,8 +143,8 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
             canon.drawString("0" +minuten + ":0" + sekunden, 75, 540);
         }
         //Schussstärke anzeigen
-        canon.clearRect(350,520,80,20);
-        canon.setColor(Color.BLUE);
+        canon.clearRect(350,520,100,20);
+        canon.setColor(new Color(0, 128, 128));
         canon.fillRect(350,520,loadBar,20);
 
     }
@@ -169,7 +172,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         if(e.getKeyCode()==32){
             shotMissile = false;
             this.missilespeed = (missilespeed+0.5);
-            this.loadBar = (int) this.missilespeed*8;
+            this.loadBar = (int) this.missilespeed*10;
             if(missilespeed>=10){
                 missilespeed=10;
             }
