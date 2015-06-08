@@ -123,6 +123,8 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
                     rad.addSpokes(missile.get(i).getX());
                     //Geschoss wird entfernt
                     missile.remove(i);
+
+
                 }else {
                     //Kollision mit Speiche
                     if (Kollispeiche) {
@@ -133,7 +135,13 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
                         missile.remove(i);
                     }
                 }
+
             }
+        }
+        //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if(this.missileClip==0 && missile.size()==0){
+            System.out.println("Du hast gewonnen");
+
         }
         //Verbleibende Zeit anzeigen
         canon.setFont(new Font("default", Font.BOLD, 20));
@@ -176,6 +184,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
             if(missilespeed>=10){
                 missilespeed=10;
             }
+
             System.out.println(missilespeed);
         }
     }
@@ -189,6 +198,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
                 shotMissile = true;
                 Kanone.shotedmissile();
                 missilespeed = 0;
+                this.missileClip--;
             }
         }
 
