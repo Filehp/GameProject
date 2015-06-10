@@ -75,8 +75,10 @@ public class Game {
 			
 		case "levelmenu":
 			panel.add(new LevelMenu(), BorderLayout.CENTER); break;
+
 		case "multiplayer":
 			panel.add(new MultiplayerMenu(), BorderLayout.CENTER);break;
+
 		case "multiplayerLevel":
 			MultiplayerLevel multiLevel = new MultiplayerLevel(Game.getWindowWidth(),Game.getWindowHeight(),10,270000,4,1);
 			multiLevel.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT2 * SCALE));
