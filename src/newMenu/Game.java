@@ -33,6 +33,8 @@ public class Game {
 	public static JPanel panel = new JPanel();
 	public static Menu menuPanel = new Menu();	
 	
+	public static testFrame level1 = new testFrame(Game.getWindowWidth(),Game.getWindowHeight(),10,270000,4,1);
+	
 	public static final int WIDTH = Game.getWindowWidth();
 	public static final int HEIGHT = Game.getWindowHeight();
 	public static final int HEIGHT2 = HEIGHT + 16;
@@ -95,14 +97,10 @@ public class Game {
 			panel.add(new Settings(), BorderLayout.CENTER); break;
 			
 		case "testFrame":
-			panel.add(new testFrame(Game.getWindowWidth(),Game.getWindowHeight(),10,270000,4,1), BorderLayout.CENTER);
-			/*testFrame level = new testFrame(Game.getWindowWidth(),Game.getWindowHeight(),10,270000,4,1);
-			level.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT2 * SCALE)); 
-			level.setBackground(new Color(190, 190, 190)); 
-			level.setLayout(new BorderLayout());
-			frame.add(level);
-			new Thread(level).start();*/ 
-			break;
+			panel.add(level1, BorderLayout.CENTER); break;
+			
+		case "gameResult":
+			level1.add(new GameResult(), BorderLayout.CENTER); break;
 		
 		}
 		

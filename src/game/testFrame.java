@@ -3,9 +3,11 @@ package game;
 import javax.swing.*;
 import javax.swing.Timer;
 
+
 import newMenu.Button;
 import newMenu.Difficulty;
 import newMenu.Game;
+import newMenu.Menu;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -44,6 +46,7 @@ public class testFrame extends JPanel implements Runnable {
     ActionMap am;
     
     private Thread thread;
+    private boolean run = false;
 
     public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
@@ -68,13 +71,6 @@ public class testFrame extends JPanel implements Runnable {
 
         start();
     }
-
-
-    private void start() {
-		thread = new Thread(this, "Game Loop"); // Creates new thread
-		thread.start(); // Starts thread
-		
-	}
 
 
 	@Override
@@ -156,6 +152,7 @@ public class testFrame extends JPanel implements Runnable {
     @Override
     public void paintComponent(Graphics canon) {
         super.paintComponent(canon);
+        
 
         //Rad laden
         rad.loadWheel(canon, startSpokes);
@@ -206,6 +203,9 @@ public class testFrame extends JPanel implements Runnable {
 
                         System.out.println("Speiche getroffen!");
                         missile.remove(i);
+                        Game.changePanel("gameResult"); //displays result
+                        stop(); //stops the thread
+                        
                     }
                 }
 
@@ -227,9 +227,23 @@ public class testFrame extends JPanel implements Runnable {
         canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 18, this.y / 100 * 3);
         canon.setColor(new Color(0, 128, 128));
         canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
+        
+
+		
 
     }
     
+    private void start() {
+    	run = true;
+		thread = new Thread(this, "Game Loop"); // Creates new thread
+		thread.start(); // Starts thread
+		
+	}
+    private void stop() {
+    	run = false;
+    	time = false;
+
+    }
     
 
 
