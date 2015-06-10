@@ -29,7 +29,7 @@ public class LevelMenu extends JComponent {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game.changePanel("testFrame", LevelMenu.this);
+				Game.changePanelToGame("testFrame", LevelMenu.this);
 
 			}
 		});

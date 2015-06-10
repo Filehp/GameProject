@@ -17,13 +17,10 @@ import java.util.*;
 /**
  * Created by Chris on 09.05.2015.
  */
-public class testFrame extends JComponent implements Runnable {
+public class testFrame extends JPanel implements Runnable, KeyListener {
 
     static int x;
     static int y;
-    
-    private Thread thread;
-    private boolean run = false;
 
     boolean time=true;
     int timer;
@@ -44,37 +41,28 @@ public class testFrame extends JComponent implements Runnable {
     private Canon Kanone;
     private Wheel rad;
     
-    private KAdapter key = new KAdapter();
-    
     
     public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
-    	
-    	Game.panel.setFocusable(false);
-    	this.setFocusable(true);
-        this.addKeyListener(key);
-        this.requestFocusInWindow();
-       
-
-        
-        start();
+        this.setFocusable(true);
+        this.addKeyListener(this);
         this.timer = time;
         this.missileClip = missileClip;
         Kanone = new Canon(x, y, missileClip);
         rad = new Wheel(x, y, startSpokes, speedWheel);
         this.x = x;
         this.y = y;
-        
+
     }
 
 
     @Override
     public void run() {
-        while (run) {
+        while (time) {
             repaint();
             try {
                 Thread.sleep(20);
 
-                //Zeit wird berechnet und geprÃ¼ft
+                //Zeit wird berechnet und geprüft
                 long currentTime = System.currentTimeMillis()-starttime;
                 int currentTimeOutput = (int) (timer - currentTime);
                 minuten = (int) currentTimeOutput/1000/60;
@@ -96,7 +84,7 @@ public class testFrame extends JComponent implements Runnable {
     @Override
     public void paintComponent(Graphics canon){
         super.paintComponent(canon);
-       
+        
         //Rad laden
         rad.loadWheel(canon, startSpokes);
         this.startSpokes = false;
@@ -120,18 +108,18 @@ public class testFrame extends JComponent implements Runnable {
         //Kollision abfangen
         if(missile.size()>0) {
             for (int i = 0; i < missile.size(); i++) {
-                //Auf Kollision mit rad prÃ¼fen
+                //Auf Kollision mit rad prüfen
 
                 boolean Kollirad = missile.get(i).collidesWithWheel(rad);
 
-                //Auf kollision mit Speiche prÃ¼fen
+                //Auf kollision mit Speiche prüfen
                 boolean Kollispeiche = missile.get(i).coollidesWithSpokes(rad.getSpokesList());
 
                 //Kollision mit Rad
                 if (Kollirad && Kollispeiche==false) {
                     //Was soll passieren wenn das Geschoss auf das Rad trifft?
 
-                    //Speiche wird dan der Stelle hinzugefÃ¼gt
+                    //Speiche wird dan der Stelle hinzugefügt
                     rad.addSpokes(missile.get(i).getX());
                     //Geschoss wird entfernt
                     missile.remove(i);
@@ -145,7 +133,6 @@ public class testFrame extends JComponent implements Runnable {
 
                         System.out.println("Speiche getroffen!");
                         missile.remove(i);
-                        
                     }
                 }
 
@@ -163,7 +150,7 @@ public class testFrame extends JComponent implements Runnable {
         }else{
             canon.drawString("0" +minuten + ":0" + sekunden, this.x/100*14, this.y/100*88);
         }
-        //SchussstÃ¤rke anzeigen
+        //Schussstärke anzeigen
         canon.clearRect(this.x/100*64,this.y/100*85,this.x/100*18,this.y/100*3);
         canon.setColor(new Color(0, 128, 128));
         canon.fillRect(this.x/100*64,this.y/100*85,loadBar,this.y/100*3);
@@ -172,11 +159,8 @@ public class testFrame extends JComponent implements Runnable {
     
     
 
-	/**
-	 * Key Adapter is used to control the snake
-	 */
-	private class KAdapter implements KeyListener {
-		
+
+
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -195,8 +179,8 @@ public class testFrame extends JComponent implements Runnable {
         }
         if(e.getKeyCode()==32){
             shotMissile = false;
-            missilespeed = (missilespeed+0.5);
-            loadBar = (int) missilespeed*10;
+            this.missilespeed = (missilespeed+0.5);
+            this.loadBar = (int) this.missilespeed*10;
             if(missilespeed>=10){
                 missilespeed=10;
             }
@@ -210,23 +194,13 @@ public class testFrame extends JComponent implements Runnable {
         direction=null;
         if(e.getKeyCode()==32) {
             if (Kanone.getMissileCounter() > 0) {
-                missile.add(new Missile(x, Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
+                this.missile.add(new Missile(this.x, Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
                 shotMissile = true;
                 Kanone.shotedmissile();
                 missilespeed = 0;
-                missileClip--;
+                this.missileClip--;
             }
         }
 
     }
-	}
-    
-	public void start() {
-		run = true; // Whenever run is true game is running
-		thread = new Thread(this, "Game Loop"); // Creates new thread
-		thread.start(); // Starts thread
-	}
-	
 }
-
-

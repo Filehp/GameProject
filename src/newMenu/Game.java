@@ -32,8 +32,6 @@ public class Game {
 	
 	public static JPanel panel = new JPanel();
 	public static Menu menuPanel = new Menu();	
-	public static testFrame level;
-	//private static boolean run = false;
 	
 	public static final int WIDTH = Game.getWindowWidth();
 	public static final int HEIGHT = Game.getWindowHeight();
@@ -97,14 +95,12 @@ public class Game {
 			panel.add(new Settings(), BorderLayout.CENTER); break;
 			
 		case "testFrame":
-			panel.add(new testFrame(Game.getWindowWidth(),Game.getWindowHeight(),10,270000,4,1),BorderLayout.CENTER );
-			/*run = true;
-			level = new testFrame(Game.getWindowWidth(),Game.getWindowHeight(),10,270000,4,1);
+			testFrame level = new testFrame(Game.getWindowWidth(),Game.getWindowHeight(),10,270000,4,1);
 			level.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT2 * SCALE)); 
 			level.setBackground(new Color(190, 190, 190)); 
 			level.setLayout(new BorderLayout());
 			frame.add(level);
-			new Thread(level).start(); */
+			new Thread(level).start(); 
 			break;
 		
 		}
@@ -120,13 +116,13 @@ public class Game {
 	
 	public static void changePanelToGame (String option, JComponent comp) {
 		frame.setVisible(false);
-		frame.remove(comp);
+		frame.remove(panel);
 		changePanel(option);
 		frame.setVisible(true);	
 
 
 		
-	} 
+	}
 	
 	public static int getWindowWidth() {
 		
@@ -149,6 +145,5 @@ public class Game {
 		
 		return y;
 	}
-
 
 }
