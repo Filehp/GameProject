@@ -17,12 +17,12 @@ import java.util.*;
 /**
  * Created by Chris on 09.05.2015.
  */
-public class testFrame extends JPanel implements Runnable {
+public class testFrame extends JPanel implements Runnable, KeyListener {
 
     static int x;
     static int y;
 
-    boolean time = true;
+    boolean time=true;
     int timer;
     int minuten;
     int sekunden;
@@ -31,7 +31,7 @@ public class testFrame extends JPanel implements Runnable {
     String direction;
     boolean shotMissile = false;
     double missilespeed = 0;
-    int loadBar = 0;
+    int loadBar=0;
     int missilnumber = 99;
     int missileClip;
     public ArrayList<Missile> missile = new ArrayList<>();
@@ -40,27 +40,15 @@ public class testFrame extends JPanel implements Runnable {
 
     private Canon Kanone;
     private Wheel rad;
-    InputMap im;
-    ActionMap am;
-
+    
+    
     public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
-        this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
-        this.am = getActionMap();
-
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "pressed");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true), "released");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false), "left");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), "right");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true), "moveReleased");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true), "moveReleased");
-
         this.setFocusable(true);
+        this.addKeyListener(this);
         this.timer = time;
         this.missileClip = missileClip;
-
         Kanone = new Canon(x, y, missileClip);
         rad = new Wheel(x, y, startSpokes, speedWheel);
-
         this.x = x;
         this.y = y;
 
@@ -127,9 +115,9 @@ public class testFrame extends JPanel implements Runnable {
                 //Zeit wird berechnet und geprüft
                 long currentTime = System.currentTimeMillis() - starttime;
                 int currentTimeOutput = (int) (timer - currentTime);
-                minuten = (int) currentTimeOutput / 1000 / 60;
-                sekunden = (int) currentTimeOutput / 1000 % 60;
-                if (currentTime >= timer) {
+                minuten = (int) currentTimeOutput/1000/60;
+                sekunden = (int) currentTimeOutput/1000%60;
+                if(currentTime>=timer){
                     time = false;
                     System.out.println("Timeout");
                 }
@@ -144,9 +132,9 @@ public class testFrame extends JPanel implements Runnable {
 
 
     @Override
-    public void paintComponent(Graphics canon) {
+    public void paintComponent(Graphics canon){
         super.paintComponent(canon);
-
+        
         //Rad laden
         rad.loadWheel(canon, startSpokes);
         this.startSpokes = false;
@@ -156,20 +144,19 @@ public class testFrame extends JPanel implements Runnable {
         Kanone.canonLoad(canon);
 
         //Kanone bewegen
-        if (this.direction != null) {
+        if(this.direction!=null) {
             Kanone.moveCanon(this.direction);
-            this.direction=null;
         }
         //Geschoss abfeuern
 
-        this.missilnumber = Kanone.shotMissile(canon, missile);
-        if (this.missilnumber != 99) {
-            //System.out.println(missilnumber);
-            missile.remove(this.missilnumber);
+            this.missilnumber = Kanone.shotMissile( canon, missile);
+            if (this.missilnumber != 99) {
+                //System.out.println(missilnumber);
+                missile.remove(this.missilnumber);
 
         }
         //Kollision abfangen
-        if (missile.size() > 0) {
+        if(missile.size()>0) {
             for (int i = 0; i < missile.size(); i++) {
                 //Auf Kollision mit rad prüfen
 
@@ -179,7 +166,7 @@ public class testFrame extends JPanel implements Runnable {
                 boolean Kollispeiche = missile.get(i).coollidesWithSpokes(rad.getSpokesList());
 
                 //Kollision mit Rad
-                if (Kollirad && Kollispeiche == false) {
+                if (Kollirad && Kollispeiche==false) {
                     //Was soll passieren wenn das Geschoss auf das Rad trifft?
 
                     //Speiche wird dan der Stelle hinzugefügt
@@ -188,7 +175,7 @@ public class testFrame extends JPanel implements Runnable {
                     missile.remove(i);
 
 
-                } else {
+                }else {
                     //Kollision mit Speiche
                     if (Kollispeiche) {
                         //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
@@ -202,31 +189,70 @@ public class testFrame extends JPanel implements Runnable {
             }
         }
         //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if (this.missileClip == 0 && missile.size() == 0) {
+        if(this.missileClip==0 && missile.size()==0){
             System.out.println("Du hast gewonnen");
 
         }
         //Verbleibende Zeit anzeigen
-        canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
-        if (sekunden >= 10) {
-            canon.drawString("0" + minuten + ":" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
-        } else {
-            canon.drawString("0" + minuten + ":0" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
+        canon.setFont(new Font("default", Font.BOLD, this.y/100*3));
+        if(sekunden>=10) {
+            canon.drawString("0"+minuten + ":" + sekunden, this.x/100*14, this.y/100*88);
+        }else{
+            canon.drawString("0" +minuten + ":0" + sekunden, this.x/100*14, this.y/100*88);
         }
         //Schussstärke anzeigen
-        canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 18, this.y / 100 * 3);
+        canon.clearRect(this.x/100*64,this.y/100*85,this.x/100*18,this.y/100*3);
         canon.setColor(new Color(0, 128, 128));
-        canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
+        canon.fillRect(this.x/100*64,this.y/100*85,loadBar,this.y/100*3);
+
+    }
+    
+    
+
+
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {
 
     }
 
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+        if(e.getKeyCode()==37){
+            direction="left";
+            System.out.println("left");
+        }
+        if(e.getKeyCode()==39){
+            direction="right";
+        }
+        if(e.getKeyCode()==32){
+            shotMissile = false;
+            this.missilespeed = (missilespeed+0.5);
+            this.loadBar = (int) this.missilespeed*10;
+            if(missilespeed>=10){
+                missilespeed=10;
+            }
+
+            System.out.println(missilespeed);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        direction=null;
+        if(e.getKeyCode()==32) {
+            if (Kanone.getMissileCounter() > 0) {
+                this.missile.add(new Missile(this.x, Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
+                shotMissile = true;
+                Kanone.shotedmissile();
+                missilespeed = 0;
+                this.missileClip--;
+            }
+        }
+
+    }
 }
-
-
-
-
-
-
-
 
 
