@@ -17,10 +17,13 @@ import java.util.*;
 /**
  * Created by Chris on 09.05.2015.
  */
-public class testFrame extends JPanel implements Runnable, KeyListener {
+public class testFrame extends JComponent implements Runnable {
 
     static int x;
     static int y;
+    
+    private Thread thread;
+    private boolean run = false;
 
     boolean time=true;
     int timer;
@@ -41,23 +44,32 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     private Canon Kanone;
     private Wheel rad;
     
+    private KAdapter key = new KAdapter();
+    
     
     public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
-        this.setFocusable(true);
-        this.addKeyListener(this);
+    	
+    	Game.panel.setFocusable(false);
+    	this.setFocusable(true);
+        this.addKeyListener(key);
+        this.requestFocusInWindow();
+       
+
+        
+        start();
         this.timer = time;
         this.missileClip = missileClip;
         Kanone = new Canon(x, y, missileClip);
         rad = new Wheel(x, y, startSpokes, speedWheel);
         this.x = x;
         this.y = y;
-
+        
     }
 
 
     @Override
     public void run() {
-        while (time) {
+        while (run) {
             repaint();
             try {
                 Thread.sleep(20);
@@ -84,7 +96,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     @Override
     public void paintComponent(Graphics canon){
         super.paintComponent(canon);
-        
+       
         //Rad laden
         rad.loadWheel(canon, startSpokes);
         this.startSpokes = false;
@@ -133,6 +145,7 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
 
                         System.out.println("Speiche getroffen!");
                         missile.remove(i);
+                        
                     }
                 }
 
@@ -159,8 +172,11 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
     
     
 
-
-
+	/**
+	 * Key Adapter is used to control the snake
+	 */
+	private class KAdapter implements KeyListener {
+		
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -179,8 +195,8 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         }
         if(e.getKeyCode()==32){
             shotMissile = false;
-            this.missilespeed = (missilespeed+0.5);
-            this.loadBar = (int) this.missilespeed*10;
+            missilespeed = (missilespeed+0.5);
+            loadBar = (int) missilespeed*10;
             if(missilespeed>=10){
                 missilespeed=10;
             }
@@ -194,15 +210,23 @@ public class testFrame extends JPanel implements Runnable, KeyListener {
         direction=null;
         if(e.getKeyCode()==32) {
             if (Kanone.getMissileCounter() > 0) {
-                this.missile.add(new Missile(this.x, Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
+                missile.add(new Missile(x, Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
                 shotMissile = true;
                 Kanone.shotedmissile();
                 missilespeed = 0;
-                this.missileClip--;
+                missileClip--;
             }
         }
 
     }
+	}
+    
+	public void start() {
+		run = true; // Whenever run is true game is running
+		thread = new Thread(this, "Game Loop"); // Creates new thread
+		thread.start(); // Starts thread
+	}
+	
 }
 
 
