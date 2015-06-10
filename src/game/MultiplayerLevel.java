@@ -94,8 +94,13 @@ public class MultiplayerLevel extends JPanel implements Runnable, KeyListener {
         //KanonePlayer1 bewegen
         if(this.directionPlayer1 !=null) {
             KanonePlayer1.moveCanon(this.directionPlayer1);
-            KanonePlayer2.moveCanon(this.directionPlayer1);
+
         }
+        if(this.directionPlayer2 !=null) {
+            KanonePlayer2.moveCanon(this.directionPlayer2);
+
+        }
+
         //Geschoss abfeuern
 
         this.missilnumber = KanonePlayer1.shotMissile( canon, missilePlayer1);
@@ -181,7 +186,7 @@ public class MultiplayerLevel extends JPanel implements Runnable, KeyListener {
             System.out.println("Du hast gewonnen Player1");
             System.out.println("Du hast verloren Player2");
         }
-        if(this.missileClipPlayer1 ==0 && missilePlayer1.size()==0){
+        if(this.missileClipPlayer2 ==0 && missilePlayer2.size()==0){
             System.out.println("Du hast gewonnen Player2");
             System.out.println("Du hast verloren Player1");
         }
@@ -219,7 +224,7 @@ public class MultiplayerLevel extends JPanel implements Runnable, KeyListener {
         if(e.getKeyCode()==39){
             directionPlayer1 ="right";
         }
-        if(e.getKeyCode()==32){
+        if(e.getKeyCode()==96){
             shotMissile = false;
             this.missilespeedPlayer1 = (missilespeedPlayer1 +0.5);
             this.loadBar = (int) this.missilespeedPlayer1 *10;
@@ -232,9 +237,9 @@ public class MultiplayerLevel extends JPanel implements Runnable, KeyListener {
             System.out.println("left");
         }
         if(e.getKeyCode()==68){
-            directionPlayer1 ="right";
+            directionPlayer2 ="right";
         }
-        if(e.getKeyCode()==18){
+        if(e.getKeyCode()==32){
             shotMissile = false;
             this.missilespeedPlayer2 = (missilespeedPlayer2 +0.5);
             if(missilespeedPlayer2 >=10){
@@ -247,7 +252,7 @@ public class MultiplayerLevel extends JPanel implements Runnable, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         directionPlayer1 =null;
-        if(e.getKeyCode()==32) {
+        if(e.getKeyCode()==96) {
             if (KanonePlayer1.getMissileCounter() > 0) {
                 this.missilePlayer1.add(new Missile(this.x, KanonePlayer1.getAbschussPositionX(), KanonePlayer1.getAbschussPositionY(), missilespeedPlayer1));
                 shotMissile = true;
@@ -257,7 +262,7 @@ public class MultiplayerLevel extends JPanel implements Runnable, KeyListener {
             }
         }
         directionPlayer2 =null;
-        if(e.getKeyCode()==18) {
+        if(e.getKeyCode()==32) {
             if (KanonePlayer2.getMissileCounter() > 0) {
                 this.missilePlayer2.add(new Missile(this.x, KanonePlayer2.getAbschussPositionX(), KanonePlayer2.getAbschussPositionY(), missilespeedPlayer2));
                 shotMissile = true;

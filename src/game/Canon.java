@@ -47,7 +47,7 @@ public class Canon {
         }
         if (Player==2) {
             System.out.println(x + "and" + y);
-            this.canonX = x / 100 * 37;
+            this.canonX = x / 100 * 50;
             this.canonY = y / 100 * 75;
             this.canonWigth = x / 100 * 10;
             this.canonHeigth = x / 100 * 3;
