@@ -42,6 +42,8 @@ public class testFrame extends JPanel implements Runnable {
     private Wheel rad;
     InputMap im;
     ActionMap am;
+    
+    private Thread thread;
 
     public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
@@ -64,10 +66,18 @@ public class testFrame extends JPanel implements Runnable {
         this.x = x;
         this.y = y;
 
+        start();
     }
 
 
-    @Override
+    private void start() {
+		thread = new Thread(this, "Game Loop"); // Creates new thread
+		thread.start(); // Starts thread
+		
+	}
+
+
+	@Override
     public void run() {
         while (time) {
             repaint();
@@ -219,6 +229,9 @@ public class testFrame extends JPanel implements Runnable {
         canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
 
     }
+    
+    
+
 
 }
 
