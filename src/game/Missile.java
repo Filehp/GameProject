@@ -26,8 +26,8 @@ public class Missile {
 
         missile.setColor(Color.BLACK);
         missile.fillOval(this.x, this.y, this.radius, this.radius);
-        //missile.setColor(Color.BLACK);
-        //missile.drawRect(this.x, this.y, 15, 15);
+        //missilePlayer1.setColor(Color.BLACK);
+        //missilePlayer1.drawRect(this.x, this.y, 15, 15);
     }
 
     public int moveMissile(){

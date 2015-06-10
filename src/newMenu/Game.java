@@ -1,5 +1,6 @@
 package newMenu;
 
+import game.MultiplayerLevel;
 import game.testFrame;
 
 import java.awt.BorderLayout;
@@ -76,9 +77,18 @@ public class Game {
 			
 		case "levelmenu":
 			panel.add(new LevelMenu(), BorderLayout.CENTER); break;
-			
+
 		case "multiplayer":
-			panel.add(new MultiplayerMenu(), BorderLayout.CENTER); break;
+			panel.add(new MultiplayerMenu(), BorderLayout.CENTER);break;
+
+		case "multiplayerLevel":
+			MultiplayerLevel multiLevel = new MultiplayerLevel(Game.getWindowWidth(),Game.getWindowHeight(),10,270000,4,1);
+			multiLevel.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT2 * SCALE));
+			multiLevel.setBackground(new Color(190, 190, 190));
+			multiLevel.setLayout(new BorderLayout());
+			frame.add(multiLevel);
+			new Thread(multiLevel).start();
+			break;
 		
 		case "scoreboard":
 			panel.add(new Scoreboard(), BorderLayout.CENTER); break;

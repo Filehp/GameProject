@@ -33,6 +33,30 @@ public class Canon {
         this.radiusMissel= x/100*3;
         this.missileCounter = missileCount;
     }
+    public Canon(int x, int y, int missileCount, boolean multi, int Player){
+        if (Player==1) {
+            System.out.println(x + "and" + y);
+            this.canonX = x / 100 * 37;
+            this.canonY = y / 100 * 75;
+            this.canonWigth = x / 100 * 10;
+            this.canonHeigth = x / 100 * 3;
+            this.grenzeLinks = x / 100 * 30;
+            this.grenzeRechts = x / 100 * 75;
+            this.radiusMissel = x / 100 * 3;
+            this.missileCounter = missileCount;
+        }
+        if (Player==2) {
+            System.out.println(x + "and" + y);
+            this.canonX = x / 100 * 50;
+            this.canonY = y / 100 * 75;
+            this.canonWigth = x / 100 * 10;
+            this.canonHeigth = x / 100 * 3;
+            this.grenzeLinks = x / 100 * 30;
+            this.grenzeRechts = x / 100 * 75;
+            this.radiusMissel = x / 100 * 3;
+            this.missileCounter = missileCount;
+        }
+    }
 
     public void canonLoad(Graphics canon) {
 

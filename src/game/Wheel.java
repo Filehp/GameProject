@@ -28,6 +28,13 @@ public class Wheel {
         this.numberSpokes = numberStartSpokes;
         this.speed = speed;
     }
+    public Wheel(int x, int y, int numberStartSpokes, int speed, boolean multi){
+        wheelX = x/100*52;
+        wheelY = y/100*28;
+        radius = x/100*12;
+        this.numberSpokes = numberStartSpokes;
+        this.speed = speed;
+    }
 
     public void loadWheel(Graphics wheel, boolean startAdd){
         //Wheel laden
