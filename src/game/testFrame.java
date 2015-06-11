@@ -3,10 +3,10 @@ package game;
 import javax.swing.*;
 import javax.swing.Timer;
 
-
 import newMenu.Button;
 import newMenu.Difficulty;
 import newMenu.Game;
+import newMenu.GameResult;
 import newMenu.Menu;
 
 import java.awt.*;
@@ -46,7 +46,12 @@ public class testFrame extends JPanel implements Runnable {
     ActionMap am;
     
     private Thread thread;
-    private boolean run = false;
+    
+    private boolean scorePanel = false;
+    Icon backIcon = new ImageIcon("resources/Back.png");
+    Icon easyIcon = new ImageIcon("resources/Easy.png");
+    private Button back = new Button(backIcon);
+    private Button easy = new Button(easyIcon);
 
     public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
@@ -68,7 +73,25 @@ public class testFrame extends JPanel implements Runnable {
 
         this.x = x;
         this.y = y;
+        
+        //Buttons in ScorePanel 
+        easy.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("testFrame", testFrame.this);
+			}
+		});
+        
+        back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("menu", testFrame.this);
+			}
+		});
+
+        //Starts the thread
         start();
     }
 
@@ -136,8 +159,18 @@ public class testFrame extends JPanel implements Runnable {
                 minuten = (int) currentTimeOutput / 1000 / 60;
                 sekunden = (int) currentTimeOutput / 1000 % 60;
                 if (currentTime >= timer) {
-                    time = false;
+                    
                     System.out.println("Timeout");
+                    stop();
+                    
+                    if (scorePanel) {
+                    	GameResult overByTime = new GameResult();
+                    	back.setBounds(Game.WIDTH / 3, Game.HEIGHT / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+                    	easy.setBounds(Game.WIDTH / 3, Game.HEIGHT / 3, Menu.getButtonWidth(), Menu.getButtonHeight());
+                    	this.add(back);
+                    	this.add(easy);
+                    	this.add(overByTime);
+                    }
                 }
 
 
@@ -203,8 +236,20 @@ public class testFrame extends JPanel implements Runnable {
 
                         System.out.println("Speiche getroffen!");
                         missile.remove(i);
-                        Game.changePanel("gameResult"); //displays result
+                        
                         stop(); //stops the thread
+                        //opens scorePanel with buttons to replay/quit
+                        if (scorePanel) {
+                        	GameResult panel = new GameResult();
+                        	back.setBounds(Game.WIDTH / 2, Game.HEIGHT / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+                        	easy.setBounds(Game.WIDTH / 3, Game.HEIGHT / 3, Menu.getButtonWidth(), Menu.getButtonHeight());
+                        	this.add(back);
+                        	this.add(easy);
+                        	this.add(panel);
+                        }
+                        
+                		
+                	
                         
                     }
                 }
@@ -234,14 +279,14 @@ public class testFrame extends JPanel implements Runnable {
     }
     
     private void start() {
-    	run = true;
 		thread = new Thread(this, "Game Loop"); // Creates new thread
 		thread.start(); // Starts thread
 		
 	}
     private void stop() {
-    	run = false;
     	time = false;
+    	scorePanel = true; //open scorepanel
+    	repaint();
 
     }
     
