@@ -94,21 +94,19 @@ public class MultiplayerLevel extends JPanel implements Runnable, KeyListener {
         //KanonePlayer1 bewegen
         if(this.directionPlayer1 !=null) {
             KanonePlayer1.moveCanon(this.directionPlayer1);
-
         }
+
         if(this.directionPlayer2 !=null) {
             KanonePlayer2.moveCanon(this.directionPlayer2);
-
         }
 
         //Geschoss abfeuern
-
         this.missilnumber = KanonePlayer1.shotMissile( canon, missilePlayer1);
         if (this.missilnumber != 99) {
             //System.out.println(missilnumber);
             missilePlayer1.remove(this.missilnumber);
-
         }
+
         this.missilnumber = KanonePlayer2.shotMissile( canon, missilePlayer2);
         if (this.missilnumber != 99) {
             //System.out.println(missilnumber);

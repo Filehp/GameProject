@@ -1,6 +1,4 @@
-package newMenu;
-
-import game.Canon;
+package game;
 
 import java.io.*;
 import java.net.Socket;

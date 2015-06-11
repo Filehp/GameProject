@@ -48,8 +48,8 @@ public class Canon  implements Serializable {
         }
         if (Player==2) {
             System.out.println(x + "and" + y);
-            this.canonX = x / 100 * 50;
-            this.canonY = y / 100 * 75;
+            this.canonX = x / 100 * 37;
+            this.canonY = y / 100 * 2;
             this.canonWigth = x / 100 * 10;
             this.canonHeigth = x / 100 * 3;
             this.grenzeLinks = x / 100 * 30;
