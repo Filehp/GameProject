@@ -2,13 +2,14 @@ package game;
 
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 /**
  * Created by Chris on 09.05.2015.
  */
-public class Canon {
+public class Canon  implements Serializable {
     private int missileCounter;
     private int canonX;
     private int canonY;
