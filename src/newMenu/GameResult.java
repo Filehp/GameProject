@@ -18,21 +18,13 @@ import javax.swing.JPanel;
 
 public class GameResult extends JPanel{
 	
-	Icon backIcon = new ImageIcon("resources/Back.png");
-	private Button back = new Button(backIcon);
-	
-	private JPanel result = new JPanel();
-	private JButton test = new JButton();
-	
-	
 	
 	public GameResult() {
 		
 		//setForeground(Color.BLACK);
 		setBackground(new Color(190, 190, 190));
-		setBounds(Game.WIDTH / 4, Game.HEIGHT / 3, Game.WIDTH / 2, Game.WIDTH / 2);
-		setFocusable(true);
-		repaint();
+		setBounds(0, Game.HEIGHT / 3, Game.WIDTH, Game.WIDTH / 2);
+
 		
 	
 		

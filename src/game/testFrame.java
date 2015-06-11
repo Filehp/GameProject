@@ -161,16 +161,9 @@ public class testFrame extends JPanel implements Runnable {
                 if (currentTime >= timer) {
                     
                     System.out.println("Timeout");
-                    stop();
                     
-                    if (scorePanel) {
-                    	GameResult overByTime = new GameResult();
-                    	back.setBounds(Game.WIDTH / 3, Game.HEIGHT / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
-                    	easy.setBounds(Game.WIDTH / 3, Game.HEIGHT / 3, Menu.getButtonWidth(), Menu.getButtonHeight());
-                    	this.add(back);
-                    	this.add(easy);
-                    	this.add(overByTime);
-                    }
+                    gameLost(); //Method when losing the game
+                    
                 }
 
 
@@ -232,25 +225,11 @@ public class testFrame extends JPanel implements Runnable {
                     //Kollision mit Speiche
                     if (Kollispeiche) {
                         //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
-                        this.setBackground(Color.RED);
-
                         System.out.println("Speiche getroffen!");
                         missile.remove(i);
                         
-                        stop(); //stops the thread
-                        //opens scorePanel with buttons to replay/quit
-                        if (scorePanel) {
-                        	GameResult panel = new GameResult();
-                        	back.setBounds(Game.WIDTH / 2, Game.HEIGHT / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
-                        	easy.setBounds(Game.WIDTH / 3, Game.HEIGHT / 3, Menu.getButtonWidth(), Menu.getButtonHeight());
-                        	this.add(back);
-                        	this.add(easy);
-                        	this.add(panel);
-                        }
-                        
-                		
-                	
-                        
+                        gameLost(); //Method when losing the game
+                           
                     }
                 }
 
@@ -288,6 +267,20 @@ public class testFrame extends JPanel implements Runnable {
     	scorePanel = true; //open scorepanel
     	repaint();
 
+    }
+    private void gameLost() {
+    	stop();
+    	this.setBackground(Color.RED);
+    	if (scorePanel) {
+        	GameResult panel = new GameResult();
+        	back.setBounds(Game.WIDTH / 10 * 3, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+        	easy.setBounds(Game.WIDTH / 10 * 3, Game.HEIGHT / 10 * 4, Menu.getButtonWidth(), Menu.getButtonHeight());
+        	this.add(back);
+        	this.add(easy);
+        	this.add(panel);
+    	}
+    	
+    	
     }
     
 
