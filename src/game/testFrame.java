@@ -1,5 +1,6 @@
 package game;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.Timer;
 
@@ -14,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -29,6 +32,7 @@ public class testFrame extends JPanel implements Runnable {
     int minuten;
     int sekunden;
     long starttime = System.currentTimeMillis();
+    int currentTimeOutput;
 
     String direction;
     boolean shotMissile = false;
@@ -48,10 +52,12 @@ public class testFrame extends JPanel implements Runnable {
     private Thread thread;
     
     private boolean scorePanel = false;
-    Icon backIcon = new ImageIcon("resources/Back.png");
-    Icon easyIcon = new ImageIcon("resources/Easy.png");
-    private Button back = new Button(backIcon);
-    private Button easy = new Button(easyIcon);
+    Icon quitIcon = new ImageIcon("resources/Quit.png");
+    Icon replayIcon = new ImageIcon("resources/Replay.png");
+    private Button quit = new Button(quitIcon);
+    private Button replay = new Button(replayIcon);
+    private JLabel yourTime = new JLabel();
+    private JLabel yourMissles = new JLabel();
 
     public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
@@ -75,7 +81,7 @@ public class testFrame extends JPanel implements Runnable {
         this.y = y;
         
         //Buttons in ScorePanel 
-        easy.addActionListener(new ActionListener() {
+        replay.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -83,7 +89,7 @@ public class testFrame extends JPanel implements Runnable {
 			}
 		});
         
-        back.addActionListener(new ActionListener() {
+        quit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -155,14 +161,15 @@ public class testFrame extends JPanel implements Runnable {
 
                 //Zeit wird berechnet und geprÃ¼ft
                 long currentTime = System.currentTimeMillis() - starttime;
-                int currentTimeOutput = (int) (timer - currentTime);
+                currentTimeOutput = (int) (timer - currentTime);
                 minuten = (int) currentTimeOutput / 1000 / 60;
                 sekunden = (int) currentTimeOutput / 1000 % 60;
                 if (currentTime >= timer) {
-                    
-                    System.out.println("Timeout");
-                    
                     gameLost(); //Method when losing the game
+                    System.out.println("Timeout");
+                    repaint();
+                    
+                    
                     
                 }
 
@@ -251,9 +258,6 @@ public class testFrame extends JPanel implements Runnable {
         canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 18, this.y / 100 * 3);
         canon.setColor(new Color(0, 128, 128));
         canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
-        
-
-		
 
     }
     
@@ -269,14 +273,27 @@ public class testFrame extends JPanel implements Runnable {
 
     }
     private void gameLost() {
+    	//Stoppt den Thread
     	stop();
     	this.setBackground(Color.RED);
+    	
+    	//Öffnet das scorePanel mit Replay oder Quit
     	if (scorePanel) {
-        	GameResult panel = new GameResult();
-        	back.setBounds(Game.WIDTH / 10 * 3, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-        	easy.setBounds(Game.WIDTH / 10 * 3, Game.HEIGHT / 10 * 4, Menu.getButtonWidth(), Menu.getButtonHeight());
-        	this.add(back);
-        	this.add(easy);
+        	GameResult panel = new GameResult(0);
+        	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+        	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+    		
+			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+    		yourTime.setText("You failed after " + "seconds.");
+			yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+			yourMissles.setText("You have " + "missles left.");
+
+    		add(yourTime);
+    		add(yourMissles);
+        	
+        	this.add(quit);
+        	this.add(replay);
+    		
         	this.add(panel);
     	}
     	
