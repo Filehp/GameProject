@@ -4,11 +4,13 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.Timer;
 
-import newMenu.Button;
-import newMenu.Difficulty;
-import newMenu.Game;
-import newMenu.GameResult;
-import newMenu.Menu;
+import entity.Canon;
+import entity.Missile;
+import entity.Wheel;
+import menu.Button;
+import menu.Difficulty;
+import menu.GameResult;
+import menu.Menu;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +24,7 @@ import java.util.*;
 /**
  * Created by Chris on 09.05.2015.
  */
-public class testFrame extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable {
 
     static int x;
     static int y;
@@ -59,7 +61,7 @@ public class testFrame extends JPanel implements Runnable {
     private JLabel yourTime = new JLabel();
     private JLabel yourMissles = new JLabel();
 
-    public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
+    public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         this.am = getActionMap();
 
@@ -85,7 +87,7 @@ public class testFrame extends JPanel implements Runnable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game.changePanel("testFrame", testFrame.this);
+				Game.changePanel("testFrame", GamePanel.this);
 			}
 		});
         
@@ -93,7 +95,7 @@ public class testFrame extends JPanel implements Runnable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game.changePanel("menu", testFrame.this);
+				Game.changePanel("menu", GamePanel.this);
 			}
 		});
 

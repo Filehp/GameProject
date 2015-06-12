@@ -1,17 +1,21 @@
-package newMenu;
-
-import game.MultiplayerLevel;
-import game.testFrame;
+package game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import menu.Difficulty;
+import menu.LevelMenu;
+import menu.Menu;
+import menu.Scoreboard;
+import menu.Settings;
+import multiplayer.MultiplayerLevel;
+import multiplayer.MultiplayerMenu;
 
 public class Game {
 
@@ -95,7 +99,7 @@ public class Game {
 			panel.add(new Settings(), BorderLayout.CENTER); break;
 			
 		case "testFrame":
-			panel.add(new testFrame(Game.getWindowWidth(),Game.getWindowHeight(),10,5000,4,1), BorderLayout.CENTER); break;
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,5000,4,1), BorderLayout.CENTER); break;
 
 		
 		}

@@ -1,6 +1,11 @@
-package game;
+package multiplayer;
 
 import javax.swing.*;
+
+import entity.Canon;
+import entity.Missile;
+import entity.Wheel;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

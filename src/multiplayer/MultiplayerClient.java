@@ -1,6 +1,6 @@
-package newMenu;
+package multiplayer;
 
-import game.Canon;
+import entity.Canon;
 
 import java.io.*;
 import java.net.Socket;

@@ -1,6 +1,7 @@
-package newMenu;
+package menu;
 
-import game.testFrame;
+import game.Game;
+import game.GamePanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
