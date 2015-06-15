@@ -36,9 +36,11 @@ public class MultiplayerServer {
     private Canon KanonePlayer2;
     private Wheel rad;
 
-    double faktorX;
-    double faktorY;
+    private double faktorX;
+    private double faktorY;
     Socket socket;
+
+    private boolean allPlayer = false;
 
     public MultiplayerServer(int x, int y){
         this.x = x;
@@ -53,10 +55,9 @@ public class MultiplayerServer {
 
          void start() throws IOException {
              System.out.println("Server gestartet.");
-             rad = new Wheel(this.x,this.y,4,2);
+             rad = new Wheel(this.x, this.y, 4, 2);
              rad.addSpokes();
-             starttime=System.currentTimeMillis();
-
+             starttime = System.currentTimeMillis();
 
              try {
                  while (true) {
