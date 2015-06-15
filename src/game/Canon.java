@@ -25,7 +25,7 @@ public class Canon  implements Serializable {
     //Constructor
     public Canon(int x, int y, int missileCount){
         System.out.println(x + "and"+ y);
-        this.canonX = x/100*37;
+        this.canonX = x/100*50;
         this.canonY = y/100*75;
         this.canonWigth = x/100*10;
         this.canonHeigth = x/100*3;
@@ -37,7 +37,7 @@ public class Canon  implements Serializable {
     public Canon(int x, int y, int missileCount, boolean multi, int Player){
         if (Player==1) {
             System.out.println(x + "and" + y);
-            this.canonX = x / 100 * 37;
+            this.canonX = x / 100 * 60;
             this.canonY = y / 100 * 75;
             this.canonWigth = x / 100 * 10;
             this.canonHeigth = x / 100 * 3;
@@ -48,8 +48,8 @@ public class Canon  implements Serializable {
         }
         if (Player==2) {
             System.out.println(x + "and" + y);
-            this.canonX = x / 100 * 37;
-            this.canonY = y / 100 * 2;
+            this.canonX = x / 100 * 30;
+            this.canonY = y / 100 * 75;
             this.canonWigth = x / 100 * 10;
             this.canonHeigth = x / 100 * 3;
             this.grenzeLinks = x / 100 * 30;
@@ -105,6 +105,32 @@ public class Canon  implements Serializable {
 
 
 
+    }
+    public void aufloesungAnpassen(double faktorX, double faktorY, boolean operator){
+        /**
+         * operator bestimmt ob der Faktor multipliziert oder geteilt wird
+         * true = miltiplizieren
+         * false = teilen
+         */
+
+        if(operator==true) {
+            this.canonX = (int) (this.canonX * faktorX);
+            this.canonY = (int) (this.canonY * faktorY);
+            this.canonWigth = (int) (this.canonWigth * faktorX);
+            this.canonHeigth = (int) (this.canonHeigth * faktorX);
+            this.grenzeLinks = (int) (this.grenzeLinks * faktorX);
+            this.grenzeRechts = (int) (grenzeRechts * faktorX);
+            this.radiusMissel = (int) (radiusMissel * faktorX);
+        }
+        if(operator==false) {
+            this.canonX = (int) (this.canonX / faktorX);
+            this.canonY = (int) (this.canonY / faktorY);
+            this.canonWigth = (int) (this.canonWigth / faktorX);
+            this.canonHeigth = (int) (this.canonHeigth / faktorX);
+            this.grenzeLinks = (int) (this.grenzeLinks / faktorX);
+            this.grenzeRechts = (int) (grenzeRechts / faktorX);
+            this.radiusMissel = (int) (radiusMissel / faktorX);
+        }
     }
 
     public void getXY(){

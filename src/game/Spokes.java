@@ -1,12 +1,13 @@
 package game;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 
 
 /**
  * Created by Chris on 11.05.2015.
  */
-public class Spokes {
+public class Spokes implements Serializable {
     double winkel;
     int radius=8;
     double x_koordinateStart;

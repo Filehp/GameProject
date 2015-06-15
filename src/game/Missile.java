@@ -1,11 +1,12 @@
 package game;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Chris on 10.05.2015.
  */
-public class Missile {
+public class Missile implements Serializable {
 
     private int x;
     private int y;
@@ -53,6 +54,25 @@ public class Missile {
         }
 
         return false;
+    }
+    public void aufloesungAnpassen(double faktorX, double faktorY, boolean operator){
+
+        /**
+         * operator bestimmt ob der Faktor multipliziert oder geteilt wird
+         * true = miltiplizieren
+         * false = teilen
+         */
+
+        if(operator==true) {
+            this.x = (int) (this.x * faktorX);
+            this.radius = (int) (this.radius * faktorX);
+            this.y = (int) (this.y * faktorY);
+        }
+        if(operator==false) {
+            this.x = (int) (this.x / faktorX);
+            this.radius = (int) (this.radius / faktorX);
+            this.y = (int) (this.y / faktorY);
+        }
     }
     public int getX(){
         return this.x;

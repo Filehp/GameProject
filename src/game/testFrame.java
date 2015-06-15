@@ -1,19 +1,13 @@
 package game;
 
 import javax.swing.*;
-import javax.swing.Timer;
 
 
-import newMenu.Button;
-import newMenu.Difficulty;
 import newMenu.Game;
-import newMenu.Menu;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.*;
 
 /**
@@ -35,7 +29,7 @@ public class testFrame extends JPanel implements Runnable {
     double missilespeed = 0;
     int loadBar = 0;
     int missilnumber = 99;
-    int missileClip;
+    int missileClipPlayer;
     public ArrayList<Missile> missile = new ArrayList<>();
 
     boolean startSpokes = true;
@@ -49,6 +43,18 @@ public class testFrame extends JPanel implements Runnable {
     private boolean run = false;
 
     public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
+        this.setFocusable(true);
+        this.timer = time;
+        this.missileClipPlayer = missileClip;
+
+        Kanone = new Canon(x, y, missileClip);
+        rad = new Wheel(x, y, startSpokes, speedWheel);
+
+        this.x = x;
+        this.y = y;
+
+        start();
+
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         this.am = getActionMap();
 
@@ -59,17 +65,56 @@ public class testFrame extends JPanel implements Runnable {
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true), "moveReleased");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true), "moveReleased");
 
-        this.setFocusable(true);
-        this.timer = time;
-        this.missileClip = missileClip;
+        am.put("left", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                direction = "left";
+            }
+        });
+        am.put("moveReleased", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                direction = null;
+            }
+        });
+        am.put("right", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                direction = "right";
+            }
+        });
 
-        Kanone = new Canon(x, y, missileClip);
-        rad = new Wheel(x, y, startSpokes, speedWheel);
+        am.put("pressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shotMissile = false;
+                missilespeed = (missilespeed + 0.5);
+                loadBar = (int) missilespeed * 10;
+                if (missilespeed >= 10) {
+                    missilespeed = 10;
+                }
 
-        this.x = x;
-        this.y = y;
+                System.out.println(missilespeed);
 
-        start();
+                System.out.println("Pressed");
+            }
+        });
+
+        am.put("released", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                direction = null;
+                if (Kanone.getMissileCounter() > 0) {
+                    missile.add(new Missile(x, Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
+                    shotMissile = true;
+                    Kanone.shotedmissile();
+                    missilespeed = 0;
+                    missileClipPlayer--;
+                }
+                System.out.println("released");
+            }
+        });
+
     }
 
 
@@ -80,55 +125,7 @@ public class testFrame extends JPanel implements Runnable {
             try {
                 Thread.sleep(20);
 
-                am.put("left", new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        direction = "left";
-                    }
-                });
-                am.put("moveReleased", new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        direction = null;
-                    }
-                });
-                am.put("right", new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        direction = "right";
-                    }
-                });
 
-                am.put("pressed", new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        shotMissile = false;
-                        missilespeed = (missilespeed + 0.5);
-                        loadBar = (int) missilespeed * 10;
-                        if (missilespeed >= 10) {
-                            missilespeed = 10;
-                        }
-
-                        System.out.println(missilespeed);
-
-                        System.out.println("Pressed");
-                    }
-                });
-
-                am.put("released", new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        direction = null;
-                        if (Kanone.getMissileCounter() > 0) {
-                            missile.add(new Missile(x, Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
-                            shotMissile = true;
-                            Kanone.shotedmissile();
-                            missilespeed = 0;
-                            missileClip--;
-                        }
-                        System.out.println("released");
-                    }
-                });
 
                 //Zeit wird berechnet und geprüft
                 long currentTime = System.currentTimeMillis() - starttime;
@@ -212,7 +209,7 @@ public class testFrame extends JPanel implements Runnable {
             }
         }
         //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if (this.missileClip == 0 && missile.size() == 0) {
+        if (this.missileClipPlayer == 0 && missile.size() == 0) {
             System.out.println("Du hast gewonnen");
 
         }

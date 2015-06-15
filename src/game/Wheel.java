@@ -1,6 +1,7 @@
 package game;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 //noch ein comment
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * Hallo WELT
  * Created by Chris on 11.05.2015.
  */
-public class Wheel {
+public class Wheel implements Serializable {
 
 
     private int wheelX;
@@ -89,6 +90,26 @@ public class Wheel {
         this.spokesList.add(new Spokes(aktuellerWinkel, this.radius, this.wheelX, this.wheelY));
 
     }
+
+    public void aufloesungAnpassen(double faktorX, double faktorY, boolean operator){
+        /**
+         * operator bestimmt ob der Faktor multipliziert oder geteilt wird
+         * true = miltiplizieren
+         * false = teilen
+         */
+
+        if(operator==true) {
+            this.wheelX = (int) (this.wheelX * faktorX);
+            this.wheelY = (int) (this.wheelY * faktorY);
+            this.radius = (int) (this.radius * faktorX);
+        }
+        if(operator==false) {
+            this.wheelX = (int) (this.wheelX / faktorX);
+            this.wheelY = (int) (this.wheelY / faktorY);
+            this.radius = (int) (this.radius / faktorX);
+        }
+    }
+
     public int getX(){
         return this.wheelX;
     }
