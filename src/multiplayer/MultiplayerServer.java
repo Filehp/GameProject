@@ -128,7 +128,7 @@ public class MultiplayerServer {
                          System.out.println("Du hast gewonnen Player2");
                          System.out.println("Du hast verloren Player1");
                      }
-//asdasd
+
                      //Berechnungen Kollision
 
                      //Kollision abfangen Player1
@@ -204,10 +204,32 @@ public class MultiplayerServer {
                      //Daten senden
                      os = socket.getOutputStream();
                      ObjectOutputStream oos = new ObjectOutputStream(os);
-
-                     oos.writeObject(rad);
+                     if(playerID==1) {
+                         oos.writeObject(rad);
+                     }else{
+                         rad.aufloesungAnpassen(faktorX, faktorY, false);
+                         oos.writeObject(rad);
+                         rad.aufloesungAnpassen(faktorX, faktorY, true);
+                     }
                      oos.writeObject(minuten);
                      oos.writeObject(sekunden);
+
+                     if(playerID==1){
+                         oos.writeObject(KanonePlayer2);
+                         oos.writeObject(missilePlayer2);
+                     }else{
+                         KanonePlayer1.aufloesungAnpassen(faktorX, faktorY, false);
+                         oos.writeObject(KanonePlayer1);
+                         KanonePlayer1.aufloesungAnpassen(faktorX, faktorY, true);
+                         for(Missile missile: missilePlayer1){
+                             missile.aufloesungAnpassen(this.faktorX, this.faktorY, false);
+                         }
+                         oos.writeObject(missilePlayer1);
+                         for(Missile missile: missilePlayer1){
+                             missile.aufloesungAnpassen(this.faktorX, this.faktorY, true);
+                         }
+                     }
+
 
                      //oos.writeObject(new String("another object from the client"));
 

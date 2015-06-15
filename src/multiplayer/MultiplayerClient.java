@@ -144,8 +144,8 @@ public class MultiplayerClient extends JPanel implements Runnable{
             InputStream is = null;
             OutputStream os = null;
             Socket socket = new Socket("localhost", 5000);
-            //Daten senden
 
+            //Daten senden
             os = socket.getOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(os);
 
@@ -166,6 +166,8 @@ public class MultiplayerClient extends JPanel implements Runnable{
             rad = (Wheel)ois.readObject();
             minuten = (int)ois.readObject();
             sekunden = (int)ois.readObject();
+            KanonePlayer2 = (Canon)ois.readObject();
+            missilePlayer2 = (ArrayList)ois.readObject();
 
             is.close();
             oos.close();
@@ -180,7 +182,8 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
         //KAnone Laden
         KanonePlayer1.canonLoad(canon);
-       // KanonePlayer2.canonLoad(canon);
+        KanonePlayer2.canonLoad(canon);
+
         //KanonePlayer1 bewegen
         if (this.directionPlayer1 != null) {
             KanonePlayer1.moveCanon(this.directionPlayer1);
@@ -194,12 +197,12 @@ public class MultiplayerClient extends JPanel implements Runnable{
             missilePlayer1.remove(this.missilnumber);
         }
 
-        /*this.missilnumber = KanonePlayer2.shotMissile(canon, missilePlayer2);
+        this.missilnumber = KanonePlayer2.shotMissile(canon, missilePlayer2);
         if (this.missilnumber != 99) {
             //System.out.println(missilnumber);
             missilePlayer2.remove(this.missilnumber);
 
-        }*/
+        }
 
         //Kollision abfangen
 
