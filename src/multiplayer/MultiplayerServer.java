@@ -6,10 +6,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import javax.swing.JComponent;
+
 /**
  * Created by Chris on 11.06.2015.
  */
-public class MultiplayerServer {
+public class MultiplayerServer extends JComponent {
     static int x;
     static int y;
 

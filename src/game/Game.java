@@ -12,10 +12,11 @@ import javax.swing.SwingUtilities;
 import menu.Difficulty;
 import menu.LevelMenu;
 import menu.Menu;
+import menu.MultiplayerMenu;
 import menu.Scoreboard;
 import menu.Settings;
 import multiplayer.MultiplayerLevel;
-import multiplayer.MultiplayerMenu;
+import multiplayer.MultiplayerServer;
 
 public class Game {
 
@@ -100,6 +101,9 @@ public class Game {
 			
 		case "testFrame":
 			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,5000,4,1), BorderLayout.CENTER); break;
+		
+		case "multiplayerServer":
+			panel.add(new MultiplayerServer(200, 300), BorderLayout.CENTER); break;
 
 		
 		}

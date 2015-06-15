@@ -37,7 +37,7 @@ public class GameResult extends JPanel{
 		
 		
 			try {
-				image = ImageIO.read(new File ("C:\\Users\\Filip\\git\\GameProject\\GameProject\\resources\\GameOver.png"));
+				image = ImageIO.read(new File (".\\resources\\GameOver.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
