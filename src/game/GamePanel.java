@@ -4,8 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
-import newMenu.Game;
-
 import entity.Canon;
 import entity.Missile;
 import entity.Wheel;
@@ -17,6 +15,7 @@ import menu.Menu;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import java.util.*;
@@ -63,6 +62,14 @@ public class GamePanel extends JPanel implements Runnable {
     private JLabel yourMissles = new JLabel();
 
     public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
+        this.setFocusable(true);
+
+        this.timer = time;
+        this.missileClipPlayer = missileClip;
+
+        Kanone = new Canon(x, y, missileClip);
+
+        rad = new Wheel(x, y, startSpokes, speedWheel);
 
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         this.am = getActionMap();

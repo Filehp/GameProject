@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-
+import entity.*;
 /**
  * Created by Chris on 11.06.2015.
  */
