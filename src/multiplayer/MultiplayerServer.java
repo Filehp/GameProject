@@ -1,5 +1,5 @@
 package multiplayer;
-
+import entity.*;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -128,7 +128,7 @@ public class MultiplayerServer {
                          System.out.println("Du hast gewonnen Player2");
                          System.out.println("Du hast verloren Player1");
                      }
-
+//asdasd
                      //Berechnungen Kollision
 
                      //Kollision abfangen Player1
