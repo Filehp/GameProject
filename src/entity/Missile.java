@@ -1,4 +1,4 @@
-package game;
+package entity;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;

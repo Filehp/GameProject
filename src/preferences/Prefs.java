@@ -1,4 +1,4 @@
-package newMenu;
+package preferences;
 
 import java.util.prefs.Preferences;
 

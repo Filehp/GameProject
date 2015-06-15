@@ -1,4 +1,4 @@
-package game;
+package multiplayer;
 
 
 import java.io.*;

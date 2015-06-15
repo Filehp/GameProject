@@ -1,4 +1,4 @@
-package game;
+package entity;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.io.Serializable;

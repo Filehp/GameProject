@@ -1,4 +1,6 @@
-package newMenu;
+package menu;
+
+import game.Game;
 
 import java.awt.Color;
 import java.awt.Graphics;

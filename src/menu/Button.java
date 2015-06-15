@@ -1,4 +1,4 @@
-package newMenu;
+package menu;
 
 import java.awt.AlphaComposite;
 import java.awt.event.MouseAdapter;

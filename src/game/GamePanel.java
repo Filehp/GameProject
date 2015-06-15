@@ -1,19 +1,30 @@
 package game;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
 import newMenu.Game;
 
+import entity.Canon;
+import entity.Missile;
+import entity.Wheel;
+import menu.Button;
+import menu.Difficulty;
+import menu.GameResult;
+import menu.Menu;
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 import java.util.*;
 
 /**
  * Created by Chris on 09.05.2015.
  */
-public class testFrame extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable {
 
     static int x;
     static int y;
@@ -23,6 +34,7 @@ public class testFrame extends JPanel implements Runnable {
     int minuten;
     int sekunden;
     long starttime = System.currentTimeMillis();
+    int currentTimeOutput;
 
     String direction;
     boolean shotMissile = false;
@@ -40,20 +52,17 @@ public class testFrame extends JPanel implements Runnable {
     ActionMap am;
     
     private Thread thread;
-    private boolean run = false;
 
-    public testFrame(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
-        this.setFocusable(true);
-        this.timer = time;
-        this.missileClipPlayer = missileClip;
+    
+    private boolean scorePanel = false;
+    Icon quitIcon = new ImageIcon("resources/Quit.png");
+    Icon replayIcon = new ImageIcon("resources/Replay.png");
+    private Button quit = new Button(quitIcon);
+    private Button replay = new Button(replayIcon);
+    private JLabel yourTime = new JLabel();
+    private JLabel yourMissles = new JLabel();
 
-        Kanone = new Canon(x, y, missileClip);
-        rad = new Wheel(x, y, startSpokes, speedWheel);
-
-        this.x = x;
-        this.y = y;
-
-        start();
+    public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
 
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         this.am = getActionMap();
@@ -93,9 +102,7 @@ public class testFrame extends JPanel implements Runnable {
                 if (missilespeed >= 10) {
                     missilespeed = 10;
                 }
-
                 System.out.println(missilespeed);
-
                 System.out.println("Pressed");
             }
         });
@@ -115,6 +122,30 @@ public class testFrame extends JPanel implements Runnable {
             }
         });
 
+
+        this.x = x;
+        this.y = y;
+        
+        //Buttons in ScorePanel 
+        replay.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("testFrame", GamePanel.this);
+			}
+		});
+        
+        quit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("menu", GamePanel.this);
+			}
+		});
+
+        //Starts the thread
+        start();
+
     }
 
 
@@ -129,12 +160,16 @@ public class testFrame extends JPanel implements Runnable {
 
                 //Zeit wird berechnet und geprÃ¼ft
                 long currentTime = System.currentTimeMillis() - starttime;
-                int currentTimeOutput = (int) (timer - currentTime);
+                currentTimeOutput = (int) (timer - currentTime);
                 minuten = (int) currentTimeOutput / 1000 / 60;
                 sekunden = (int) currentTimeOutput / 1000 % 60;
                 if (currentTime >= timer) {
-                    time = false;
+                    gameLost(); //Method when losing the game
                     System.out.println("Timeout");
+                    repaint();
+                    
+                    
+                    
                 }
 
 
@@ -196,13 +231,11 @@ public class testFrame extends JPanel implements Runnable {
                     //Kollision mit Speiche
                     if (Kollispeiche) {
                         //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
-                        this.setBackground(Color.RED);
-
                         System.out.println("Speiche getroffen!");
                         missile.remove(i);
-                        Game.changePanel("gameResult"); //displays result
-                        stop(); //stops the thread
                         
+                        gameLost(); //Method when losing the game
+                           
                     }
                 }
 
@@ -224,22 +257,46 @@ public class testFrame extends JPanel implements Runnable {
         canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 18, this.y / 100 * 3);
         canon.setColor(new Color(0, 128, 128));
         canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
-        
-
-		
 
     }
     
     private void start() {
-    	run = true;
 		thread = new Thread(this, "Game Loop"); // Creates new thread
 		thread.start(); // Starts thread
 		
 	}
     private void stop() {
-    	run = false;
     	time = false;
+    	scorePanel = true; //open scorepanel
+    	repaint();
 
+    }
+    private void gameLost() {
+    	//Stoppt den Thread
+    	stop();
+    	this.setBackground(Color.RED);
+    	
+    	//Öffnet das scorePanel mit Replay oder Quit
+    	if (scorePanel) {
+        	GameResult panel = new GameResult(0);
+        	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+        	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+    		
+			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+    		yourTime.setText("You failed after " + "seconds.");
+			yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+			yourMissles.setText("You have " + "missles left.");
+
+    		add(yourTime);
+    		add(yourMissles);
+        	
+        	this.add(quit);
+        	this.add(replay);
+    		
+        	this.add(panel);
+    	}
+    	
+    	
     }
     
 

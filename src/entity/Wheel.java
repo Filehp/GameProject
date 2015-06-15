@@ -1,9 +1,10 @@
-package game;
+package entity;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 //noch ein comment
+
 
 
 /**

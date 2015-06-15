@@ -1,4 +1,6 @@
-package newMenu;
+package menu;
+
+import game.Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,6 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import preferences.Music;
+import preferences.Prefs;
+import preferences.ScoreDB;
 
 public class Settings extends JComponent{
 	
