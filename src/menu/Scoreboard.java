@@ -15,6 +15,10 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
+/**
+ *	Klasse fuer das Scoreboard
+ */
+
 public class Scoreboard extends JComponent {
 
 	private static final long serialVersionUID = 1L;

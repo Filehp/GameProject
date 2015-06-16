@@ -3,21 +3,19 @@ package game;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-
 import entity.Canon;
 import entity.Missile;
 import entity.Wheel;
 import menu.Button;
 import menu.Difficulty;
-import menu.GameResult;
+import menu.GameResultLose;
+import menu.GameResultWin;
 import menu.Menu;
-
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
 import java.util.*;
 
 /**
@@ -138,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game.changePanel("testFrame", GamePanel.this);
+				Game.changePanel("game", GamePanel.this);
 			}
 		});
         
@@ -285,7 +283,7 @@ public class GamePanel extends JPanel implements Runnable {
     	
     	//Öffnet das scorePanel mit Replay oder Quit
     	if (scorePanel) {
-        	GameResult panel = new GameResult(0);
+        	GameResultLose panel = new GameResultLose(0);
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
         	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		
@@ -302,6 +300,31 @@ public class GamePanel extends JPanel implements Runnable {
     		
         	this.add(panel);
     	}
+    	
+    	
+    }
+    private void gameWon() {
+    	//Stoppt den Thread
+    	stop();
+    	this.setBackground(Color.GREEN);
+    	
+    	//Öffnet das scorePanel mit Replay oder Quit
+    	if (scorePanel) {
+        	GameResultWin panel = new GameResultWin(1);
+        	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+        	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+    		
+			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+    		yourTime.setText("You needed " + "seconds.");
+
+    		add(yourTime);
+        	
+        	this.add(quit);
+        	this.add(replay);
+    		
+        	this.add(panel);
+    	}
+    	
     	
     	
     }

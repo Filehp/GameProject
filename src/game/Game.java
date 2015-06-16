@@ -20,6 +20,12 @@ import multiplayer.MultiplayerClient;
 import multiplayer.MultiplayerLevel;
 import multiplayer.MultiplayerServer;
 
+/**
+ * Beinhaltet die Main
+ * Erstellt das Grundgeruest mit Frame und Panel
+ */
+
+//Main Methode
 public class Game {
 
 	public static void main(String[] args) {
@@ -36,10 +42,10 @@ public class Game {
 		 }
 	
 	private static JFrame frame = new JFrame();
-	
 	public static JPanel panel = new JPanel();
 	public static Menu menuPanel = new Menu();	
 	
+	//Maﬂe
 	public static final int WIDTH = Game.getWindowWidth();
 	public static final int HEIGHT = Game.getWindowHeight();
 	public static final int HEIGHT2 = HEIGHT + 16;
@@ -47,13 +53,16 @@ public class Game {
 	public static final int centerX = WIDTH - (WIDTH / 4);
 	public static final int centerY = 0;
 	
+	//Constructor
 	public Game() {
 			
+		//Erstellt das Panel
 		panel.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT2 * SCALE)); 
 		panel.setBackground(new Color(190, 190, 190)); 
 		panel.setLayout(new BorderLayout());
 		changePanel("menu");
 		
+		//Erstellt den Frame
 		frame.add(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("TITLE");
@@ -62,16 +71,12 @@ public class Game {
 		frame.pack();
 		frame.setVisible(true);
 		
-		
-		/**
-		 * Starts the music
-		 */
-		
+		//Startet die Musik
 		Music music = new Music();
 		music.playMusic();
 	}
 
-
+	//Aendert in das jeweilige Panel bzw. Menue/Spiel
 	public static void changePanel(String option) {
 		switch (option) {
 		case "menu":
@@ -101,11 +106,13 @@ public class Game {
 		case "settings":
 			panel.add(new Settings(), BorderLayout.CENTER); break;
 			
-		case "testFrame":
+		//Wechselt zum Spiel
+		case "game":
 			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,50000,4,1), BorderLayout.CENTER); break;
 		
 		case "multiplayerClientHost":
 			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,1,"localhost"), BorderLayout.CENTER); break;
+			
 		case "multiplayerClientJoin":
 			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,2,"localhost"), BorderLayout.CENTER); break;
 
@@ -113,6 +120,7 @@ public class Game {
 		
 	}
 	
+	//Methode zum Menuewechsel
 	public static void changePanel(String option, JComponent comp){
 		panel.remove(comp); 
 		panel.revalidate(); 
@@ -120,16 +128,18 @@ public class Game {
 		panel.repaint(); 
 	}
 	
+	//Methode zum Wechsel zum Spiel
 	public static void changePanelToGame (String option, JComponent comp) {
 		frame.setVisible(false);
 		frame.remove(panel);
 		changePanel(option);
-		frame.setVisible(true);	
+		frame.setVisible(true);
 
 
 		
 	}
 	
+	//Berechnet die Fensterbreite
 	public static int getWindowWidth() {
 		
 		Dimension screen;
@@ -141,6 +151,7 @@ public class Game {
 		return x;
 	}
 	
+	//Berechnet die Fensterhoehe
 	public static int getWindowHeight() {
 		
 		Dimension screen;

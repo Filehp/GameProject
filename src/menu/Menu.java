@@ -11,25 +11,34 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
+/**
+ *  Klasse fuer das Hauptmenue
+ */
+
 public class Menu extends JComponent {
 
-	private static final long serialVersionUID = 1L;
+	//Laedt die Bilder der Buttons
 	Icon singleIcon = new ImageIcon("resources/Singleplayer.png");
 	Icon multiIcon = new ImageIcon("resources/Multiplayer.png");
 	Icon scoreIcon = new ImageIcon("resources/Scoreboard.png");
 	Icon settingsIcon = new ImageIcon("resources/Settings.png");
 	Icon quitIcon = new ImageIcon("resources/Quit.png");
+	
+	//Laedt das Hintergrundlogo
+	private Image logo = new ImageIcon(getClass().getResource("/background.png")).getImage();
 
-	// Creating buttons
+	// Erstellt die Buttons
 	private Button singleplayer = new Button(singleIcon);
 	private Button multiplayer = new Button(multiIcon);
 	private Button scoreboard = new Button(scoreIcon);
 	private Button settings = new Button(settingsIcon);
 	private Button quit = new Button(quitIcon);
-//	private Image logo = new ImageIcon(getClass().getResource("/background.png")).getImage();
 
-	// Constructor sets up listeners; switches the panel
+
+	// Constructor
 	public Menu() {
+		
+	//Aktion bei Klick auf einen Button
 		singleplayer.addActionListener(new ActionListener() {
 
 			@Override
@@ -67,12 +76,14 @@ public class Menu extends JComponent {
 		});
 	}
 
+	//Stellt die Buttons und das Logo dar
 	@Override
 	protected void paintComponent(Graphics g) {
-		//g.drawImage(logo, 0, 0, null); // Draws the logo
-
-		// Sets up the buttons position		
 		
+		//Stellt das Hintergrundlogo dar
+		g.drawImage(logo, 0, 0, null); // Draws the logo
+
+		// Setzt die Position und Groesse der Buttons		
 		singleplayer.setBounds(getButtonX(), getButtonY() - Game.HEIGHT / 100 * 25 / 2, 
 				getButtonWidth(), getButtonHeight());
 		multiplayer.setBounds(getButtonX(), getButtonY(), 
@@ -84,26 +95,33 @@ public class Menu extends JComponent {
 		quit.setBounds(getButtonX(), getButtonY() + Game.HEIGHT / 100 * 75 / 2, 
 				getButtonWidth(), getButtonHeight());
 
-		// Adds buttons to the gui
+		//Fuegt die Buttons der GUI hinzu
 		add(singleplayer);
 		add(multiplayer);
 		add(scoreboard);
 		add(settings);
 		add(quit);
-
 	}
+	
+	//Holt die Button X Position
 	public static int getButtonX() {
 		int x = Game.WIDTH / 2 - Game.WIDTH / 100 * 20;
 		return x;		
 	}
+	
+	//Holt die Button Y Position
 	public static int getButtonY() {
 		int y = Game.HEIGHT / 2;
 		return y;		
 	}
+	
+	//Holt die Buttonbreite
 	public static int getButtonWidth() {
 		int width = Game.WIDTH / 100 * 20 * 2;
 		return width;		
 	}
+	
+	//Holt die Buttonhoehe
 	public static int getButtonHeight() {
 		int height = Game.HEIGHT / 13;
 		return height;		

@@ -19,6 +19,10 @@ import preferences.Music;
 import preferences.Prefs;
 import preferences.ScoreDB;
 
+/**
+ *	Klasse fuer die Einstellungen
+ */
+
 public class Settings extends JComponent{
 	
 	private static final long serialVersionUID = 1L;

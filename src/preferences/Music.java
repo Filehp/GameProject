@@ -15,10 +15,10 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import menu.Settings;
 
-
 /**
- * Music allows us to play music in background.
+ *  Klasse fuer die Musik im Hintergrund
  */
+
 public class Music {
 	private File f;
 	private AudioInputStream sound;

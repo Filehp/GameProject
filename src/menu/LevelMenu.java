@@ -3,6 +3,7 @@ package menu;
 import game.Game;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,15 +11,20 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
+/**
+ *	Die Klasse fuer das Menue zur Auswahl des Levels
+ */
+
 public class LevelMenu extends JComponent {
 
-	private static final long serialVersionUID = 1L;
-
+	//Laedt die Bilder fuer die Buttons
 	Icon oneIcon = new ImageIcon("resources/Level1.png");
 	Icon twoIcon = new ImageIcon("resources/Level2.png");
 	Icon threeIcon = new ImageIcon("resources/Level3.png");
 	Icon fourIcon = new ImageIcon("resources/Level4.png");
 	Icon backIcon = new ImageIcon("resources/Back.png");
+	
+	private Image logo = new ImageIcon(getClass().getResource("/background.png")).getImage();
 
 	private Button level1 = new Button(oneIcon);
 	private Button level2 = new Button(twoIcon);
@@ -26,7 +32,10 @@ public class LevelMenu extends JComponent {
 	private Button level4 = new Button(fourIcon);
 	private Button back = new Button(backIcon);
 
+	//Constructor
 	public LevelMenu() {
+		
+	//Aktion bei Klick eines Buttons
 		level1.addActionListener(new ActionListener() {
 
 			@Override
@@ -58,11 +67,14 @@ public class LevelMenu extends JComponent {
 		});
 	}
 
+	//Stellt die Buttons dar
 	@Override
 	protected void paintComponent(Graphics g) {
-		// g.drawImage(logo, 320, 10, null); // Draws the logo
+		
+		//Stellt das Hintergrundlogo dar
+		g.drawImage(logo, 320, 10, null);
 
-		// Sets up the buttons position
+		// Setzt die Position und Groesse der Buttons
 		level1.setBounds(Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 - Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
 		level2.setBounds(Game.WIDTH / 2 + Game.WIDTH / 9, Game.HEIGHT / 2 - Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
 		level3.setBounds(Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 + Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
@@ -70,7 +82,7 @@ public class LevelMenu extends JComponent {
 		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, 
 				Menu.getButtonWidth(), Menu.getButtonHeight());
 
-		// Adds buttons to the gui
+		// Fuegt die Buttons der GUI hinzu
 		add(level1);
 		add(level2);
 		add(level3);

@@ -3,14 +3,12 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
 import java.util.ArrayList;
-//noch ein comment
-
-
 
 /**
- * Hallo WELT
+ * 
  * Created by Chris on 11.05.2015.
  */
+
 public class Wheel implements Serializable {
 
 

@@ -1,12 +1,11 @@
 package entity;
 
-
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
 /**
+ * Die Kanonenklasse
  * Created by Chris on 09.05.2015.
  */
 public class Canon  implements Serializable {
@@ -59,13 +58,14 @@ public class Canon  implements Serializable {
         }
     }
 
+    //Lädt die Kanone
     public void canonLoad(Graphics canon) {
 
         canon.setColor(Color.BLACK);
         canon.fillRect(this.canonX, this.canonY, canonWigth, canonHeigth);
     }
 
-
+    //Bewegt die Kanone
     public void moveCanon(String direction){
         if(direction.equals("left")){
             this.canonX = this.canonX - 5;
@@ -86,11 +86,13 @@ public class Canon  implements Serializable {
         }
     }
 
+    //Guckt, wo sich die Kanone befindet
     public int getAbschussPositionX(){ return this.xPositionMissile = this.canonX +(canonWigth/2)-radiusMissel/2; }
     public int getAbschussPositionY(){
         return this.yPositionMissile = this.canonY -(canonHeigth/2);
     }
 
+    //Schießt ein Geschoss
     public int shotMissile(Graphics missileGrafic, ArrayList<Missile> missile){
             int missilenumber = 99;
             for (Missile missil:missile) {
@@ -103,9 +105,9 @@ public class Canon  implements Serializable {
 
             return missilenumber;
 
-
-
     }
+    
+    //Passt die Auflösung an
     public void aufloesungAnpassen(double faktorX, double faktorY, boolean operator){
         /**
          * operator bestimmt ob der Faktor multipliziert oder geteilt wird

@@ -16,21 +16,29 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
+/**
+ *	Klasse fuer das Multiplayer Menue
+ */
+
 public class MultiplayerMenu extends JComponent implements Runnable {
 
-	private static final long serialVersionUID = 1L;
+	//Laedt die Bilder
 	Icon backIcon = new ImageIcon("resources/Back.png");
 	Icon createIcon = new ImageIcon("resources/Create.png");
 	Icon joinIcon = new ImageIcon("resources/Join.png");
 
+	//Erzeugt die Buttons
 	private Button back = new Button(backIcon);
 	private Button create = new Button(createIcon);
 	private Button join = new Button(joinIcon);
 	
+	//Erzeugt das Textfeld zur Eingabe der IP
 	private JTextField field = new JTextField("Please enter IP to connect");
 
+	//Constructor
 	public MultiplayerMenu() {
 
+	//Aktion bei Klick auf einen Button
 		back.addActionListener(new ActionListener() {
 
 			@Override
@@ -72,14 +80,17 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 		});
 	}
 
+	//Stellt die Buttons dar
 	@Override
 	protected void paintComponent(Graphics g) {
 
+		//Setzt die Position und Groesse der Buttons
 		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
 		create.setBounds(Menu.getButtonX(), Menu.getButtonY() - Game.HEIGHT / 100 * 25 / 2,	Menu.getButtonWidth(), Menu.getButtonHeight());
 		join.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
 		field.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 15 / 2, Menu.getButtonWidth(), Menu.getButtonHeight() / 2);
 
+		//Fuegt die Buttons der GUI hinzu
 		add(back);
 		add(field);
 		add(create);
@@ -87,6 +98,7 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 
 	}
 
+	//Startet den Multiplayer Server
 	@Override
 	public void run() {
 		try {
