@@ -222,11 +222,20 @@ public class MultiplayerServer extends JComponent {
 
                      if (playerID == 1) {
                          oos.writeObject(KanonePlayer2);
+                         oos.writeObject(missilePlayer1);
                          oos.writeObject(missilePlayer2);
                      } else {
                          KanonePlayer1.aufloesungAnpassen(faktorX, faktorY, false);
                          oos.writeObject(KanonePlayer1);
                          KanonePlayer1.aufloesungAnpassen(faktorX, faktorY, true);
+                         for (Missile missile : missilePlayer2) {
+                             missile.aufloesungAnpassen(this.faktorX, this.faktorY, false);
+                         }
+                         oos.writeObject(missilePlayer2);
+                         for (Missile missile : missilePlayer2) {
+                             missile.aufloesungAnpassen(this.faktorX, this.faktorY, true);
+                         }
+
                          for (Missile missile : missilePlayer1) {
                              missile.aufloesungAnpassen(this.faktorX, this.faktorY, false);
                          }

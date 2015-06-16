@@ -58,6 +58,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
     private Button replay = new Button(replayIcon);
     private JLabel yourTime = new JLabel();
     private JLabel yourMissles = new JLabel();
+
     public MultiplayerClient(int x, int y, int missileClip, int playerID, String adress) {
         this.setFocusable(true);
         this.playerID = playerID;
@@ -138,7 +139,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
         while (time) {
             repaint();
             try {
-                Thread.sleep(20);
+                Thread.sleep(85);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -150,6 +151,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
                 ObjectOutputStream oos = null;
                 ObjectInputStream ois = null;
                 Socket socket = null;
+
                 socket = new Socket(this.adress, 5000);
 
                 //Daten senden
@@ -175,14 +177,15 @@ public class MultiplayerClient extends JPanel implements Runnable{
                 minuten = (int) ois.readObject();
                 sekunden = (int) ois.readObject();
                 KanonePlayer2 = (Canon) ois.readObject();
+                missilePlayer1 = (ArrayList) ois.readObject();
                 missilePlayer2 = (ArrayList) ois.readObject();
                 waitGameStart = (boolean) ois.readObject();
 
-                is.close();
-                os.close();
 
+                    is.close();
+                    os.close();
+                    socket.close();
 
-                socket.close();
                 System.out.println(waitGameStart);
 
             } catch (IOException e) {
@@ -225,11 +228,13 @@ public class MultiplayerClient extends JPanel implements Runnable{
             }
 
             this.missilnumber = KanonePlayer2.shotMissile(canon, missilePlayer2);
-            if (this.missilnumber != 99) {
+            /*if (this.missilnumber != 99) {
                 //System.out.println(missilnumber);
                 missilePlayer2.remove(this.missilnumber);
 
-            }
+            }*/
+
+
 
             //Kollision abfangen
 
