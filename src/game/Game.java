@@ -72,8 +72,8 @@ public class Game {
 		frame.setVisible(true);
 		
 		//Startet die Musik
-		Music music = new Music();
-		music.playMusic();
+		/*Music music = new Music();
+		music.playMusic();*/
 	}
 
 	//Aendert in das jeweilige Panel bzw. Menue/Spiel
