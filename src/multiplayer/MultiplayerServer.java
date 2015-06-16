@@ -43,6 +43,7 @@ public class MultiplayerServer extends JComponent {
     Socket socket;
 
     private boolean allPlayer = false;
+    private boolean waitGameStart = true;
 
     public MultiplayerServer(int x, int y){
         this.x = x;
@@ -50,24 +51,17 @@ public class MultiplayerServer extends JComponent {
     }
 
 
-    public static void main(String[] argv) throws IOException {
+    /*public static void main(String[] argv) throws IOException {
 
-            new MultiplayerServer(200,300).start();
-        }
+           // new MultiplayerServer(200,300).start();
+        }*/
 
-         void start() throws IOException {
+         public void start() throws IOException {
              System.out.println("Server gestartet.");
-             rad = new Wheel(this.x, this.y, 4, 2);
-             rad.addSpokes();
-             starttime = System.currentTimeMillis();
+
 
              try {
                  while (true) {
-
-
-                     //Rad bewegen auf Player 1 begrenzen
-                     rad.spinWheel();
-
 
                      InputStream is = null;
                      OutputStream os = null;
@@ -75,12 +69,12 @@ public class MultiplayerServer extends JComponent {
                      socket = serverSocket.accept();
 
                      //Daten empfangen
-
                      is = socket.getInputStream();
                      ObjectInputStream ois = new ObjectInputStream(is);
                      playerID = (int)ois.readObject();
 
                      if(playerID==2){
+                        allPlayer = true;
                         int  p2x = (int)ois.readObject();
                         int  p2y = (int)ois.readObject();
 
@@ -108,108 +102,117 @@ public class MultiplayerServer extends JComponent {
                      }
                      System.out.println("Daten empfangen");
 
+                     /**
+                      * GameStart: das Spiel startet wenn gameStart auf true und allPlayer ebenfalls auf true ist
+                      */
+                    if (waitGameStart && allPlayer) {
+                        rad = new Wheel(this.x, this.y, 4, 2);
+                        rad.addSpokes();
+                        starttime = System.currentTimeMillis();
+                        waitGameStart=false;
+                    }
+                     if(allPlayer) {
+                         //Rad bewegen auf Player 1 begrenzen
+                         rad.spinWheel();
 
+                         //Zeit wird berechnet und geprüft
+                         long currentTime = System.currentTimeMillis() - starttime;
+                         int currentTimeOutput = (int) (timer - currentTime);
+                         minuten = (int) currentTimeOutput / 1000 / 60;
+                         sekunden = (int) currentTimeOutput / 1000 % 60;
+                         if (currentTime >= timer) {
+                             time = false;
+                             System.out.println("Timeout");
+                         }
 
+                         //Sieges bedingung
+                         if (this.missileClipPlayer1 == 0 && missilePlayer1.size() == 0) {
+                             System.out.println("Du hast gewonnen Player1");
+                             System.out.println("Du hast verloren Player2");
+                         }
+                         if (this.missileClipPlayer2 == 0 && missilePlayer2.size() == 0) {
+                             System.out.println("Du hast gewonnen Player2");
+                             System.out.println("Du hast verloren Player1");
+                         }
 
+                         //Berechnungen Kollision
 
-                     //Zeit wird berechnet und geprüft
-                     long currentTime = System.currentTimeMillis() - starttime;
-                     int currentTimeOutput = (int) (timer - currentTime);
-                     minuten = (int) currentTimeOutput / 1000 / 60;
-                     sekunden = (int) currentTimeOutput / 1000 % 60;
-                     if (currentTime >= timer) {
-                         time = false;
-                         System.out.println("Timeout");
-                     }
+                         //Kollision abfangen Player1
+                         if (missilePlayer1.size() > 0) {
+                             for (int i = 0; i < missilePlayer1.size(); i++) {
+                                 //Auf Kollision mit rad prüfen
 
-                    //Sieges bedingung
-                     if (this.missileClipPlayer1 == 0 && missilePlayer1.size() == 0) {
-                         System.out.println("Du hast gewonnen Player1");
-                         System.out.println("Du hast verloren Player2");
-                     }
-                     if (this.missileClipPlayer2 == 0 && missilePlayer2.size() == 0) {
-                         System.out.println("Du hast gewonnen Player2");
-                         System.out.println("Du hast verloren Player1");
-                     }
+                                 boolean Kollirad = missilePlayer1.get(i).collidesWithWheel(rad);
 
-                     //Berechnungen Kollision
+                                 //Auf kollision mit Speiche prüfen
+                                 boolean Kollispeiche = missilePlayer1.get(i).coollidesWithSpokes(rad.getSpokesList());
 
-                     //Kollision abfangen Player1
-                     if (missilePlayer1.size() > 0) {
-                         for (int i = 0; i < missilePlayer1.size(); i++) {
-                             //Auf Kollision mit rad prüfen
+                                 //Kollision mit Rad
+                                 if (Kollirad && Kollispeiche == false) {
+                                     //Was soll passieren wenn das Geschoss auf das Rad trifft?
 
-                             boolean Kollirad = missilePlayer1.get(i).collidesWithWheel(rad);
-
-                             //Auf kollision mit Speiche prüfen
-                             boolean Kollispeiche = missilePlayer1.get(i).coollidesWithSpokes(rad.getSpokesList());
-
-                             //Kollision mit Rad
-                             if (Kollirad && Kollispeiche == false) {
-                                 //Was soll passieren wenn das Geschoss auf das Rad trifft?
-
-                                 //Speiche wird dan der Stelle hinzugefügt
-                                 rad.addSpokes(missilePlayer1.get(i).getX());
-                                 //Geschoss wird entfernt
-                                 missilePlayer1.remove(i);
-
-
-                             } else {
-                                 //Kollision mit Speiche
-                                 if (Kollispeiche) {
-                                     //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
-                                     //this.setBackground(Color.RED);
-
-                                     System.out.println("Speiche getroffen! Player2 gewinnt");
+                                     //Speiche wird dan der Stelle hinzugefügt
+                                     rad.addSpokes(missilePlayer1.get(i).getX());
+                                     //Geschoss wird entfernt
                                      missilePlayer1.remove(i);
+
+
+                                 } else {
+                                     //Kollision mit Speiche
+                                     if (Kollispeiche) {
+                                         //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
+                                         //this.setBackground(Color.RED);
+
+                                         System.out.println("Speiche getroffen! Player2 gewinnt");
+                                         missilePlayer1.remove(i);
+                                     }
                                  }
+
+                             }
+                         }
+                         //Kollision abfangen Player2
+                         if (missilePlayer2.size() > 0) {
+                             for (int i = 0; i < missilePlayer2.size(); i++) {
+                                 //Auf Kollision mit rad prüfen
+
+                                 boolean Kollirad = missilePlayer2.get(i).collidesWithWheel(rad);
+
+                                 //Auf kollision mit Speiche prüfen
+                                 boolean Kollispeiche = missilePlayer2.get(i).coollidesWithSpokes(rad.getSpokesList());
+
+                                 //Kollision mit Rad
+                                 if (Kollirad && Kollispeiche == false) {
+                                     //Was soll passieren wenn das Geschoss auf das Rad trifft?
+
+                                     //Speiche wird dan der Stelle hinzugefügt
+                                     rad.addSpokes(missilePlayer2.get(i).getX());
+                                     //Geschoss wird entfernt
+                                     missilePlayer2.remove(i);
+
+
+                                 } else {
+                                     //Kollision mit Speiche
+                                     if (Kollispeiche) {
+                                         //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
+
+
+                                         System.out.println("Speiche getroffen! Player1 gewinnt");
+                                         missilePlayer1.remove(i);
+                                     }
+                                 }
+
                              }
 
+
                          }
+
                      }
-                     //Kollision abfangen Player2
-                     if (missilePlayer2.size() > 0) {
-                         for (int i = 0; i < missilePlayer2.size(); i++) {
-                             //Auf Kollision mit rad prüfen
-
-                             boolean Kollirad = missilePlayer2.get(i).collidesWithWheel(rad);
-
-                             //Auf kollision mit Speiche prüfen
-                             boolean Kollispeiche = missilePlayer2.get(i).coollidesWithSpokes(rad.getSpokesList());
-
-                             //Kollision mit Rad
-                             if (Kollirad && Kollispeiche == false) {
-                                 //Was soll passieren wenn das Geschoss auf das Rad trifft?
-
-                                 //Speiche wird dan der Stelle hinzugefügt
-                                 rad.addSpokes(missilePlayer2.get(i).getX());
-                                 //Geschoss wird entfernt
-                                 missilePlayer2.remove(i);
-
-
-                             } else {
-                                 //Kollision mit Speiche
-                                 if (Kollispeiche) {
-                                     //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
-
-
-                                     System.out.println("Speiche getroffen! Player1 gewinnt");
-                                     missilePlayer1.remove(i);
-                                 }
-                             }
-
-                         }
-
-
-                         }
-
-
                      //Daten senden
                      os = socket.getOutputStream();
                      ObjectOutputStream oos = new ObjectOutputStream(os);
-                     if(playerID==1) {
+                     if (playerID == 1) {
                          oos.writeObject(rad);
-                     }else{
+                     } else {
                          rad.aufloesungAnpassen(faktorX, faktorY, false);
                          oos.writeObject(rad);
                          rad.aufloesungAnpassen(faktorX, faktorY, true);
@@ -217,25 +220,31 @@ public class MultiplayerServer extends JComponent {
                      oos.writeObject(minuten);
                      oos.writeObject(sekunden);
 
-                     if(playerID==1){
+                     if (playerID == 1) {
                          oos.writeObject(KanonePlayer2);
+                         oos.writeObject(missilePlayer1);
                          oos.writeObject(missilePlayer2);
-                     }else{
+                     } else {
                          KanonePlayer1.aufloesungAnpassen(faktorX, faktorY, false);
                          oos.writeObject(KanonePlayer1);
                          KanonePlayer1.aufloesungAnpassen(faktorX, faktorY, true);
-                         for(Missile missile: missilePlayer1){
+                         for (Missile missile : missilePlayer2) {
+                             missile.aufloesungAnpassen(this.faktorX, this.faktorY, false);
+                         }
+                         oos.writeObject(missilePlayer2);
+                         for (Missile missile : missilePlayer2) {
+                             missile.aufloesungAnpassen(this.faktorX, this.faktorY, true);
+                         }
+
+                         for (Missile missile : missilePlayer1) {
                              missile.aufloesungAnpassen(this.faktorX, this.faktorY, false);
                          }
                          oos.writeObject(missilePlayer1);
-                         for(Missile missile: missilePlayer1){
+                         for (Missile missile : missilePlayer1) {
                              missile.aufloesungAnpassen(this.faktorX, this.faktorY, true);
                          }
                      }
-
-
-                     //oos.writeObject(new String("another object from the client"));
-
+                     oos.writeObject(waitGameStart);
 
                      System.out.println("Daten senden");
 
