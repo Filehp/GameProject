@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import preferences.Music;
 import menu.Difficulty;
 import menu.LevelMenu;
 import menu.Menu;
@@ -65,8 +66,8 @@ public class Game {
 		 * Starts the music
 		 */
 		
-		//Music music = new Music();
-		//music.playMusic();
+		Music music = new Music();
+		music.playMusic();
 	}
 
 
@@ -100,7 +101,7 @@ public class Game {
 			panel.add(new Settings(), BorderLayout.CENTER); break;
 			
 		case "testFrame":
-			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,5000,4,1), BorderLayout.CENTER); break;
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,50000,4,1), BorderLayout.CENTER); break;
 		
 		case "multiplayerServer":
 			panel.add(new MultiplayerServer(200, 300), BorderLayout.CENTER); break;
