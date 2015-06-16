@@ -1,19 +1,22 @@
 package menu;
 
 import game.Game;
+import multiplayer.MultiplayerClient;
+import multiplayer.MultiplayerServer;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-public class MultiplayerMenu extends JComponent {
+public class MultiplayerMenu extends JComponent implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	Icon backIcon = new ImageIcon("resources/Back.png");
@@ -49,7 +52,10 @@ public class MultiplayerMenu extends JComponent {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game.changePanel("multiplayerServer", MultiplayerMenu.this);
+				new Thread(new MultiplayerMenu()).start();
+				Game.changePanel("multiplayerClientHost", MultiplayerMenu.this);
+
+
 
 			}
 		});
@@ -59,7 +65,8 @@ public class MultiplayerMenu extends JComponent {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String adress = field.getText();
-				
+				Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
+
 
 			}
 		});
@@ -80,4 +87,12 @@ public class MultiplayerMenu extends JComponent {
 
 	}
 
+	@Override
+	public void run() {
+		try {
+			new MultiplayerServer(Game.getWindowWidth(), Game.getWindowHeight()).start();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
 }

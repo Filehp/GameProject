@@ -8,6 +8,10 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import entity.*;
+import game.Game;
+import menu.*;
+import menu.Button;
+
 /**
  * Created by Chris on 11.06.2015.
  */
@@ -20,7 +24,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
     int minuten;
     int sekunden;
     long starttime = System.currentTimeMillis();
-
+    String adress;
     private int playerID;
 
     String directionPlayer1;
@@ -43,16 +47,25 @@ public class MultiplayerClient extends JPanel implements Runnable{
     InputMap im;
     ActionMap am;
 
+    private boolean waitGameStart;
+    private Thread thread;
 
 
-    public MultiplayerClient(int x, int y, int missileClip, int time, int startSpokes, int speedWheel, int playerID) {
+    private boolean scorePanel = false;
+    Icon quitIcon = new ImageIcon("resources/Quit.png");
+    Icon replayIcon = new ImageIcon("resources/Replay.png");
+    private Button quit = new Button(quitIcon);
+    private Button replay = new Button(replayIcon);
+    private JLabel yourTime = new JLabel();
+    private JLabel yourMissles = new JLabel();
+    public MultiplayerClient(int x, int y, int missileClip, int playerID, String adress) {
         this.setFocusable(true);
         this.playerID = playerID;
         this.missileClipPlayer1 = missileClip;
         KanonePlayer1 = new Canon(x, y, missileClip, true, 1);
         this.x = x;
         this.y = y;
-
+        this.adress = adress;
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         this.am = getActionMap();
 
@@ -116,7 +129,8 @@ public class MultiplayerClient extends JPanel implements Runnable{
             }
         });
 
-
+        //Starts the thread
+        start();
     }
 
     @Override
@@ -129,8 +143,55 @@ public class MultiplayerClient extends JPanel implements Runnable{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            try {
+                //Verbindung zum MultiplayerServer
+                InputStream is = null;
+                OutputStream os = null;
+                ObjectOutputStream oos = null;
+                ObjectInputStream ois = null;
+                Socket socket = null;
+                socket = new Socket(this.adress, 5000);
 
-        }
+                //Daten senden
+                os = socket.getOutputStream();
+                oos = new ObjectOutputStream(os);
+
+                oos.writeObject(playerID);
+                oos.writeObject(this.x);
+                oos.writeObject(this.y);
+                oos.writeObject(KanonePlayer1);
+                oos.writeObject(missilePlayer1);
+                oos.writeObject(missileClipPlayer1);
+                System.out.println(playerID);
+                System.out.println("Daten gesendet");
+
+
+
+                //Daten empfangen
+                is = socket.getInputStream();
+                ois = new ObjectInputStream(is);
+
+                rad = (Wheel) ois.readObject();
+                minuten = (int) ois.readObject();
+                sekunden = (int) ois.readObject();
+                KanonePlayer2 = (Canon) ois.readObject();
+                missilePlayer2 = (ArrayList) ois.readObject();
+                waitGameStart = (boolean) ois.readObject();
+
+                is.close();
+                os.close();
+
+
+                socket.close();
+                System.out.println(waitGameStart);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            }
     }
 
     @Override
@@ -139,101 +200,99 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
 
 
-        try {
-            //Verbindung zum MultiplayerServer
-            InputStream is = null;
-            OutputStream os = null;
-            Socket socket = new Socket("localhost", 5000);
 
-            //Daten senden
-            os = socket.getOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(os);
+        if(this.waitGameStart==false) {
+            //Rad laden
+            rad.spinWheel();
+            rad.loadWheel(canon, startSpokes);
+            this.startSpokes = false;
 
-            oos.writeObject(playerID);
-            oos.writeObject(this.x);
-            oos.writeObject(this.y);
-            oos.writeObject(KanonePlayer1);
-            oos.writeObject(missilePlayer1);
-            oos.writeObject(missileClipPlayer1);
-            oos.writeObject(new String("another object from the client"));
-            oos.writeObject(new String("zweiter String"));
-            System.out.println("Daten gesendet");
+            //KAnone Laden
+            KanonePlayer1.canonLoad(canon);
+            KanonePlayer2.canonLoad(canon);
+
+            //KanonePlayer1 bewegen
+            if (this.directionPlayer1 != null) {
+                KanonePlayer1.moveCanon(this.directionPlayer1);
+            }
 
 
-            //Daten empfangen
-            is = socket.getInputStream();
-            ObjectInputStream ois = new ObjectInputStream(is);
-            rad = (Wheel)ois.readObject();
-            minuten = (int)ois.readObject();
-            sekunden = (int)ois.readObject();
-            KanonePlayer2 = (Canon)ois.readObject();
-            missilePlayer2 = (ArrayList)ois.readObject();
+            //Geschoss abfeuern
+            this.missilnumber = KanonePlayer1.shotMissile(canon, missilePlayer1);
+            if (this.missilnumber != 99) {
+                //System.out.println(missilnumber);
+                missilePlayer1.remove(this.missilnumber);
+            }
 
-            is.close();
-            oos.close();
-            os.close();
-            System.out.println("Daten empfangen");
-            socket.close();
+            this.missilnumber = KanonePlayer2.shotMissile(canon, missilePlayer2);
+            if (this.missilnumber != 99) {
+                //System.out.println(missilnumber);
+                missilePlayer2.remove(this.missilnumber);
 
-        //Rad laden
-        rad.spinWheel();
-        rad.loadWheel(canon, startSpokes);
-        this.startSpokes = false;
+            }
 
-        //KAnone Laden
-        KanonePlayer1.canonLoad(canon);
-        KanonePlayer2.canonLoad(canon);
+            //Kollision abfangen
 
-        //KanonePlayer1 bewegen
-        if (this.directionPlayer1 != null) {
-            KanonePlayer1.moveCanon(this.directionPlayer1);
+            //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+            //Verbleibende Zeit anzeigen
+            canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
+            if (sekunden >= 10) {
+                canon.drawString("0" + minuten + ":" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
+            } else {
+                canon.drawString("0" + minuten + ":0" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
+            }
+
+            //Schussstärke anzeigen
+            canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 18, this.y / 100 * 3);
+            canon.setColor(new Color(0, 128, 128));
+            canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
         }
 
-
-        //Geschoss abfeuern
-        this.missilnumber = KanonePlayer1.shotMissile(canon, missilePlayer1);
-        if (this.missilnumber != 99) {
-            //System.out.println(missilnumber);
-            missilePlayer1.remove(this.missilnumber);
-        }
-
-        this.missilnumber = KanonePlayer2.shotMissile(canon, missilePlayer2);
-        if (this.missilnumber != 99) {
-            //System.out.println(missilnumber);
-            missilePlayer2.remove(this.missilnumber);
-
-        }
-
-        //Kollision abfangen
-
-        //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-        //Verbleibende Zeit anzeigen
-        canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
-        if (sekunden >= 10) {
-            canon.drawString("0" + minuten + ":" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
-        } else {
-            canon.drawString("0" + minuten + ":0" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
-        }
-
-        //Schussstärke anzeigen
-        canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 18, this.y / 100 * 3);
-        canon.setColor(new Color(0, 128, 128));
-        canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
-
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
 
 
     }
+    private void start() {
+        thread = new Thread(this, "Game Loop"); // Creates new thread
+        thread.start(); // Starts thread
 
+    }
+    private void stop() {
+        time = false;
+        scorePanel = true; //open scorepanel
+        repaint();
+
+    }
+    private void gameLost() {
+        //Stoppt den Thread
+        stop();
+        this.setBackground(Color.RED);
+
+        //Öffnet das scorePanel mit Replay oder Quit
+        if (scorePanel) {
+            GameResult panel = new GameResult(0);
+            quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
+            replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
+
+            yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
+            yourTime.setText("You failed after " + "seconds.");
+            yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
+            yourMissles.setText("You have " + "missles left.");
+
+            add(yourTime);
+            add(yourMissles);
+
+            this.add(quit);
+            this.add(replay);
+
+            this.add(panel);
+
+        }
+
+
+    }
 
 
 
