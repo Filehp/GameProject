@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import multiplayer.MultiplayerServer;
@@ -37,7 +38,7 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 	private Button join = new Button(joinIcon);
 	
 	//Erzeugt das Textfeld zur Eingabe der IP
-	private static JFormattedTextField field = new JFormattedTextField("Please enter IP to connect");
+	private static JTextField field = new JTextField("Please enter IP to connect");
 
 	//Constructor
 	public MultiplayerMenu() {
@@ -56,9 +57,7 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				remove(field);
-				field = new JFormattedTextField(createFormatter("###.###.###.###")); // Löscht den Inhalt des Feldes
-				repaint();
+				field.setText(""); // Löscht den Inhalt des Feldes
 			}
 		});
 		

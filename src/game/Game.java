@@ -115,11 +115,8 @@ public class Game {
 			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,1, "localhost"), BorderLayout.CENTER); break;
 			
 		case "multiplayerClientJoin":
-			try {
 			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,2, MultiplayerMenu.getIp()), BorderLayout.CENTER);
-		} catch (NullPointerException e) {
-			JOptionPane.showMessageDialog(null, "Bitte eine gültige IP Adresse eingeben", "Fehler", JOptionPane.INFORMATION_MESSAGE, null);
-		}
+
 		}
 		
 	}
