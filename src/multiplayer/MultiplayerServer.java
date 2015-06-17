@@ -23,8 +23,6 @@ public class MultiplayerServer extends JComponent {
 
     private int playerID;
 
-
-
     private int loadBar=0;
     private int missilnumber = 99;
     private int missileClipPlayer1;
@@ -36,6 +34,7 @@ public class MultiplayerServer extends JComponent {
 
     private Canon KanonePlayer1;
     private Canon KanonePlayer2;
+
     private Wheel rad;
 
     private double faktorX;
@@ -45,14 +44,17 @@ public class MultiplayerServer extends JComponent {
     private boolean allPlayer = false;
     private boolean waitGameStart = true;
 
-    private boolean victoryPlayer1;
-    private boolean victoryPlayer2;
+    private int victoryPlayer1 = 0;
+    private int victoryPlayer2 = 0;
+    private boolean player1Finished;
+    private boolean player2Finished;
 
     public MultiplayerServer(int x, int y){
         this.x = x;
         this.y = y;
     }
 
+    private boolean serverrun = true;
 
     /*public static void main(String[] argv) throws IOException {
 
@@ -64,7 +66,7 @@ public class MultiplayerServer extends JComponent {
 
 
              try {
-                 while (true) {
+                 while (serverrun) {
 
                      InputStream is = null;
                      OutputStream os = null;
@@ -103,6 +105,12 @@ public class MultiplayerServer extends JComponent {
                          }
                          missileClipPlayer2 = (int)ois.readObject();
                      }
+
+                     if(playerID==1) {
+                         player1Finished = (boolean) ois.readObject();
+                     }else {
+                         player2Finished = (boolean) ois.readObject();
+                     }
                      System.out.println("Daten empfangen");
 
                      /**
@@ -130,16 +138,22 @@ public class MultiplayerServer extends JComponent {
 
                          //Sieges bedingung
                          if (this.missileClipPlayer1 == 0 && missilePlayer1.size() == 0) {
-                             this.victoryPlayer1 = true;
-                             this.victoryPlayer2 = false;
-                             System.out.println("Du hast gewonnen Player1");
-                             System.out.println("Du hast verloren Player2");
+                             /**
+                              * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft
+                              */
+                             this.victoryPlayer1 = 1;
+                             this.victoryPlayer2 = -1;
+                             //serverrun = false;
+
                          }
                          if (this.missileClipPlayer2 == 0 && missilePlayer2.size() == 0) {
-                             this.victoryPlayer1 = false;
-                             this.victoryPlayer2 = true;
-                             System.out.println("Du hast gewonnen Player2");
-                             System.out.println("Du hast verloren Player1");
+                             /**
+                              * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft
+                              */
+                             this.victoryPlayer1 = -1; //Spieler 1 verliert
+                             this.victoryPlayer2 = 1;  //Spieler 2 gewinnt
+                            // serverrun = false; //Server wird gestoppt
+
                          }
 
                          //Berechnungen Kollision
@@ -169,8 +183,12 @@ public class MultiplayerServer extends JComponent {
                                      if (Kollispeiche) {
                                          //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
                                          //this.setBackground(Color.RED);
-                                         this.victoryPlayer1 = true;
-                                         this.victoryPlayer2 = false;
+                                         /**
+                                          * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft
+                                          */
+                                         this.victoryPlayer1 = 1;
+                                         this.victoryPlayer2 = -1;
+                                         //serverrun = false;
                                          System.out.println("Speiche getroffen! Player2 gewinnt");
                                          missilePlayer1.remove(i);
                                      }
@@ -202,11 +220,14 @@ public class MultiplayerServer extends JComponent {
                                      //Kollision mit Speiche
                                      if (Kollispeiche) {
                                          //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
-
-                                         this.victoryPlayer1 = false;
-                                         this.victoryPlayer2 = true;
+                                         /**
+                                          * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft
+                                          */
+                                         this.victoryPlayer1 = -1;
+                                         this.victoryPlayer2 = 1;
+                                         //serverrun = false;
                                          System.out.println("Speiche getroffen! Player1 gewinnt");
-                                         missilePlayer1.remove(i);
+                                         missilePlayer2.remove(i);
                                      }
                                  }
 
@@ -270,8 +291,13 @@ public class MultiplayerServer extends JComponent {
                      socket.close();
                      serverSocket.close();
 
+                     /**
+                      * Server runterfahren (beenden der Schleife)
+                      */
+                     if (player1Finished && player2Finished){
+                         //serverrun = false;
+                     }
 
-                     System.out.println("Läuft");
                      }
 
                  }
