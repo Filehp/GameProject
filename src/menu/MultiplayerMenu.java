@@ -80,17 +80,23 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				
 				String adress = field.getText();
+				
+				boolean verbindungstest;
 				try {
 					Socket socket = new Socket(adress, 5000);
-						Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
+					verbindungstest = true;
+					socket.close();
+				} catch (IOException ex) {
+					verbindungstest = false;
 				}
-				catch(IOException ex){
-					System.out.println("bub");
+				if(verbindungstest){
+					Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
+				}else{
+					System.out.println("Verbindung ungültig");
 				}
 
-
-	
-			}
+				
+				}
 		});
 	}
 
