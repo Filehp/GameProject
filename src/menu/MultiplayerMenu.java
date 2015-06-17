@@ -77,26 +77,13 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				String address = field.getText();
-				
-				boolean verbindungstest;
-				try {
-					Socket socket = new Socket(address, 5000);
-					verbindungstest = true;
-					socket.close();
-				} catch (IOException ex) {
-					verbindungstest = false;
-				}
-				if(verbindungstest){
-					Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
-				}else{
-					JOptionPane.showMessageDialog(null, "Bitte eine gültige IP Adresse eingeben", "Fehler", JOptionPane.INFORMATION_MESSAGE, null);
 
+				String adress = field.getText();
+                Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
+				//JOptionPane.showMessageDialog(null, "Bitte eine gültige IP Adresse eingeben", "Fehler", JOptionPane.INFORMATION_MESSAGE, null);
+				
 				}
 
-				
-				}
 		});
 	}
 

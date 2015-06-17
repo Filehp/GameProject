@@ -6,11 +6,9 @@ import java.awt.Dimension;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import preferences.Music;
 import menu.Difficulty;
 import menu.LevelMenu;
 import menu.Menu;
@@ -18,8 +16,7 @@ import menu.MultiplayerMenu;
 import menu.Scoreboard;
 import menu.Settings;
 import multiplayer.MultiplayerClient;
-import multiplayer.MultiplayerLevel;
-import multiplayer.MultiplayerServer;
+
 
 /**
  * Beinhaltet die Main
@@ -91,15 +88,6 @@ public class Game {
 
 		case "multiplayer":
 			panel.add(new MultiplayerMenu(), BorderLayout.CENTER);break;
-
-		case "multiplayerLevel":
-			MultiplayerLevel multiLevel = new MultiplayerLevel(Game.getWindowWidth(),Game.getWindowHeight(),10,270000,4,1);
-			multiLevel.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT2 * SCALE));
-			multiLevel.setBackground(new Color(190, 190, 190));
-			multiLevel.setLayout(new BorderLayout());
-			frame.add(multiLevel);
-			new Thread(multiLevel).start();
-			break;
 		
 		case "scoreboard":
 			panel.add(new Scoreboard(), BorderLayout.CENTER); break;
