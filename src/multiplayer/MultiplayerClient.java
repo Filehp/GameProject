@@ -11,6 +11,7 @@ import entity.*;
 import game.Game;
 import menu.*;
 import menu.Button;
+import menu.Menu;
 
 /**
  * Created by Chris on 11.06.2015.
@@ -204,9 +205,6 @@ public class MultiplayerClient extends JPanel implements Runnable{
     public void paintComponent(Graphics canon) {
         super.paintComponent(canon);
 
-
-
-
         if(this.waitGameStart==false) {
             //Rad laden
             rad.spinWheel();
@@ -244,8 +242,8 @@ public class MultiplayerClient extends JPanel implements Runnable{
              */
             if(this.victory==1){
                 System.out.println("Sieg");
+                gameWon();
 
-                gameLost();
             }else if(this.victory==-1){
                 System.out.println("verloren");
                 gameLost();
@@ -292,7 +290,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
         if (scorePanel) {
             GameResultLose panel = new GameResultLose(0);
             quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
-            replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
+
 
             yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
             yourTime.setText("You failed after " + "seconds.");
@@ -308,7 +306,29 @@ public class MultiplayerClient extends JPanel implements Runnable{
             this.add(panel);
 
         }
+    }
 
+    private void gameWon() {
+        //Stoppt den Thread
+        stop();
+        this.setBackground(Color.GREEN);
+
+        //Öffnet das scorePanel mit Replay oder Quit
+        if (scorePanel) {
+            GameResultWin panel = new GameResultWin(1);
+            quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+
+
+            yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+            yourTime.setText("You needed " + "seconds.");
+
+            add(yourTime);
+
+            this.add(quit);
+            this.add(replay);
+
+            this.add(panel);
+        }
 
     }
 
