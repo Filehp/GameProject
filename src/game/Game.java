@@ -111,10 +111,10 @@ public class Game {
 			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,50000,4,1), BorderLayout.CENTER); break;
 		
 		case "multiplayerClientHost":
-			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,1,"localhost"), BorderLayout.CENTER); break;
+			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,1, MultiplayerMenu.getIp()), BorderLayout.CENTER); break;
 			
 		case "multiplayerClientJoin":
-			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,2,"localhost"), BorderLayout.CENTER); break;
+			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,2, MultiplayerMenu.getIp()), BorderLayout.CENTER); break;
 
 		}
 		

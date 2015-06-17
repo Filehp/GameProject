@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -33,7 +34,7 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 	private Button join = new Button(joinIcon);
 	
 	//Erzeugt das Textfeld zur Eingabe der IP
-	private JTextField field = new JTextField("Please enter IP to connect");
+	private static JTextField field = new JTextField("Please enter IP to connect");
 
 	//Constructor
 	public MultiplayerMenu() {
@@ -106,5 +107,14 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public static String getIp() {
+		String ip;
+		
+		ip = field.getText();
+		
+		return ip;
+		
 	}
 }
