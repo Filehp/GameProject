@@ -82,16 +82,10 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 				String adress = field.getText();
 				try {
 					Socket socket = new Socket(adress, 5000);
-					boolean verbindungstest = socket.isConnected();
-					if(verbindungstest){
 						Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
-					}else{
-
-					}
-
 				}
 				catch(IOException ex){
-					ex.printStackTrace();
+					System.out.println("bub");
 				}
 
 
