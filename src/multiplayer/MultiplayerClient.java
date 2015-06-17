@@ -65,7 +65,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
         this.setFocusable(true);
         this.playerID = playerID;
         this.missileClipPlayer1 = missileClip;
-        KanonePlayer1 = new Canon(x, y, missileClip, true, 1);
+        KanonePlayer1 = new Canon(x, y, missileClip);
         this.x = x;
         this.y = y;
         this.adress = adress;
