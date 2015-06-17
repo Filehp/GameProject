@@ -1,21 +1,24 @@
 package menu;
 
 import game.Game;
-import multiplayer.MultiplayerClient;
-import multiplayer.MultiplayerServer;
 
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.lang.reflect.Field;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
+
+import multiplayer.MultiplayerServer;
 
 /**
  *	Klasse fuer das Multiplayer Menue
@@ -34,8 +37,12 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 	private Button join = new Button(joinIcon);
 	
 	//Erzeugt das Textfeld zur Eingabe der IP
-	private static JTextField field = new JTextField("Please enter IP to connect");
+	private static JFormattedTextField field = new JFormattedTextField("Please enter IP to connect");
+	
+    private Pattern pattern;
+    private Matcher matcher;
 
+	
 	//Constructor
 	public MultiplayerMenu() {
 
@@ -53,7 +60,9 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				field.setText(""); // Löscht den Inhalt des Feldes
+				remove(field);
+				field = new JFormattedTextField(createFormatter("###.###.###.###")); // Löscht den Inhalt des Feldes
+				repaint();
 			}
 		});
 		
@@ -73,10 +82,14 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				String adress = field.getText();
-				Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
-
-
+				
+				try {
+					Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
+				} catch (NullPointerException ex) {
+					JOptionPane.showMessageDialog(null, "Bitte eine gültige IP Adresse eingeben", "Fehler", JOptionPane.INFORMATION_MESSAGE, null);
+				}
 			}
 		});
 	}
@@ -116,5 +129,16 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 		
 		return ip;
 		
+	}
+	
+	protected static MaskFormatter createFormatter(String s) {
+	    MaskFormatter formatter = null;
+	    try {
+	        formatter = new MaskFormatter(s);
+	    } catch (java.text.ParseException exc) {
+	        System.err.println("formatter is bad: " + exc.getMessage());
+	        System.exit(-1);
+	    }
+	    return formatter;
 	}
 }
