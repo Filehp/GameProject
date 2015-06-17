@@ -70,7 +70,9 @@ public class Wheel implements Serializable {
 
     public void addSpokes(){
         double startwinkel = 360/this.numberSpokes;
+
         double winkelposition=startwinkel;
+
         for(int i = 0;i<this.numberSpokes;i++ ){
             this.spokesList.add(new Spokes(winkelposition, this.radius, this.wheelX, this.wheelY)) ;
             winkelposition = winkelposition+startwinkel;
@@ -81,10 +83,15 @@ public class Wheel implements Serializable {
     }
 
     public  void addSpokes(int xKollision){
-        //Winkel berechen aus X und Y Koodinaten
-        // System.out.println(xKollision);
-        double radWinkel2 = Math.acos((xKollision-this.wheelX)/radius); //X_koordinate durch die x Koodinate der Kollision nehmen
-        double aktuellerWinkel = (radWinkel2*180)/Math.PI;
+        //Winkel berechen aus XWert wo die Kollision mit dem Wheel stattfand
+        int aktuellerWinkel=0;
+        if(xKollision>wheelX){
+            aktuellerWinkel = 90 - ((xKollision - wheelX)*(90/radius));
+        }else if(xKollision<wheelX){
+            aktuellerWinkel = 90 + ((wheelX-xKollision)*(90/radius));
+        }
+        //double aktuellerWinkel = (radWinkel2*180)/Math.PI;
+        System.out.println(aktuellerWinkel);
         //System.out.println(aktuellerWinkel);
         this.spokesList.add(new Spokes(aktuellerWinkel, this.radius, this.wheelX, this.wheelY));
 
