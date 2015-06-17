@@ -3,6 +3,7 @@ package game;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import preferences.ScoreDB;
 import entity.Canon;
 import entity.Missile;
 import entity.Wheel;
@@ -16,6 +17,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -32,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
     int sekunden;
     long starttime = System.currentTimeMillis();
     int currentTimeOutput;
+    private long currentTime;
 
     String direction;
     boolean shotMissile = false;
@@ -58,6 +64,9 @@ public class GamePanel extends JPanel implements Runnable {
     private Button replay = new Button(replayIcon);
     private JLabel yourTime = new JLabel();
     private JLabel yourMissles = new JLabel();
+    
+    private JTextField nameField = new JTextField("What's your name?");
+    private JButton submitScore = new JButton("Submit");
 
     public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
         this.setFocusable(true);
@@ -147,6 +156,27 @@ public class GamePanel extends JPanel implements Runnable {
 				Game.changePanel("menu", GamePanel.this);
 			}
 		});
+        
+        nameField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				nameField.setText(""); 
+			}
+		});
+
+		submitScore.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String name = nameField.getText(); // Gets name from the field
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Creates date format
+				Date date = new Date(); // Creates Date object
+				ScoreDB db = new ScoreDB(); // and ScoreDB object
+				db.insertScore(name, currentTime, dateFormat.format(date)); // Inserts data to database
+				db.close(); // Closes database
+				Game.changePanel("menu", GamePanel.this); // switching ui to main menu at the very end
+			}
+		});
 
         //Starts the thread
         start();
@@ -164,7 +194,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 
                 //Zeit wird berechnet und gepr√ºft
-                long currentTime = System.currentTimeMillis() - starttime;
+                currentTime = System.currentTimeMillis() - starttime;
                 currentTimeOutput = (int) (timer - currentTime);
                 minuten = (int) currentTimeOutput / 1000 / 60;
                 sekunden = (int) currentTimeOutput / 1000 % 60;
@@ -239,7 +269,7 @@ public class GamePanel extends JPanel implements Runnable {
                         System.out.println("Speiche getroffen!");
                         missile.remove(i);
                         
-                        gameLost(); //Method when losing the game
+                        gameWon(); //Method when losing the game
                            
                     }
                 }
@@ -249,6 +279,7 @@ public class GamePanel extends JPanel implements Runnable {
         //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (this.missileClipPlayer == 0 && missile.size() == 0) {
             System.out.println("Du hast gewonnen");
+            gameWon();
 
         }
         //Verbleibende Zeit anzeigen
@@ -308,7 +339,7 @@ public class GamePanel extends JPanel implements Runnable {
     	stop();
     	this.setBackground(Color.GREEN);
     	
-    	//÷ffnet das scorePanel mit Replay oder Quit
+    	//÷ffnet das scorePanel mit Replay, Quit und Submit
     	if (scorePanel) {
         	GameResultWin panel = new GameResultWin(1);
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
@@ -317,6 +348,16 @@ public class GamePanel extends JPanel implements Runnable {
 			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
     		yourTime.setText("You needed " + "seconds.");
 
+			 
+			nameField.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+			submitScore.setBounds(300, 130, 200, 40);
+			
+			// Adds elements to ui
+			add(submitScore);
+			add(nameField);
+    		
+    		
+    		
     		add(yourTime);
         	
         	this.add(quit);

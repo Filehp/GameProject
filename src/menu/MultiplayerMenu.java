@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
@@ -79,11 +78,11 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				String adress = field.getText();
+				String address = field.getText();
 				
 				boolean verbindungstest;
 				try {
-					Socket socket = new Socket(adress, 5000);
+					Socket socket = new Socket(address, 5000);
 					verbindungstest = true;
 					socket.close();
 				} catch (IOException ex) {
@@ -92,7 +91,8 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 				if(verbindungstest){
 					Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
 				}else{
-					System.out.println("Verbindung ungültig");
+					JOptionPane.showMessageDialog(null, "Bitte eine gültige IP Adresse eingeben", "Fehler", JOptionPane.INFORMATION_MESSAGE, null);
+
 				}
 
 				

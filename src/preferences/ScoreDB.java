@@ -51,13 +51,13 @@ public class ScoreDB {
 	 * @param score gained points
 	 * @param date  when it happend 
 	 */
-	public void insertScore(String name, int score, String date){
+	public void insertScore(String name, long time, String date){
 	  if(ready){
 		try {
 			// Creates SQL statement
 			String sql = "INSERT INTO SCORETABLE (NAME,SCORE,DATE) " +
 	            "VALUES (" +
-				"'" + name + "','" + score + "','" + date + "');"; 	
+				"'" + name + "','" + time + "','" + date + "');"; 	
 			
 			stm.executeUpdate(sql); // Executes the statement
 		} catch (SQLException e) {

@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
+import preferences.ScoreDB;
+
 /**
  *	Klasse fuer das Scoreboard
  */
@@ -29,10 +31,10 @@ public class Scoreboard extends JComponent {
 	private ArrayList<ArrayList<String>> nodes;
 
 	public Scoreboard() {
-
-		/*
-		 * ScoreDB db = new ScoreDB(); nodes = db.seclectScores(); db.close();
-		 */
+		
+		ScoreDB db = new ScoreDB(); // Creates the ScoreDB object
+		nodes = db.seclectScores(); // Gets nodes from db 
+		db.close(); // Closes the data base
 
 		back.addActionListener(new ActionListener() {
 			@Override
@@ -66,26 +68,22 @@ public class Scoreboard extends JComponent {
 		g2d.drawString("Score", 400, 135);
 		g2d.drawString("Date", 525, 135);
 
-		/*
-		 * for(int i = 0; i < 15; i++){
-		 * 
-		 * try{
-		 * 
-		 * if(i < nodes.size()){ // Checks if i isn't bigger than nodes size
-		 * g2d.drawString(i+1 + "", 170, 160 + ((i+i) * 10)); // Draws the
-		 * position g2d.drawString(nodes.get(i).get(0), 210, 160 + ((i+i) *
-		 * 10)); // Draws the name g2d.drawString(nodes.get(i).get(1), 490, 160
-		 * + ((i+i) * 10)); // Draws the score
-		 * g2d.drawString(nodes.get(i).get(2), 600, 160 + ((i+i) * 10)); //
-		 * Draws the date } else break; // If i is bigger than nodes size, break
-		 * the loop
-		 * 
-		 * } catch (IndexOutOfBoundsException e){ // Catches
-		 * IndexOutOfBoundsException in case "if" dosn't do it's job break; //
-		 * In case of exception, breaks the loop }
-		 * 
-		 * }
-		 */
+		
+		  for(int i = 0; i < 15; i++){
+		  
+		      try{
+		    	  
+		    	  if(i < nodes.size()){ // Checks if i isn't bigger than nodes size
+		    	  g2d.drawString(i+1 + "", 170, 160 + ((i+i) * 10)); // Draws the position
+		    	  g2d.drawString(nodes.get(i).get(0), 210, 160 + ((i+i) * 10)); // Draws the name
+		    	  g2d.drawString(nodes.get(i).get(1), 490, 160 + ((i+i) * 10)); // Draws the score	    	  
+		    	  g2d.drawString(nodes.get(i).get(2), 600, 160 + ((i+i) * 10)); // Draws the date
+		    	  } else break; // If i is bigger than nodes size, break the loop
+		    	  
+	    	  } catch (IndexOutOfBoundsException e){ // Catches IndexOutOfBoundsException in case "if" dosn't do it's job
+	    		  break; // In case of exception, breaks the loop
+	    	  }
+		 
 
 		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
 
@@ -93,5 +91,5 @@ public class Scoreboard extends JComponent {
 		add(back);
 
 	}
-
+	}
 }
