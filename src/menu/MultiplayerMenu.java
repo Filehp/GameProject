@@ -57,7 +57,7 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				field.setText(""); // Löscht den Inhalt des Feldes
+				field.setText(""); //Löscht den Inhalt des Feldes
 			}
 		});
 		
