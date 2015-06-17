@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -79,7 +80,21 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				
 				String adress = field.getText();
-				Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
+				try {
+					Socket socket = new Socket(adress, 5000);
+					boolean verbindungstest = socket.isConnected();
+					if(verbindungstest){
+						Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
+					}else{
+
+					}
+
+				}
+				catch(IOException ex){
+					ex.printStackTrace();
+				}
+
+
 	
 			}
 		});
