@@ -50,7 +50,8 @@ public class MultiplayerClient extends JPanel implements Runnable{
     private boolean waitGameStart;
     private Thread thread;
 
-    private boolean victory;
+    private int victory;
+    private boolean finishedGame=false;
 
     private boolean scorePanel = false;
     Icon quitIcon = new ImageIcon("resources/Quit.png");
@@ -165,7 +166,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
                 oos.writeObject(KanonePlayer1);
                 oos.writeObject(missilePlayer1);
                 oos.writeObject(missileClipPlayer1);
-                System.out.println(playerID);
+                oos.writeObject(finishedGame);
                 System.out.println("Daten gesendet");
 
 
@@ -181,7 +182,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
                 missilePlayer1 = (ArrayList) ois.readObject();
                 missilePlayer2 = (ArrayList) ois.readObject();
                 waitGameStart = (boolean) ois.readObject();
-                victory = (boolean) ois.readObject();
+                victory = (int) ois.readObject();
 
 
                     is.close();
@@ -238,10 +239,14 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
 
             //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            if(this.victory){
+            /**
+             * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft
+             */
+            if(this.victory==1){
                 System.out.println("Sieg");
+
                 gameLost();
-            }else if(!this.victory){
+            }else if(this.victory==-1){
                 System.out.println("verloren");
                 gameLost();
             }
