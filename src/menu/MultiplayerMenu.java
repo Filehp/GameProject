@@ -22,7 +22,7 @@ import javax.swing.JTextField;
  */
 
 public class MultiplayerMenu extends JComponent implements Runnable {
-
+	public Thread multiplayerServerThread = new Thread(new MultiplayerMenu());
 	//Laedt die Bilder
 	Icon backIcon = new ImageIcon("resources/Back.png");
 	Icon createIcon = new ImageIcon("resources/Create.png");
@@ -61,7 +61,7 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Thread(new MultiplayerMenu()).start();
+				 multiplayerServerThread.start();
 				Game.changePanel("multiplayerClientHost", MultiplayerMenu.this);
 
 

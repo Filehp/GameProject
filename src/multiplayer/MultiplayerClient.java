@@ -50,6 +50,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
     private boolean waitGameStart;
     private Thread thread;
 
+    private boolean victory;
 
     private boolean scorePanel = false;
     Icon quitIcon = new ImageIcon("resources/Quit.png");
@@ -180,6 +181,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
                 missilePlayer1 = (ArrayList) ois.readObject();
                 missilePlayer2 = (ArrayList) ois.readObject();
                 waitGameStart = (boolean) ois.readObject();
+                victory = (boolean) ois.readObject();
 
 
                     is.close();
@@ -235,10 +237,16 @@ public class MultiplayerClient extends JPanel implements Runnable{
             }*/
 
 
-
-            //Kollision abfangen
-
             //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if(this.victory){
+                System.out.println("Sieg");
+                gameLost();
+            }else if(!this.victory){
+                System.out.println("verloren");
+                gameLost();
+            }
+
+
 
 
             //Verbleibende Zeit anzeigen

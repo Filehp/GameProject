@@ -45,6 +45,9 @@ public class MultiplayerServer extends JComponent {
     private boolean allPlayer = false;
     private boolean waitGameStart = true;
 
+    private boolean victoryPlayer1;
+    private boolean victoryPlayer2;
+
     public MultiplayerServer(int x, int y){
         this.x = x;
         this.y = y;
@@ -127,10 +130,14 @@ public class MultiplayerServer extends JComponent {
 
                          //Sieges bedingung
                          if (this.missileClipPlayer1 == 0 && missilePlayer1.size() == 0) {
+                             this.victoryPlayer1 = true;
+                             this.victoryPlayer2 = false;
                              System.out.println("Du hast gewonnen Player1");
                              System.out.println("Du hast verloren Player2");
                          }
                          if (this.missileClipPlayer2 == 0 && missilePlayer2.size() == 0) {
+                             this.victoryPlayer1 = false;
+                             this.victoryPlayer2 = true;
                              System.out.println("Du hast gewonnen Player2");
                              System.out.println("Du hast verloren Player1");
                          }
@@ -162,7 +169,8 @@ public class MultiplayerServer extends JComponent {
                                      if (Kollispeiche) {
                                          //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
                                          //this.setBackground(Color.RED);
-
+                                         this.victoryPlayer1 = true;
+                                         this.victoryPlayer2 = false;
                                          System.out.println("Speiche getroffen! Player2 gewinnt");
                                          missilePlayer1.remove(i);
                                      }
@@ -195,7 +203,8 @@ public class MultiplayerServer extends JComponent {
                                      if (Kollispeiche) {
                                          //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
 
-
+                                         this.victoryPlayer1 = false;
+                                         this.victoryPlayer2 = true;
                                          System.out.println("Speiche getroffen! Player1 gewinnt");
                                          missilePlayer1.remove(i);
                                      }
@@ -245,7 +254,11 @@ public class MultiplayerServer extends JComponent {
                          }
                      }
                      oos.writeObject(waitGameStart);
-
+                     if (playerID == 1) {
+                         oos.writeObject(victoryPlayer1);
+                     }else{
+                         oos.writeObject(victoryPlayer2);
+                     }
                      System.out.println("Daten senden");
 
 
