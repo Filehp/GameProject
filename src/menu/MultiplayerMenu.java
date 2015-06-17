@@ -82,9 +82,6 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 				String adress = field.getText();
                 Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
 
-
-
-	
 			}
 		});
 	}
