@@ -38,11 +38,7 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 	
 	//Erzeugt das Textfeld zur Eingabe der IP
 	private static JFormattedTextField field = new JFormattedTextField("Please enter IP to connect");
-	
-    private Pattern pattern;
-    private Matcher matcher;
 
-	
 	//Constructor
 	public MultiplayerMenu() {
 
@@ -84,12 +80,8 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				
 				String adress = field.getText();
-				
-				try {
-					Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
-				} catch (NullPointerException ex) {
-					JOptionPane.showMessageDialog(null, "Bitte eine gültige IP Adresse eingeben", "Fehler", JOptionPane.INFORMATION_MESSAGE, null);
-				}
+				Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
+	
 			}
 		});
 	}
