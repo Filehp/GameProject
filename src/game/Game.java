@@ -1,5 +1,7 @@
 package game;
 
+import game.GamePanel.Diff;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -106,13 +108,13 @@ public class Game {
 			
 		//Wechselt zum Spiel
 		case "gameE":
-			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,61000,4,1), BorderLayout.CENTER); break;
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,61000,4,1, Diff.EASY), BorderLayout.CENTER); break;
 			
 		case "gameM":
-			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),15,26000,6,2), BorderLayout.CENTER); break;
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),15,26000,6,2, Diff.MEDIUM), BorderLayout.CENTER); break;
 			
 		case "gameH":
-			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),20,16000,8,3), BorderLayout.CENTER); break;
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),20,16000,8,3, Diff.HARD), BorderLayout.CENTER); break;
 		
 		case "multiplayerClientHost":
 			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,1, "localhost"), BorderLayout.CENTER); break;

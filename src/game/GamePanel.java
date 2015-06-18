@@ -60,10 +60,16 @@ public class GamePanel extends JPanel implements Runnable {
     private boolean scorePanel = false;
     Icon quitIcon = new ImageIcon("resources/Quit.png");
     Icon replayIcon = new ImageIcon("resources/Replay.png");
+    Icon nextLevelIcon = new ImageIcon("resources/NextLevel.png");
     private Button quit = new Button(quitIcon);
     private Button replay = new Button(replayIcon);
+    private Button nextLevel = new Button (nextLevelIcon);
     private JLabel yourTime = new JLabel();
     private JLabel yourMissles = new JLabel();
+    
+    public enum Diff {
+    	EASY, MEDIUM, HARD
+    }
     
     private JTextField nameField = new JTextField("What's your name?");
     Icon submitIcon = new ImageIcon("resources/Submit.png");
@@ -71,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
     
     private Image background = new ImageIcon(getClass().getResource("/Hintergrund.png")).getImage();
 
-    public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
+    public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel,Diff diff) {
         this.setFocusable(true);
 
         this.timer = time;
@@ -149,6 +155,21 @@ public class GamePanel extends JPanel implements Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Game.changePanel("game", GamePanel.this);
+			}
+		});
+        nextLevel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (diff.equals(Diff.EASY)) {
+					Game.changePanel("gameM", GamePanel.this);
+				}
+				if (diff.equals(Diff.MEDIUM)) {
+					Game.changePanel("gameH", GamePanel.this);
+				}
+				if (diff.equals(Diff.HARD)) {
+					Game.changePanel("gameB", GamePanel.this);
+				}
 			}
 		});
         
@@ -273,7 +294,7 @@ public class GamePanel extends JPanel implements Runnable {
                         System.out.println("Speiche getroffen!");
                         missile.remove(i);
                         
-                        gameWon(); //Method when losing the game
+                        gameLost(); //Method when losing the game
                            
                     }
                 }
@@ -286,15 +307,17 @@ public class GamePanel extends JPanel implements Runnable {
             gameWon();
 
         }
-        //Verbleibende Zeit anzeigen
+        //Verbleibende Zeit & Geschosse anzeigen
         canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
         if (sekunden >= 10) {
             canon.drawString("0" + minuten + ":" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
         } else {
             canon.drawString("0" + minuten + ":0" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
         }
+        canon.drawString("Missles left: " + missileClipPlayer , this.x / 100 * 14, this.y / 100 * 95);
+        
         //Schussstärke anzeigen
-        canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 18, this.y / 100 * 3);
+        canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 16, this.y / 100 * 3);
         canon.setColor(new Color(0, 128, 128));
         canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
 
@@ -323,9 +346,9 @@ public class GamePanel extends JPanel implements Runnable {
         	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		
 			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		yourTime.setText("You failed after " + "seconds.");
+    		yourTime.setText("You failed after " + currentTime + " ms.");
 			yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-			yourMissles.setText("You have " + "missles left.");
+			yourMissles.setText("You have " + missileClipPlayer + " missles left.");
 
     		add(yourTime);
     		add(yourMissles);
@@ -347,7 +370,7 @@ public class GamePanel extends JPanel implements Runnable {
     	if (scorePanel) {
         	GameResultWin panel = new GameResultWin(1);
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-        	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+        	nextLevel.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		
 			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
     		yourTime.setText("You needed " + currentTime / 1000 + " seconds" + " (" + currentTime + " ms).");
@@ -365,7 +388,7 @@ public class GamePanel extends JPanel implements Runnable {
     		add(yourTime);
         	
         	this.add(quit);
-        	this.add(replay);
+        	this.add(nextLevel);
     		
         	this.add(panel);
     	}
