@@ -161,7 +161,7 @@ public class Settings extends JComponent{
 		 else switchMusicButtons(true);	
 	}
 	
-	 private void switchMusicButtons(boolean b){
+	 private void switchMusicButtons(boolean b){ 
 		 if(b){
 			 musicOff.setVisible(false); // hides the musicOff button
 			 musicOn.setVisible(true); // shows the musicOn button

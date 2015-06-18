@@ -82,7 +82,7 @@ public class LevelMenu extends JComponent {
 		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, 
 				Menu.getButtonWidth(), Menu.getButtonHeight());
 
-		// Fuegt die Buttons der GUI hinzu
+		// Fuegt die Buttons der GUI hinzu 
 		add(level1);
 		add(level2);
 		add(level3);

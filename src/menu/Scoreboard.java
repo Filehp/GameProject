@@ -30,7 +30,7 @@ public class Scoreboard extends JComponent {
 	private JButton back = new Button(quitIcon);
 	private ArrayList<ArrayList<String>> nodes;
 
-	public Scoreboard() {
+	public Scoreboard() { 
 		
 		ScoreDB db = new ScoreDB(); // Creates the ScoreDB object
 		nodes = db.seclectScores(); // Gets nodes from db 

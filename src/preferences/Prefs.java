@@ -18,7 +18,7 @@ public class Prefs {
 		
 	}
 	
-	public int getMusicVol() {
+	public int getMusicVol() { 
 		return musicVol;
 	}
 	

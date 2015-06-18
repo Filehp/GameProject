@@ -72,7 +72,7 @@ public class Music {
 		float x = (float) -((100 -  (10 * vol)) / 4); // Simple calculation converts the int to fit float. 
 		gainControl.setValue(x); // Changing volume 
 	}
-
+ 
 	/**
 	 * Gets an instance of this class so you can use the same object in different classes.
 	 * This operation allows us to work (start / stop / change volume) with background music. 

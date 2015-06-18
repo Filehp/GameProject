@@ -35,7 +35,7 @@ public class ScoreDB {
 						  stm.executeUpdate(sql); // Executes the statement
 						  ready = true;			  // Makes database ready to work 
 						}
-		      }
+		      } 
 				
 		    } catch (SQLException | ClassNotFoundException e) {
 		    	System.out.println("Exception occurred while connectiong to the database:");

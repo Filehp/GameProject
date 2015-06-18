@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 public class GameResultWin extends JPanel{
 	
 	private BufferedImage image;
-	private Graphics2D g;
+	private Graphics2D g; 
 	private JLabel yourTime = new JLabel();
 
 	//Constructor
