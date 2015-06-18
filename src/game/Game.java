@@ -87,7 +87,13 @@ public class Game {
 			panel.add(new Difficulty(), BorderLayout.CENTER); break;
 			
 		case "levelmenu":
-			panel.add(new LevelMenu(), BorderLayout.CENTER); break;
+			panel.add(new LevelMenu("gameE"), BorderLayout.CENTER); break;
+		
+		case "levelmenu1":
+			panel.add(new LevelMenu("gameM"), BorderLayout.CENTER); break;
+		
+		case "levelmenu2":
+			panel.add(new LevelMenu("gameH"), BorderLayout.CENTER); break;
 
 		case "multiplayer":
 			panel.add(new MultiplayerMenu(), BorderLayout.CENTER);break;
@@ -99,8 +105,14 @@ public class Game {
 			panel.add(new Settings(), BorderLayout.CENTER); break;
 			
 		//Wechselt zum Spiel
-		case "game":
-			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,51000,4,1), BorderLayout.CENTER); break;
+		case "gameE":
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,61000,4,1), BorderLayout.CENTER); break;
+			
+		case "gameM":
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),15,26000,6,2), BorderLayout.CENTER); break;
+			
+		case "gameH":
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),20,16000,8,3), BorderLayout.CENTER); break;
 		
 		case "multiplayerClientHost":
 			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,1, "localhost"), BorderLayout.CENTER); break;

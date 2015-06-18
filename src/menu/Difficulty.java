@@ -45,14 +45,14 @@ public class Difficulty extends JComponent {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game.changePanel("level", Difficulty.this);
+				Game.changePanel("levelmenu1", Difficulty.this);
 			}
 		});
 		hard.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game.changePanel("level", Difficulty.this);
+				Game.changePanel("levelmenu2", Difficulty.this);
 			}
 		});
 		back.addActionListener(new ActionListener() {

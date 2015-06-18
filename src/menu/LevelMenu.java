@@ -33,18 +33,19 @@ public class LevelMenu extends JComponent {
 	private Button back = new Button(backIcon);
 
 	//Constructor
-	public LevelMenu() {
+	public LevelMenu(String difficulty) {
 		
+		if (difficulty == "gameE") {
 	//Aktion bei Klick eines Buttons
 		level1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game.changePanel("game", LevelMenu.this);
+				Game.changePanel("gameE", LevelMenu.this);
 
 			}
 		});
-		level2.addActionListener(new ActionListener() {
+		/*level2.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -57,7 +58,7 @@ public class LevelMenu extends JComponent {
 			public void actionPerformed(ActionEvent e) {
 				Game.changePanel("level3", LevelMenu.this);
 			}
-		});
+		});*/
 		back.addActionListener(new ActionListener() {
 
 			@Override
@@ -65,6 +66,73 @@ public class LevelMenu extends JComponent {
 				Game.changePanel("difficulty", LevelMenu.this);
 			}
 		});
+		}
+		
+		if (difficulty == "gameM") {
+	//Aktion bei Klick eines Buttons
+		level1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("gameM", LevelMenu.this);
+
+			}
+		});
+		/*level2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("level2", LevelMenu.this);
+			}
+		});
+		level3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("level3", LevelMenu.this);
+			}
+		});*/
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("difficulty", LevelMenu.this);
+			}
+		});
+		}
+		
+		if (difficulty == "gameH") {
+	//Aktion bei Klick eines Buttons
+		level1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("gameH", LevelMenu.this);
+
+			}
+		});
+		/*level2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("level2", LevelMenu.this);
+			}
+		});
+		level3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("level3", LevelMenu.this);
+			}
+		});*/
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("difficulty", LevelMenu.this);
+			}
+		});
+		}
 	}
 
 	//Stellt die Buttons dar

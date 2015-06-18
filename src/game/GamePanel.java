@@ -68,6 +68,8 @@ public class GamePanel extends JPanel implements Runnable {
     private JTextField nameField = new JTextField("What's your name?");
     Icon submitIcon = new ImageIcon("resources/Submit.png");
     private Button submitScore = new Button(submitIcon);
+    
+    private Image background = new ImageIcon(getClass().getResource("/Hintergrund.png")).getImage();
 
     public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
         this.setFocusable(true);
@@ -221,6 +223,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics canon) {
         super.paintComponent(canon);
         
+        canon.drawImage(background, 0, 0, null);
 
         //Rad laden
         rad.loadWheel(canon, startSpokes);
