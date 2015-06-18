@@ -9,7 +9,7 @@ public class Prefs {
 	private boolean musicSwitch;
 	
 	public Prefs(){
-		pref = Preferences.userRoot().node("JavaSnakePreferences"); // Gets the root 
+		pref = Preferences.userRoot().node(this.getClass().getName()); // Gets the root 
 		
 		// Gets the values and assigns them to variables 
 		gameVol = pref.getInt("gameVol", 0);

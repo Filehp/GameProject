@@ -24,7 +24,7 @@ public class LevelMenu extends JComponent {
 	Icon fourIcon = new ImageIcon("resources/Level4.png");
 	Icon backIcon = new ImageIcon("resources/Back.png");
 	
-	private Image logo = new ImageIcon(getClass().getResource("/background.png")).getImage();
+	private Image logo2 = new ImageIcon(getClass().getResource("/background2.png")).getImage();
 
 	private Button level1 = new Button(oneIcon);
 	private Button level2 = new Button(twoIcon);
@@ -72,7 +72,7 @@ public class LevelMenu extends JComponent {
 	protected void paintComponent(Graphics g) {
 		
 		//Stellt das Hintergrundlogo dar
-		g.drawImage(logo, 320, 10, null);
+		g.drawImage(logo2, 0, 0, null);
 
 		// Setzt die Position und Groesse der Buttons
 		level1.setBounds(Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 - Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);

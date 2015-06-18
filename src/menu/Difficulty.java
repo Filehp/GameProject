@@ -23,7 +23,7 @@ public class Difficulty extends JComponent {
 	Icon hardIcon = new ImageIcon("resources/Hard.png");
 	Icon backIcon = new ImageIcon("resources/Back.png");
 	
-	private Image logo = new ImageIcon(getClass().getResource("/background.png")).getImage();
+	private Image logo2 = new ImageIcon(getClass().getResource("/background2.png")).getImage();
 
 	private Button easy = new Button(easyIcon);
 	private Button medium = new Button(mediumIcon);
@@ -69,7 +69,7 @@ public class Difficulty extends JComponent {
 	protected void paintComponent(Graphics g) {
 		
 		//Stellt das Hintergrundlogo dar
-		g.drawImage(logo, 320, 10, null); 
+		g.drawImage(logo2, 0, 0, null); 
 
 		//Setzt die Position und Groesse der Buttons
 		easy.setBounds(Menu.getButtonX(), Menu.getButtonY() - Game.HEIGHT / 100 * 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());

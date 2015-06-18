@@ -66,7 +66,8 @@ public class GamePanel extends JPanel implements Runnable {
     private JLabel yourMissles = new JLabel();
     
     private JTextField nameField = new JTextField("What's your name?");
-    private JButton submitScore = new JButton("Submit");
+    Icon submitIcon = new ImageIcon("resources/Submit.png");
+    private Button submitScore = new Button(submitIcon);
 
     public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel) {
         this.setFocusable(true);
@@ -346,11 +347,11 @@ public class GamePanel extends JPanel implements Runnable {
         	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		
 			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		yourTime.setText("You needed " + "seconds.");
+    		yourTime.setText("You needed " + currentTime / 1000 + " seconds" + " (" + currentTime + " ms).");
 
 			 
-			nameField.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-			submitScore.setBounds(300, 130, 200, 40);
+			nameField.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 100 * 65, 110, 20);
+			submitScore.setBounds(Game.WIDTH / 10 * 7, Game.HEIGHT / 10 * 6, 150, 45);
 			
 			// Adds elements to ui
 			add(submitScore);

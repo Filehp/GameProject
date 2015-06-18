@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -30,11 +32,17 @@ public class Settings extends JComponent{
 	private JLabel title = new JLabel("Settings");
 	private JSlider gameSlider = new JSlider(JSlider.HORIZONTAL, 0, 10 , 0);
 	private JSlider musicSlider = new JSlider(JSlider.HORIZONTAL, 0, 10 , 0);
-	private JButton restartScore = new JButton("Restart scoreboard");
-	private JButton musicOn = new JButton("Turn music on");
-	private JButton musicOff = new JButton("Turn music off");
-	private JButton exit = new JButton("Exit");
-	private JButton ok = new JButton("OK");
+	
+	Icon okIcon = new ImageIcon("resources/Ok.png");
+	Icon quitIcon = new ImageIcon("resources/Quit.png");
+	Icon mOnIcon = new ImageIcon("resources/MusicOn.png");
+	Icon mOffIcon = new ImageIcon("resources/MusicOff.png");
+	Icon reScoreIcon = new ImageIcon("resources/RestartScore.png");
+	private Button restartScore = new Button(reScoreIcon);
+	private Button musicOn = new Button(mOnIcon);
+	private Button musicOff = new Button(mOffIcon);
+	private Button quit = new Button(quitIcon);
+	private Button ok = new Button(okIcon);
 	
 	private Graphics2D g2;
 	
@@ -94,7 +102,7 @@ public class Settings extends JComponent{
 				}
 			});
 			
-			 exit.addActionListener(new ActionListener() {
+			 quit.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -123,13 +131,13 @@ public class Settings extends JComponent{
 		musicSlider.setBounds(70,200,500,20);
 		
 		// Sets buttons position
-		restartScore.setBounds(100, 240, 250, 50);
-		musicOn.setBounds(400, 240, 250, 50);
-		musicOff.setBounds(400, 240, 250, 50);
+		restartScore.setBounds(Menu.getButtonX(), Menu.getButtonY(), Menu.getButtonWidth(), Menu.getButtonHeight());
+		musicOn.setBounds(Menu.getButtonX(), Menu.getButtonY() - Game.HEIGHT / 100 * 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+		musicOff.setBounds(Menu.getButtonX(), Menu.getButtonY() - Game.HEIGHT / 100 * 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
 		
 		
 		// Sets buttons position
-		exit.setBounds(Game.WIDTH / 2 + 25, Game.HEIGHT / 2 + 300, 200, 40);
+		quit.setBounds(Game.WIDTH / 2 + 25, Game.HEIGHT / 2 + 300, 200, 40);
 		ok.setBounds(Game.WIDTH / 2 - 225, Game.HEIGHT / 2 + 300, 200, 40);
 			    
 		// Adds elemements to the ui     	 
@@ -139,7 +147,7 @@ public class Settings extends JComponent{
 		add(restartScore);
 		add(musicOff);
 		add(musicOn);
-		add(exit);
+		add(quit);
 		add(ok);
 	}
 	
