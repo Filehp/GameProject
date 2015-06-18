@@ -108,7 +108,7 @@ public class Game {
 			
 		//Wechselt zum Spiel
 		case "gameE":
-			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,61000,4,1, Diff.EASY), BorderLayout.CENTER); break;
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),1,61000,4,1, Diff.EASY), BorderLayout.CENTER); break;
 			
 		case "gameM":
 			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),15,26000,6,2, Diff.MEDIUM), BorderLayout.CENTER); break;

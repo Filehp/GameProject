@@ -310,9 +310,9 @@ public class GamePanel extends JPanel implements Runnable {
         //Verbleibende Zeit & Geschosse anzeigen
         canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
         if (sekunden >= 10) {
-            canon.drawString("0" + minuten + ":" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
+            canon.drawString("0" + minuten + ":" + sekunden + " (" + currentTime + ")", this.x / 100 * 14, this.y / 100 * 88);
         } else {
-            canon.drawString("0" + minuten + ":0" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
+            canon.drawString("0" + minuten + ":0" + sekunden + " (" + currentTime + ")", this.x / 100 * 14, this.y / 100 * 88);
         }
         canon.drawString("Missles left: " + missileClipPlayer , this.x / 100 * 14, this.y / 100 * 95);
         
@@ -341,7 +341,7 @@ public class GamePanel extends JPanel implements Runnable {
     	
     	//Öffnet das scorePanel mit Replay oder Quit
     	if (scorePanel) {
-        	GameResultLose panel = new GameResultLose(0);
+        	GameResultLose panel = new GameResultLose();
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
         	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		
@@ -368,7 +368,7 @@ public class GamePanel extends JPanel implements Runnable {
     	
     	//Öffnet das scorePanel mit Replay, Quit und Submit
     	if (scorePanel) {
-        	GameResultWin panel = new GameResultWin(1);
+        	GameResultWin panel = new GameResultWin();
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
         	nextLevel.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		

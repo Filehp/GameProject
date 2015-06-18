@@ -288,7 +288,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
         //Öffnet das scorePanel mit Replay oder Quit
         if (scorePanel) {
-            GameResultLose panel = new GameResultLose(0);
+            GameResultLose panel = new GameResultLose();
             quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
 
 
@@ -315,7 +315,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
         //Öffnet das scorePanel mit Replay oder Quit
         if (scorePanel) {
-            GameResultWin panel = new GameResultWin(1);
+            GameResultWin panel = new GameResultWin();
             quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
 
 

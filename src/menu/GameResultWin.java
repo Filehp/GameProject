@@ -33,7 +33,7 @@ public class GameResultWin extends JPanel{
 	private JLabel yourTime = new JLabel();
 
 	//Constructor
-	public GameResultWin(int i) {
+	public GameResultWin() {
 		
 		//Maﬂe des Panels
 		setBackground(new Color(190, 190, 190));
@@ -46,8 +46,6 @@ public class GameResultWin extends JPanel{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-		
 		
 
 	}
