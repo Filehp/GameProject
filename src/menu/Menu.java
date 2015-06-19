@@ -6,7 +6,10 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -23,9 +26,11 @@ public class Menu extends JComponent {
 	Icon scoreIcon = new ImageIcon("resources/Scoreboard.png");
 	Icon settingsIcon = new ImageIcon("resources/Settings.png");
 	Icon quitIcon = new ImageIcon("resources/Quit.png");
-	
+
 	//Laedt das Hintergrundlogo
-	private Image logo = new ImageIcon(getClass().getResource("/background.png")).getImage();
+	//private Image logo = new ImageIcon(getClass().getResource("/background.png")).getImage();
+
+
 
 	// Erstellt die Buttons
 	private Button singleplayer = new Button(singleIcon);
@@ -34,10 +39,16 @@ public class Menu extends JComponent {
 	private Button settings = new Button(settingsIcon);
 	private Button quit = new Button(quitIcon);
 
-
+	private Image logo;
 	// Constructor
 	public Menu() {
-		
+
+		try {
+			logo = ImageIO.read(new File("resources/background.png"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
 	//Aktion bei Klick auf einen Button
 		singleplayer.addActionListener(new ActionListener() {
 
