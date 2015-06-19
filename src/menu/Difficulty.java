@@ -6,7 +6,10 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -23,15 +26,22 @@ public class Difficulty extends JComponent {
 	Icon hardIcon = new ImageIcon("resources/Hard.png");
 	Icon backIcon = new ImageIcon("resources/Back.png");
 	
-	private Image logo2 = new ImageIcon(getClass().getResource("/background2.png")).getImage();
+	//private Image logo2 = new ImageIcon(getClass().getResource("/background2.png")).getImage();
 
 	private Button easy = new Button(easyIcon);
 	private Button medium = new Button(mediumIcon);
 	private Button hard = new Button(hardIcon);
 	private Button back = new Button(backIcon);
+	private Image logo2;
 
 	//Constructor
 	public Difficulty() {
+		
+		try {
+			logo2 = ImageIO.read(new File("resources/background2.png"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
 	//Aktion bei Klick auf Button
 		easy.addActionListener(new ActionListener() {

@@ -30,7 +30,6 @@ public class Settings extends JComponent{
 	private static final long serialVersionUID = 1L;
 
 	private JLabel title = new JLabel("Settings");
-	private JSlider gameSlider = new JSlider(JSlider.HORIZONTAL, 0, 10 , 0);
 	private JSlider musicSlider = new JSlider(JSlider.HORIZONTAL, 0, 10 , 0);
 	
 	Icon okIcon = new ImageIcon("resources/Ok.png");
@@ -94,8 +93,7 @@ public class Settings extends JComponent{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// Sets preferences
-					pref.setGameVol(gameSlider.getValue());		
+					// Sets preferences		
 					pref.setMusicVol(musicSlider.getValue());
 					pref.setMusicSwitch(music);
 					Game.changePanel("menu", Settings.this); // Switches component
@@ -120,13 +118,10 @@ public class Settings extends JComponent{
 		
 		title.setBounds(Game.getWindowWidth() / 2 - 25,Game.getWindowHeight() / 25 ,300,70); // Sets title position	
 		
-		//Draws volume strings
-		g.drawString("Game volume", 70, 112);
+		//Draws volume string
 	    g.drawString("Music volume", 70, 185);
 		
 	    // Sets slider's background and position
-		gameSlider.setBackground(new Color(190, 190, 190));
-		gameSlider.setBounds(70,137,500,20);
 		musicSlider.setBackground(new Color(190, 190, 190));
 		musicSlider.setBounds(70,200,500,20);
 		
@@ -142,7 +137,6 @@ public class Settings extends JComponent{
 			    
 		// Adds elemements to the ui     	 
 		add(title);
-		add(gameSlider);
 		add(musicSlider);
 		add(restartScore);
 		add(musicOff);
@@ -152,7 +146,6 @@ public class Settings extends JComponent{
 	}
 	
 	private void setDefSettings(){
-		 gameSlider.setValue(pref.getGameVol()); // Sets the gameSlider value
 		 musicSlider.setValue(pref.getMusicVol()); // Sets the gameSlider value
 		 music = pref.isMusicSwitch(); // Checks if user turned music off 
 		 

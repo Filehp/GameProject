@@ -19,6 +19,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -75,10 +77,18 @@ public class GamePanel extends JPanel implements Runnable {
     Icon submitIcon = new ImageIcon("resources/Submit.png");
     private Button submitScore = new Button(submitIcon);
     
-    private Image background = new ImageIcon(getClass().getResource("/Hintergrund.png")).getImage();
+	// Hintergrundbild
+    private Image background;
 
     public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel,Diff diff) {
         this.setFocusable(true);
+        
+        //Laedt das Hintergrundbild
+		try {
+			background = ImageIO.read(new File("resources/Hintergrund.png"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
         this.timer = time;
         this.missileClipPlayer = missileClip;
@@ -149,12 +159,21 @@ public class GamePanel extends JPanel implements Runnable {
         this.x = x;
         this.y = y;
         
+        
         //Buttons in ScorePanel 
         replay.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game.changePanel("game", GamePanel.this);
+				if (diff.equals(Diff.EASY)) {
+				Game.changePanel("gameE", GamePanel.this);
+				}
+				if (diff.equals(Diff.MEDIUM)) {
+				Game.changePanel("gameM", GamePanel.this);
+				}
+				if (diff.equals(Diff.HARD)) {
+				Game.changePanel("gameH", GamePanel.this);
+				}
 			}
 		});
         nextLevel.addActionListener(new ActionListener() {
@@ -346,7 +365,7 @@ public class GamePanel extends JPanel implements Runnable {
         	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		
 			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		yourTime.setText("You failed after " + currentTime + " ms.");
+    		yourTime.setText("You failed after " + currentTime / 1000 + " seconds ("+ currentTime + " ms)");
 			yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
 			yourMissles.setText("You have " + missileClipPlayer + " missles left.");
 

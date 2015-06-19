@@ -3,15 +3,18 @@ package menu;
 import game.Game;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -37,11 +40,19 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 	private Button create = new Button(createIcon);
 	private Button join = new Button(joinIcon);
 	
+	private Image logo2;
+	
 	//Erzeugt das Textfeld zur Eingabe der IP
 	private static JTextField field = new JTextField("Please enter IP to connect");
 
 	//Constructor
 	public MultiplayerMenu() {
+		
+		try {
+			logo2 = ImageIO.read(new File("resources/background2.png"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
 	//Aktion bei Klick auf einen Button
 		back.addActionListener(new ActionListener() {
@@ -90,6 +101,8 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 	//Stellt die Buttons dar
 	@Override
 	protected void paintComponent(Graphics g) {
+		
+		g.drawImage(logo2, 0, 0, null);
 
 		//Setzt die Position und Groesse der Buttons
 		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());

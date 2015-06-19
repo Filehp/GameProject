@@ -6,7 +6,10 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -24,16 +27,23 @@ public class LevelMenu extends JComponent {
 	Icon fourIcon = new ImageIcon("resources/Level4.png");
 	Icon backIcon = new ImageIcon("resources/Back.png");
 	
-	private Image logo2 = new ImageIcon(getClass().getResource("/background2.png")).getImage();
+	//private Image logo2 = new ImageIcon(getClass().getResource("/background2.png")).getImage();
 
 	private Button level1 = new Button(oneIcon);
 	private Button level2 = new Button(twoIcon);
 	private Button level3 = new Button(threeIcon);
 	private Button level4 = new Button(fourIcon);
 	private Button back = new Button(backIcon);
+	private Image logo2;
 
 	//Constructor
 	public LevelMenu(String difficulty) {
+		
+		try {
+			logo2 = ImageIO.read(new File("resources/background2.png"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		
 		if (difficulty == "gameE") {
 	//Aktion bei Klick eines Buttons
