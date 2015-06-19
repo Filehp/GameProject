@@ -32,7 +32,7 @@ public class GameResultLose extends JPanel{
 	private Graphics2D g;
 	
 	//Constructor
-	public GameResultLose(int i) {
+	public GameResultLose() {
 		
 		//Maﬂe des Panels
 		setBackground(new Color(190, 190, 190));
