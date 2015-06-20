@@ -12,7 +12,6 @@ public class Prefs {
 		pref = Preferences.userRoot().node(this.getClass().getName()); // Gets the root 
 		
 		// Gets the values and assigns them to variables 
-		gameVol = pref.getInt("gameVol", 0);
 		musicVol = pref.getInt("musicVol", 0);
 		musicSwitch = pref.getBoolean("musicBool", true);
 		
@@ -28,14 +27,6 @@ public class Prefs {
 		
 	}
 	
-	public int getGameVol() {
-		return gameVol;
-	}
-	
-	public void setGameVol(int gameVol) {
-		this.gameVol = gameVol;
-		pref.putInt("gameVol", gameVol); // Puts the game volume value 
-	}
 	
 	public boolean isMusicSwitch() {
 		return musicSwitch;

@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
+import preferences.Music;
+
 /**
  *	Klasse fuer die Buttons in den Menues
  */
@@ -15,6 +17,8 @@ public class Button extends JButton {
 
 	//Transparenz
 	float alpha = .5f;
+	
+	private Music musicInstance = Music.getInstance();
 
 	//Constructor
 	public Button(Icon ic) {
@@ -66,9 +70,11 @@ public class Button extends JButton {
 		//Wenn die Maus einen Button beruehrt
 		public void mouseEntered(MouseEvent me) {
 			
+			
 			//Hover over Effekt
 			new Thread(new Runnable() {
 				public void run() {
+
 					for (float i = .5f; i <= 1f; i += .03f) {
 						setAlpha(i);
 					}
