@@ -319,13 +319,14 @@ public class GamePanel extends JPanel implements Runnable {
                 }
 
             }
-        }
-        //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if (this.missileClipPlayer == 0 && missile.size() == 0) {
-            System.out.println("Du hast gewonnen");
-            gameWon(); 
+            //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (this.missileClipPlayer == 0 && missile.size() == 0) {
+                System.out.println("Du hast gewonnen");
+                gameWon();
 
+            }
         }
+
         //Verbleibende Zeit & Geschosse anzeigen
         canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
         if (sekunden >= 10) {
