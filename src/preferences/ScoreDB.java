@@ -158,13 +158,13 @@ public class ScoreDB {
 		String sql = null;
 		try{
 		if (diffi.equals(Diff.EASY)) {
-		sql = "SELECT * FROM SCORETABLE ORDER BY SCORE DESC;"; // Creates SQL statement 
+		sql = "SELECT * FROM SCORETABLE ORDER BY SCORE ASC;"; // Creates SQL statement 
 		}
 		if (diffi.equals(Diff.MEDIUM)) {
-		sql = "SELECT * FROM SCORETABLEMED ORDER BY SCORE DESC;"; // Creates SQL statement 
+		sql = "SELECT * FROM SCORETABLEMED ORDER BY SCORE ASC;"; // Creates SQL statement 
 		}
 		if (diffi.equals(Diff.HARD)) {
-		sql = "SELECT * FROM SCORETABLEHARD ORDER BY SCORE DESC;"; // Creates SQL statement 
+		sql = "SELECT * FROM SCORETABLEHARD ORDER BY SCORE ASC;"; // Creates SQL statement 
 		}
 		ResultSet rs = stm.executeQuery(sql); // Executes statement and saves the result into rs
 		while(rs.next()){ // Loops the result set

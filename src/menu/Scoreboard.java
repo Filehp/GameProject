@@ -98,11 +98,11 @@ public class Scoreboard extends JComponent {
 		      try{
 		    	  //if (nodes.get(i).get(0).equals("EASY")) {
 		    	  if(i < nodes.size()){ // Checks if i isn't bigger than nodes size
-		    	  g2d.drawString(nodes.size()-i + "", Game.getWindowWidth() / 8, Game.getWindowHeight() * 10 / 45 + (nodes.size()-i) * 20); // Draws the position
-		    	  g2d.drawString(nodes.get(i).get(0), Game.getWindowWidth() * 10 / 48, Game.getWindowHeight() * 10 / 45 + (nodes.size()-i) * 20); // Draws the name
-		    	  g2d.drawString(nodes.get(i).get(1), Game.getWindowWidth() * 10 / 26, Game.getWindowHeight() * 10 / 45 + (nodes.size()-i) * 20); // Draws the score	    	  
-		    	  g2d.drawString(nodes.get(i).get(2), Game.getWindowWidth() * 10 / 17, Game.getWindowHeight() * 10 / 45 + (nodes.size()-i) * 20); // Draws the date
-		    	  g2d.drawString(nodes.get(i).get(3), Game.getWindowWidth() * 10 / 13, Game.getWindowHeight() * 10 / 45 + (nodes.size()-i) * 20); // Draws the date
+		    	  g2d.drawString(i+1 + "", Game.getWindowWidth() / 8, Game.getWindowHeight() * 10 / 41 + (i+i) * 10);; // Draws the position
+		    	  g2d.drawString(nodes.get(i).get(0), Game.getWindowWidth() * 10 / 48, Game.getWindowHeight() * 10 / 41 + (i+i) * 10);; // Draws the name
+		    	  g2d.drawString(nodes.get(i).get(1), Game.getWindowWidth() * 10 / 26, Game.getWindowHeight() * 10 / 41 + (i+i) * 10);; // Draws the score	    	  
+		    	  g2d.drawString(nodes.get(i).get(2), Game.getWindowWidth() * 10 / 17, Game.getWindowHeight() * 10 / 41 + (i+i) * 10);; // Draws the date
+		    	  g2d.drawString(nodes.get(i).get(3), Game.getWindowWidth() * 10 / 13, Game.getWindowHeight() * 10 / 41 + (i+i) * 10);; // Draws the date
 		    	  } //else break; // If i is bigger than nodes size, break the loop
 		    	  //}
 	    	  } catch (IndexOutOfBoundsException e){ // Catches IndexOutOfBoundsException in case "if" dosn't do it's job
@@ -114,11 +114,11 @@ public class Scoreboard extends JComponent {
 		    	  
 		    	  //if (nodes.get(i).get(0).equals("MEDIUM")) {
 		    	  if(h < nodes1.size()){ // Checks if i isn't bigger than nodes size
-		    	  g2d.drawString(nodes1.size()-h + "", Game.getWindowWidth() / 8, Game.getWindowHeight() * 100 / 235 + (nodes1.size()-h) * 20); // Draws the position
-		    	  g2d.drawString(nodes1.get(h).get(0), Game.getWindowWidth() * 10 / 48, Game.getWindowHeight() * 100 / 235 + (nodes1.size()-h) * 20); // Draws the name
-		    	  g2d.drawString(nodes1.get(h).get(1), Game.getWindowWidth() * 10 / 26, Game.getWindowHeight() * 100 / 235 + (nodes1.size()-h) * 20); // Draws the score	    	  
-		    	  g2d.drawString(nodes1.get(h).get(2), Game.getWindowWidth() * 10 / 17, Game.getWindowHeight() * 100 / 235 + (nodes1.size()-h) * 20); // Draws the date
-		    	  g2d.drawString(nodes1.get(h).get(3), Game.getWindowWidth() * 10 / 13, Game.getWindowHeight() * 100 / 235 + (nodes1.size()-h) * 20); // Draws the date
+		    	  g2d.drawString(h+1 + "", Game.getWindowWidth() / 8, Game.getWindowHeight() * 100 / 224 + (h+h) * 10); // Draws the position
+		    	  g2d.drawString(nodes1.get(h).get(0), Game.getWindowWidth() * 10 / 48, Game.getWindowHeight() * 100 / 224 + (h+h) * 10); // Draws the name
+		    	  g2d.drawString(nodes1.get(h).get(1), Game.getWindowWidth() * 10 / 26, Game.getWindowHeight() * 100 / 224 + (h+h) * 10); // Draws the score	    	  
+		    	  g2d.drawString(nodes1.get(h).get(2), Game.getWindowWidth() * 10 / 17, Game.getWindowHeight() * 100 / 224 + (h+h) * 10); // Draws the date
+		    	  g2d.drawString(nodes1.get(h).get(3), Game.getWindowWidth() * 10 / 13, Game.getWindowHeight() * 100 / 224 + (h+h) * 10); // Draws the date
 		    	  } //else break; // If i is bigger than nodes size, break the loop
 		    	  //}
 		    	  } catch (IndexOutOfBoundsException e){ // Catches IndexOutOfBoundsException in case "if" dosn't do it's job
@@ -129,11 +129,11 @@ public class Scoreboard extends JComponent {
 					  try{
 		    	  //if (nodes.get(i).get(0).equals("HARD")) {
 		    	  if(k < nodes2.size()){ // Checks if i isn't bigger than nodes size
-		    	  g2d.drawString(nodes2.size()-k + "", Game.getWindowWidth() / 8, Game.getWindowHeight() * 100 / 159 + (nodes2.size()-k) * 20); // Draws the position
-		    	  g2d.drawString(nodes2.get(k).get(0), Game.getWindowWidth() * 10 / 48, Game.getWindowHeight() * 100 / 159 + (nodes2.size()-k) * 20); // Draws the name
-		    	  g2d.drawString(nodes2.get(k).get(1), Game.getWindowWidth() * 10 / 26, Game.getWindowHeight() * 100 / 159 + (nodes2.size()-k) * 20); // Draws the score	    	  
-		    	  g2d.drawString(nodes2.get(k).get(2), Game.getWindowWidth() * 10 / 17, Game.getWindowHeight() * 100 / 159 + (nodes2.size()-k) * 20); // Draws the date
-		    	  g2d.drawString(nodes2.get(k).get(3), Game.getWindowWidth() * 10 / 13, Game.getWindowHeight() * 100 / 159 + (nodes2.size()-k) * 20); // Draws the date
+		    	  g2d.drawString(k+1 + "", Game.getWindowWidth() / 8, Game.getWindowHeight() * 100 / 159 + (k+k) * 10); // Draws the position
+		    	  g2d.drawString(nodes2.get(k).get(0), Game.getWindowWidth() * 10 / 48, Game.getWindowHeight() * 100 / 159 + (k+k) * 10); // Draws the name
+		    	  g2d.drawString(nodes2.get(k).get(1), Game.getWindowWidth() * 10 / 26, Game.getWindowHeight() * 100 / 159 + (k+k) * 10); // Draws the score	    	  
+		    	  g2d.drawString(nodes2.get(k).get(2), Game.getWindowWidth() * 10 / 17, Game.getWindowHeight() * 100 / 159 + (k+k) * 10); // Draws the date
+		    	  g2d.drawString(nodes2.get(k).get(3), Game.getWindowWidth() * 10 / 13, Game.getWindowHeight() * 100 / 159 + (k+k) * 10); // Draws the date
 		    	  } 
 		    	  else break; // If i is bigger than nodes size, break the loop
 		    	  //}
