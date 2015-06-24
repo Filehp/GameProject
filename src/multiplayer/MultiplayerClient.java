@@ -187,15 +187,19 @@ public class MultiplayerClient extends JPanel implements Runnable{
 		});		
         quit2.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Game.changePanel("menu", MultiplayerClient.this);
-			}
-		});
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Game.changePanel("menu", MultiplayerClient.this);
+            }
+        });
         
 
         //Starts the thread
+
         start();
+
+
+
     }
 
     @Override
