@@ -102,7 +102,7 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 	@Override
 	protected void paintComponent(Graphics g) {
 		
-		g.drawImage(logo2, 0, 0, null);
+		g.drawImage(logo2, Game.WIDTH / 2 - logo2.getWidth(null) / 2, 0, null);
 
 		//Setzt die Position und Groesse der Buttons
 		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
