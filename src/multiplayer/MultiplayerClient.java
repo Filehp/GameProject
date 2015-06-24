@@ -204,6 +204,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
         if(this.waitGameStart==false) {
             KanonePlayer2.setColorRed();
+
             //Rad laden
             rad.spinWheel();
             rad.loadWheel(canon, startSpokes);
@@ -251,6 +252,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
 
             //Verbleibende Zeit anzeigen
+            canon.setColor(Color.BLACK);
             canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
             if (sekunden >= 10) {
                 canon.drawString("0" + minuten + ":" + sekunden, this.x / 100 * 14, this.y / 100 * 88);

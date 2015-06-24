@@ -48,7 +48,7 @@ public class Missile implements Serializable {
     public boolean coollidesWithSpokes (ArrayList<Spokes> spokes){
         for(Spokes spoke:spokes){
             double c = Math.sqrt(Math.pow(this.x - spoke.getX(), 2) + Math.pow(this.y - spoke.getY(), 2));
-            if (spoke.getRadius()*1.5 >= c) {
+            if (spoke.getRadius()*2 >= c) {
                 return true;
             }
         }
