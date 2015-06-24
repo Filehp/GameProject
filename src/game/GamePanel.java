@@ -415,7 +415,7 @@ public class GamePanel extends JPanel implements Runnable {
         canon.drawString("Missles left: " + missileClipPlayer , this.x / 100 * 14, this.y / 100 * 95);
         
         //Schussstärke anzeigen
-        canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 16, this.y / 100 * 3);
+        canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 20, this.y / 100 * 3);
         canon.setColor(new Color(0, 128, 128));
         canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
 
