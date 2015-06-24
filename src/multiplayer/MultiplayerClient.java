@@ -139,7 +139,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
         while (time) {
             repaint();
             try {
-                Thread.sleep(85);
+                Thread.sleep(87);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -167,15 +167,13 @@ public class MultiplayerClient extends JPanel implements Runnable{
                 oos.writeObject(finishedGame);
                 System.out.println("Daten gesendet");
 
-
+                os.flush();
 
                 //Daten empfangen
                 is = socket.getInputStream();
                 ois = new ObjectInputStream(is);
 
                 rad = (Wheel) ois.readObject();
-                minuten = (int) ois.readObject();
-                sekunden = (int) ois.readObject();
                 KanonePlayer2 = (Canon) ois.readObject();
                 missilePlayer1 = (ArrayList) ois.readObject();
                 missilePlayer2 = (ArrayList) ois.readObject();
@@ -183,11 +181,11 @@ public class MultiplayerClient extends JPanel implements Runnable{
                 victory = (int) ois.readObject();
 
 
-                    is.close();
-                    os.close();
-                    socket.close();
+                is.close();
+                os.close();
 
-                System.out.println(waitGameStart);
+                socket.close();
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -251,14 +249,9 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
 
 
-            //Verbleibende Zeit anzeigen
+            //verbleibende Geschosse anzeigen
             canon.setColor(Color.BLACK);
-            canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
-            if (sekunden >= 10) {
-                canon.drawString("0" + minuten + ":" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
-            } else {
-                canon.drawString("0" + minuten + ":0" + sekunden, this.x / 100 * 14, this.y / 100 * 88);
-            }
+            canon.drawString("Missles left: " + missileClipPlayer1 , this.x / 100 * 14, this.y / 100 * 95);
 
             //Schussstärke anzeigen
             canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 18, this.y / 100 * 3);
