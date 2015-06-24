@@ -33,12 +33,12 @@ public class Scoreboard extends JComponent {
 	private JButton back = new Button(quitIcon);
 	private ArrayList<ArrayList<String>> nodes;
 	
-    private Image ScoreboardLogo;
+    private Image scoreboardLogo;
 
 	public Scoreboard() { 
 		
 		try {
-			ScoreboardLogo = ImageIO.read(new File("resources/ScoreboardLogo.png"));
+			scoreboardLogo = ImageIO.read(new File("resources/scoreboardLogo.png"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -61,16 +61,16 @@ public class Scoreboard extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		
-		g.drawImage(ScoreboardLogo, Game.getWindowWidth() / 2 - ScoreboardLogo.getWidth(null) / 2, 0, null);
+		g.drawImage(scoreboardLogo, Game.getWindowWidth() / 2 - scoreboardLogo.getWidth(null) / 2, 0, null);
 
 		Graphics2D g2d = (Graphics2D) g;
 
 		// Draws the lines
 		g2d.setColor(Color.black);
 		g2d.drawLine(50, 140, 600, 140);
-		g2d.drawLine(125, 110, 125, 450);
-		g2d.drawLine(350, 110, 350, 450);
-		g2d.drawLine(475, 110, 475, 450);
+		g2d.drawLine(Game.getWindowWidth() / 5, Game.getWindowHeight() / 6, Game.getWindowWidth() / 5, 450);
+		g2d.drawLine(Game.getWindowWidth() / 2, Game.getWindowHeight() / 6, Game.getWindowWidth() / 2, 450);
+		g2d.drawLine(Game.getWindowWidth() / 4 * 3, Game.getWindowHeight() / 6, Game.getWindowWidth() / 4 * 3, 450);
 
 		// Draws the strings
 		g2d.drawString("Rank", 75, 135);

@@ -1,15 +1,12 @@
 package multiplayer;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-
 import entity.*;
 import game.Game;
 import menu.*;
@@ -59,25 +56,10 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
     private boolean scorePanel = false;
     Icon quitIcon = new ImageIcon("resources/Quit.png");
-    Icon replayIcon = new ImageIcon("resources/Replay.png");
-    Icon nextLevelIcon = new ImageIcon("resources/NextLevel.png");
     private Button quit = new Button(quitIcon);
-    private Button replay = new Button(replayIcon);
-    private Button nextLevel = new Button (nextLevelIcon);
-    private JLabel yourTime = new JLabel();
-    private JLabel yourMissles = new JLabel();
-    
-    private Image background;
 
 
     public MultiplayerClient(int x, int y, int missileClip, int playerID, String adress) {
-    	
-		try {
-			background = ImageIO.read(new File("resources/Hintergrund.png"));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
         this.setFocusable(true);
         this.playerID = playerID;
         this.missileClipPlayer1 = missileClip;
@@ -258,24 +240,9 @@ public class MultiplayerClient extends JPanel implements Runnable{
             /*if (this.missilnumber != 99) {
                 //System.out.println(missilnumber);
                 missilePlayer2.remove(this.missilnumber);
-
             }*/
 
 
-            //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            /**
-             * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft
-             */
-            if(this.victory==1){
-                System.out.println("Sieg");
-                gameWon();
-                
-
-            }else if(this.victory==-1){
-                System.out.println("verloren");
-                gameLost();
-                
-            }
 
 
 
@@ -313,22 +280,12 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
         //Öffnet das scorePanel mit Replay oder Quit
         if (scorePanel) {
-        	GameResultLose panel = new GameResultLose();
-        	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-        	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		
-			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		//yourTime.setText("You failed after " + currentTime / 1000 + " seconds ("+ currentTime + " ms)");
-			yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-			//yourMissles.setText("You have " + missileClipPlayer + " missles left.");
+            GameResultLose panel = new GameResultLose();
+            quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
 
-    		add(yourTime);
-    		add(yourMissles);
-        	
-        	this.add(quit);
-        	this.add(replay);
-    		
-        	this.add(panel);
+
+            this.add(quit);
+            this.add(panel);
 
         }
     }
@@ -340,29 +297,13 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
         //Öffnet das scorePanel mit Replay oder Quit
         if (scorePanel) {
-        	GameResultWin panel = new GameResultWin();
-        	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-        	nextLevel.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		
-			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		//yourTime.setText("You needed " + currentTime / 1000 + " seconds" + " (" + currentTime + " ms).");
+            GameResultWin panel = new GameResultWin();
+            quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
 
-			 
-			//nameField.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 100 * 65, 110, 20);
-			//submitScore.setBounds(Game.WIDTH / 10 * 7, Game.HEIGHT / 10 * 6, 150, 45);
-			
-			// Adds elements to ui
-			//add(submitScore);
-			//add(nameField);
-    		
-    		
-    		
-    		add(yourTime);
-        	
-        	this.add(quit);
-        	this.add(nextLevel);
-    		
-        	this.add(panel);
+
+
+            this.add(quit);
+            this.add(panel);
         }
 
     }

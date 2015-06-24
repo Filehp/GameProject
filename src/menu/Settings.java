@@ -53,12 +53,12 @@ public class Settings extends JComponent{
 	
 	private Prefs pref = new Prefs();
 	
-    private Image SettingsLogo;
+    private Image settingsLogo;
 	
 	public Settings() {
 		
 		try {
-			SettingsLogo = ImageIO.read(new File("resources/SettingsLogo.png"));
+			settingsLogo = ImageIO.read(new File("resources/settingsLogo.png"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -125,7 +125,7 @@ public class Settings extends JComponent{
 	@Override
 	protected void paintComponent(Graphics g) {
 		
-		g.drawImage(SettingsLogo, Game.getWindowWidth() / 2 - SettingsLogo.getWidth(null) / 2, 0, null);
+		g.drawImage(settingsLogo, Game.getWindowWidth() / 2 - settingsLogo.getWidth(null) / 2, 0, null);
 
 		g2 = (Graphics2D) g; 
 	
