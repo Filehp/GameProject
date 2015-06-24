@@ -59,13 +59,14 @@ public class MultiplayerClient extends JPanel implements Runnable{
     private int victory;
     private boolean finishedGame=false;
 
-    private boolean scorePanel = false;
+    private boolean scorePanel;
     Icon quitIcon = new ImageIcon("resources/Quit.png");
     Icon replayIcon = new ImageIcon("resources/Replay.png");
     private Button quit = new Button(quitIcon);
     private Button replay = new Button(replayIcon);
 
     public MultiplayerClient(int x, int y, int missileClip, int playerID, String adress) {
+    	scorePanel=false;
         this.setFocusable(true);
         this.playerID = playerID;
         this.missileClipPlayer1 = missileClip;
