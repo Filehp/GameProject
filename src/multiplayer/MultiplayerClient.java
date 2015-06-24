@@ -192,7 +192,18 @@ public class MultiplayerClient extends JPanel implements Runnable{
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+            //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            /**
+             * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft
+             */
+            if(this.victory==1){
+                System.out.println("Sieg");
+                gameWon();
 
+            }else if(this.victory==-1){
+                System.out.println("verloren");
+                gameLost();
+            }
             }
     }
 
@@ -233,18 +244,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
             }*/
 
 
-            //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            /**
-             * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft
-             */
-            if(this.victory==1){
-                System.out.println("Sieg");
-                gameWon();
 
-            }else if(this.victory==-1){
-                System.out.println("verloren");
-                gameLost();
-            }
 
 
 
