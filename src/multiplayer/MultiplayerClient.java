@@ -280,8 +280,14 @@ public class MultiplayerClient extends JPanel implements Runnable{
         canon.drawImage(background, x / 2 - background.getWidth(null)/2, 0, null);
         quit2.setBounds(this.x / 100 * 80, this.y / 100 * 99, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
         this.add(quit2);
+        
+        if(this.waitGameStart==true) {
+        	canon.setColor(Color.WHITE);
+        	canon.drawString("Warte auf zweiten Spieler...", Game.WIDTH * 10 / 25, this.y / 100 * 99);
+        }
 
         if(this.waitGameStart==false) {
+        	
             KanonePlayer2.setColorRed();
 
             //Rad laden

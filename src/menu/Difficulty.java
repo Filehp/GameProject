@@ -15,35 +15,37 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 /**
- *	Klasse fuer das Schwierigkeitsmenue
+ * Klasse fuer das Schwierigkeitsmenue
  */
 
 public class Difficulty extends JComponent {
 
-	//Laedt die Bilder fuer die Buttons
+	// Laedt die Bilder fuer die Buttons
 	Icon easyIcon = new ImageIcon("resources/Easy.png");
 	Icon mediumIcon = new ImageIcon("resources/Medium.png");
 	Icon hardIcon = new ImageIcon("resources/Hard.png");
 	Icon backIcon = new ImageIcon("resources/Back.png");
-	
-	//private Image logo2 = new ImageIcon(getClass().getResource("/background2.png")).getImage();
 
+	// Erzeugt die Menübuttons
 	private Button easy = new Button(easyIcon);
 	private Button medium = new Button(mediumIcon);
 	private Button hard = new Button(hardIcon);
 	private Button back = new Button(backIcon);
+
+	// Erzeugt das Hintergrundbild
 	private Image logo2;
 
-	//Constructor
+	// Constructor
 	public Difficulty() {
-		
+
+		// Lädt das Hintergrundbild
 		try {
 			logo2 = ImageIO.read(new File("resources/background2.png"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
-	//Aktion bei Klick auf Button
+		// Aktion bei Klick auf den jeweiligen Button
 		easy.addActionListener(new ActionListener() {
 
 			@Override
@@ -74,20 +76,25 @@ public class Difficulty extends JComponent {
 		});
 	}
 
-	//Stellt die Buttons dar
+	// Stellt die Objekte dar
 	@Override
 	protected void paintComponent(Graphics g) {
-		
-		//Stellt das Hintergrundlogo dar
-		g.drawImage(logo2, Game.getWindowWidth() / 2 - logo2.getWidth(null)/2, 0, null); 
 
-		//Setzt die Position und Groesse der Buttons
-		easy.setBounds(Menu.getButtonX(), Menu.getButtonY() - Game.HEIGHT / 100 * 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
-		medium.setBounds(Menu.getButtonX(), Menu.getButtonY(), Menu.getButtonWidth(), Menu.getButtonHeight());
-		hard.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
-		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+		// Stellt das Hintergrundlogo dar
+		g.drawImage(logo2,
+				Game.getWindowWidth() / 2 - logo2.getWidth(null) / 2, 0, null);
 
-		//Fuegt die Buttons der GUI hinzu
+		// Setzt die Position und Groesse der Buttons
+		easy.setBounds(Menu.getButtonX(), Menu.getButtonY() - Game.HEIGHT / 100
+				* 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+		medium.setBounds(Menu.getButtonX(), Menu.getButtonY(),
+				Menu.getButtonWidth(), Menu.getButtonHeight());
+		hard.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100
+				* 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100
+				* 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+
+		// Fuegt die Buttons der GUI hinzu
 		add(easy);
 		add(medium);
 		add(hard);

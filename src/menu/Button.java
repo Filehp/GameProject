@@ -7,20 +7,16 @@ import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
-import preferences.Music;
-
 /**
- *	Klasse fuer die Buttons in den Menues
+ * Klasse fuer die Buttons in den Menues
  */
 
 public class Button extends JButton {
 
-	//Transparenz
+	// Transparenz
 	float alpha = .5f;
-	
-	private Music musicInstance = Music.getInstance();
 
-	//Constructor
+	// Constructor
 	public Button(Icon ic) {
 		super(ic);
 
@@ -30,7 +26,7 @@ public class Button extends JButton {
 		addMouseListener(new ML());
 	}
 
-	//Stellt die Buttons und Transparenz dar
+	// Stellt die Buttons und Transparenz dar
 	@Override
 	public void paintComponent(java.awt.Graphics g) {
 		super.paintComponent(g);
@@ -40,24 +36,24 @@ public class Button extends JButton {
 		super.paintComponent(g2);
 	}
 
-	//Holt die derzeitige Transparenz der Buttons
+	// Bekommt die derzeitige Transparenz der Buttons
 	public float getAlpha() {
 		return alpha;
 	}
 
-	//Setzt eine Transparenz der Buttons
+	// Setzt eine Transparenz der Buttons
 	public void setAlpha(float alpha) {
 		this.alpha = alpha;
 		repaint();
 	}
 
-	//Maus Aktionen
+	// Maus Aktionen
 	public class ML extends MouseAdapter {
-		
-		//Wenn die Maus den Button verlaesst
+
+		// Wenn die Maus den Button verlaesst
 		public void mouseExited(MouseEvent me) {
-			
-			//Hover over Effekt
+
+			// Hover over Effekt, Transparenz
 			new Thread(new Runnable() {
 				public void run() {
 					for (float i = 1f; i >= .5f; i -= .03f) {
@@ -67,11 +63,10 @@ public class Button extends JButton {
 			}).start();
 		}
 
-		//Wenn die Maus einen Button beruehrt
+		// Wenn die Maus einen Button beruehrt
 		public void mouseEntered(MouseEvent me) {
-			
-			
-			//Hover over Effekt
+
+			// Hover over Effekt, Transparenz
 			new Thread(new Runnable() {
 				public void run() {
 
@@ -82,10 +77,10 @@ public class Button extends JButton {
 			}).start();
 		}
 
-		//Wenn die Maus geklickt wird
+		// Wenn die Maus geklickt wird
 		public void mousePressed(MouseEvent me) {
-			
-			//Hover over Effekt
+
+			// Hover over Effekt, Transparenz
 			new Thread(new Runnable() {
 				public void run() {
 					for (float i = 1f; i >= 0.5f; i -= .1f) {
