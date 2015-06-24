@@ -29,9 +29,16 @@ import java.util.*;
  */
 public class GamePanel extends JPanel implements Runnable {
 
+    /**
+     * Auflösungsvariabeln
+     */
     static int x;
     static int y;
 
+
+    /**
+     * Variabeln für die ZEit und den Timer
+     */
     boolean time = true;
     int timer;
     int minuten;
@@ -40,6 +47,10 @@ public class GamePanel extends JPanel implements Runnable {
     int currentTimeOutput;
     private long currentTime;
 
+    /**
+     * Kanonen und Missile variabeln
+     */
+    private Canon Kanone;
     String direction;
     boolean shotMissile = false;
     double missilespeed = 0;
@@ -48,16 +59,26 @@ public class GamePanel extends JPanel implements Runnable {
     int missileClipPlayer;
     public ArrayList<Missile> missile = new ArrayList<>();
 
+    /**
+     * Rad Variabeln
+     */
+    private Wheel rad;
     boolean startSpokes = true;
 
-    private Canon Kanone;
-    private Wheel rad;
+    /**
+     * Keybindings Variablen
+     */
     InputMap im;
     ActionMap am;
-    
+
+    /**
+     * Thread variabel
+     */
     private Thread thread;
 
-    
+    /**
+     * Variablen für das scorePanel
+     */
     private boolean scorePanel = false;
     Icon quitIcon = new ImageIcon("resources/Quit.png");
     Icon quit1Icon = new ImageIcon("resources/Quit1.png");
@@ -83,6 +104,9 @@ public class GamePanel extends JPanel implements Runnable {
 	// Hintergrundbild
     private Image background;
 
+    /**
+     * Constructor fuer das Level
+     */
     public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel,Diff diff) {
         this.setFocusable(true);
         this.x = x;
@@ -104,6 +128,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         this.am = getActionMap();
 
+
+        /**
+         * Keybindings
+         */
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "pressed");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true), "released");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false), "left");
@@ -111,9 +139,15 @@ public class GamePanel extends JPanel implements Runnable {
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true), "moveReleased");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true), "moveReleased");
 
+        /**
+         * Keybindings Actionevents
+         */
         am.put("left", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                /**
+                 * Setzt direction auf left um die Kanone nach links zu bewegen
+                 */
                 direction = "left";
             }
         });
@@ -123,13 +157,20 @@ public class GamePanel extends JPanel implements Runnable {
                 direction = null;
             }
         });
+
         am.put("right", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                /**
+                 * Setzt direction auf right um die Kanone nach rechts zu bewegen
+                 */
                 direction = "right";
             }
         });
 
+        /**
+         * Halten der Leertaste laedt die GEschwindigkeit
+         */
         am.put("pressed", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -140,22 +181,29 @@ public class GamePanel extends JPanel implements Runnable {
                     missilespeed = 10;
                 }
                 System.out.println(missilespeed);
-                System.out.println("Pressed");
+                //System.out.println("Pressed");
             }
         });
 
+        /**
+         * Los lassen der Leertaste schiesst die Missile ab
+         */
         am.put("released", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 direction = null;
                 if (Kanone.getMissileCounter() > 0) {
+
+                    //erzegt eine neue missile
                     missile.add(new Missile(x, Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
                     shotMissile = true;
-                    Kanone.shotedmissile();
-                    missilespeed = 0;
-                    missileClipPlayer--;
+
+                    Kanone.shotedmissile();//entfernt missile aus dem Magazin der kanone
+
+                    missilespeed = 0;       //setzt die GEschwindigkeit auf null
+                    missileClipPlayer--;    //entfernt missile aus dem Magazin des LEvels
                 }
-                System.out.println("released");
+                //System.out.println("released");
             }
         });
 
@@ -251,13 +299,12 @@ public class GamePanel extends JPanel implements Runnable {
                 currentTimeOutput = (int) (timer - currentTime);
                 minuten = (int) currentTimeOutput / 1000 / 60;
                 sekunden = (int) currentTimeOutput / 1000 % 60;
+
                 if (currentTime >= timer) {
                     gameLost(); //Method when losing the game
                     System.out.println("Timeout");
                     repaint();
-                    
-                    
-                    
+
                 }
 
 
@@ -282,8 +329,10 @@ public class GamePanel extends JPanel implements Runnable {
         //Rad laden
         rad.loadWheel(canon, startSpokes);
         this.startSpokes = false;
+
         //Rad bewegen
         rad.spinWheel();
+
         //KAnone Laden
         Kanone.canonLoad(canon);
 
@@ -291,14 +340,14 @@ public class GamePanel extends JPanel implements Runnable {
         if (this.direction != null) {
             Kanone.moveCanon(this.direction);
         }
-        //Geschoss abfeuern
 
+        //Geschoss abfeuern
         this.missilenumber = Kanone.shotMissile(canon, missile);
         if (this.missilenumber != 99) {
             //System.out.println(missilenumber);
             missile.remove(this.missilenumber);
-
         }
+
         //Kollision abfangen
         if (missile.size() > 0) {
             for (int i = 0; i < missile.size(); i++) {
@@ -332,7 +381,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
 
             }
-            //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //Sieges Bedingung !!!!!!
             if (time == true && this.missileClipPlayer == 0 && missile.size() == 0) {
                 System.out.println("Du hast gewonnen");
                 gameWon();

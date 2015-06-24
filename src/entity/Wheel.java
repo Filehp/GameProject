@@ -11,16 +11,19 @@ import java.util.ArrayList;
 
 public class Wheel implements Serializable {
 
-
+    /**
+     * Umegbungsvariabeln
+     */
     private int wheelX;
     private int wheelY;
     private int radius;
     private int speed;
-    private  double winkel;
     private int numberSpokes;
     private ArrayList <Spokes> spokesList = new ArrayList<Spokes>();
 
-
+    /**
+     * Constructur für Singelplayer
+     */
     public Wheel(int x, int y, int numberStartSpokes, int speed){
         wheelX = x/100*52;
         wheelY = y/100*28;
@@ -28,6 +31,10 @@ public class Wheel implements Serializable {
         this.numberSpokes = numberStartSpokes;
         this.speed = speed;
     }
+
+    /**
+     * Constructur für Multiplayer
+     */
     public Wheel(int x, int y, int numberStartSpokes, int speed, boolean multi){
         wheelX = x/100*52;
         wheelY = y/100*28;
@@ -36,27 +43,45 @@ public class Wheel implements Serializable {
         this.speed = speed;
     }
 
+
+    /**
+     * Laden der Grafik für das Rad
+     * Dabei wird unterschieden ob die Startspeichen geladen werden oder nicht
+     * dafür muss der Methode true oder false mitgegeben werden
+     */
     public void loadWheel(Graphics wheel, boolean startAdd){
-        //Wheel laden
+
+        /**
+         * Wheel zeichnen
+         */
         Graphics2D g2 = (Graphics2D) wheel;
         g2.setPaint(new Color(0, 128, 128));
         Ellipse2D circle = new Ellipse2D.Double();
         circle.setFrameFromCenter(this.wheelX, this.wheelY, this.wheelX + radius, this.wheelY + radius); ///(x-achse, y-achse, RadiusX , RadiusY)
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        g2.draw(circle);
-        g2.fill(circle);
+        g2.draw(circle);        //zeichnet die ellipse
+        g2.fill(circle);        //fuellt die ellipse aus mit der Farbe
+
+        /**
+         * ist startAdd true werden die Startspeichen hinzugefügt
+         */
         if(startAdd) {
             //addspokes
             addSpokes();
         }
 
-        ///loadSpokes
+        /**
+         * Speichen werden geladen aus der spokesList
+         */
         for(Spokes spoke : this.spokesList){
             spoke.loadSpoke(wheel);
         }
 
     }
 
+    /**
+     * Lässt das Rad sich drehen in dem die Speichen neu berechnet werden
+     */
     public  void spinWheel(){
         for(Spokes spoke : this.spokesList){
             //System.out.println(spoke.getWinkel());
@@ -68,20 +93,25 @@ public class Wheel implements Serializable {
 
     }
 
+    /**
+     * Fügt SPeichen hinzu die beim Start erzeugt werden sollen
+     */
     public void addSpokes(){
-        double startwinkel = 360/this.numberSpokes;
 
+        double startwinkel = 360/this.numberSpokes;
         double winkelposition=startwinkel;
 
         for(int i = 0;i<this.numberSpokes;i++ ){
             this.spokesList.add(new Spokes(winkelposition, this.radius, this.wheelX, this.wheelY)) ;
             winkelposition = winkelposition+startwinkel;
-            //System.out.println(numberSpokes);
-            //System.out.println(startwinkel);
+
         }
-        startwinkel=0;
     }
 
+    /**
+     * Fügt neue Speichen hinzu indem man die X Position der missile die mit
+     * dem wheel kollidiert ist übergibt
+     */
     public  void addSpokes(int xKollision){
         //Winkel berechen aus XWert wo die Kollision mit dem Wheel stattfand
         int aktuellerWinkel=0;
@@ -91,8 +121,8 @@ public class Wheel implements Serializable {
             aktuellerWinkel = 70 + ((wheelX-xKollision)*(90/radius));
         }
 
-        System.out.println(aktuellerWinkel);
-
+        //System.out.println(aktuellerWinkel);
+        //HInzufügen und erzeugen der neuen SPeiche zu spokeslist
         this.spokesList.add(new Spokes(aktuellerWinkel, this.radius, this.wheelX, this.wheelY));
 
     }
