@@ -33,7 +33,7 @@ public class GameResultWin extends JPanel{
 	private JLabel yourTime = new JLabel();
 
 	//Constructor
-	public GameResultWin() {
+	public GameResultWin(String str) {
 		
 		//Maﬂe des Panels
 		setBackground(new Color(190, 190, 190));
@@ -41,7 +41,12 @@ public class GameResultWin extends JPanel{
 		
 		//Laedt das GameWon Bild
 			try {
-				image = ImageIO.read(new File (".\\resources\\Success.png"));
+				if(str == "sp") {
+					image = ImageIO.read(new File (".\\resources\\Success.png"));
+				}
+				if (str == "mp") {
+					image = ImageIO.read(new File (".\\resources\\YouWon.png"));
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

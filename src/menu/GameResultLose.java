@@ -32,7 +32,7 @@ public class GameResultLose extends JPanel{
 	private Graphics2D g;
 	
 	//Constructor
-	public GameResultLose() {
+	public GameResultLose(String str) {
 		
 		//Maﬂe des Panels
 		setBackground(new Color(190, 190, 190));
@@ -40,7 +40,12 @@ public class GameResultLose extends JPanel{
 		
 		//Laedt das GameOver Bild
 			try {
-				image = ImageIO.read(new File (".\\resources\\GameOver.png"));
+				if(str == "sp") {
+					image = ImageIO.read(new File (".\\resources\\GameOver.png"));
+				}
+				if (str == "mp") {
+					image = ImageIO.read(new File (".\\resources\\YouLost.png"));
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

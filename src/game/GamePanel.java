@@ -312,13 +312,13 @@ public class GamePanel extends JPanel implements Runnable {
                         missile.remove(i);
                         
                         gameLost(); //Method when losing the game
-                           
+                        
                     }
                 }
 
             }
             //Sieges Bedingung !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            if (this.missileClipPlayer == 0 && missile.size() == 0) {
+            if (time == true && this.missileClipPlayer == 0 && missile.size() == 0) {
                 System.out.println("Du hast gewonnen");
                 gameWon();
 
@@ -359,7 +359,7 @@ public class GamePanel extends JPanel implements Runnable {
     	
     	//Öffnet das scorePanel mit Replay oder Quit
     	if (scorePanel) {
-        	GameResultLose panel = new GameResultLose();
+        	GameResultLose panel = new GameResultLose("sp");
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
         	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		
@@ -386,7 +386,7 @@ public class GamePanel extends JPanel implements Runnable {
     	
     	//Öffnet das scorePanel mit Replay, Quit und Submit
     	if (scorePanel) {
-        	GameResultWin panel = new GameResultWin();
+        	GameResultWin panel = new GameResultWin("sp");
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
         	nextLevel.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		
