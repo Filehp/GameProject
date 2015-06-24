@@ -320,7 +320,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics canon) {
         super.paintComponent(canon);
         
-        canon.drawImage(background, 0, 0, null);
+        canon.drawImage(background, x / 2 - background.getWidth(null)/2, 0, null);
         replay2.setBounds(this.x / 100 * 84, this.y / 100 * 94, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
         quit2.setBounds(this.x / 100 * 84, this.y / 100 * 99, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
         this.add(quit2);

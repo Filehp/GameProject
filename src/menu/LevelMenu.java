@@ -172,7 +172,7 @@ public class LevelMenu extends JComponent {
 	protected void paintComponent(Graphics g) {
 		
 		//Stellt das Hintergrundlogo dar
-		g.drawImage(logo2, 0, 0, null);
+		g.drawImage(logo2, Game.getWindowWidth() / 2 - logo2.getWidth(null) / 2, 0, null);
 
 		// Setzt die Position und Groesse der Buttons
 		level1.setBounds(Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 - Game.HEIGHT / 9, Game.WIDTH * 15 / 64, Game.HEIGHT * 10 / 72);
