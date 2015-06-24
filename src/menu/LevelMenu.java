@@ -40,7 +40,6 @@ public class LevelMenu extends JComponent {
 	public LevelMenu(String difficulty) {
 		
 		try {
-			logo2 = ImageIO.read(new File("resources/background2.png"));
 			twoIcon = ImageIO.read(new File("resources/ComingSoon.png"));
 			threeIcon = ImageIO.read(new File("resources/ComingSoon.png"));
 			fourIcon = ImageIO.read(new File("resources/ComingSoon.png"));
@@ -49,6 +48,12 @@ public class LevelMenu extends JComponent {
 		}
 		
 		if (difficulty == "gameE") {
+			try {
+				logo2 = ImageIO.read(new File("resources/background2easy.png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	//Aktion bei Klick eines Buttons
 		level1.addActionListener(new ActionListener() {
 
@@ -82,6 +87,12 @@ public class LevelMenu extends JComponent {
 		}
 		
 		if (difficulty == "gameM") {
+			try {
+				logo2 = ImageIO.read(new File("resources/background2med.png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	//Aktion bei Klick eines Buttons
 		level1.addActionListener(new ActionListener() {
 
@@ -115,6 +126,14 @@ public class LevelMenu extends JComponent {
 		}
 		
 		if (difficulty == "gameH") {
+			
+			try {
+				logo2 = ImageIO.read(new File("resources/background2hard.png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 	//Aktion bei Klick eines Buttons
 		level1.addActionListener(new ActionListener() {
 
