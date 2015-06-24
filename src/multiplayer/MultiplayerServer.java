@@ -56,12 +56,7 @@ public class MultiplayerServer extends JComponent {
 
     private boolean serverrun = true;
 
-    /*public static void main(String[] argv) throws IOException {
-
-           // new MultiplayerServer(200,300).start();
-        }*/
-
-         public void start() throws IOException {
+    public void start() throws IOException {
              System.out.println("Server gestartet.");
 
 
