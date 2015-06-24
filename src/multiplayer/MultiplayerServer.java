@@ -12,48 +12,56 @@ import javax.swing.JComponent;
  * Created by Chris on 11.06.2015.
  */
 public class MultiplayerServer extends JComponent {
+    /**
+     * Auflösungsvariabeln
+     */
     static int x;
     static int y;
-
-    private boolean time=true;
-    private int timer = 270000;
-    private int minuten;
-    private int sekunden;
-    private long starttime;
-
-    private int playerID;
-
-    private int loadBar=0;
-    private int missilnumber = 99;
-    private int missileClipPlayer1;
-    private int missileClipPlayer2;
-    private  ArrayList<Missile> missilePlayer1 = new ArrayList<>();
-    private  ArrayList<Missile> missilePlayer2 = new ArrayList<>();
-
-    private boolean startSpokes = false;
-
-    private Canon KanonePlayer1;
-    private Canon KanonePlayer2;
-
-    private Wheel rad;
-
     private double faktorX;
     private double faktorY;
-    Socket socket;
 
+    /**
+     * Allgemeine Spielvariabeln
+     */
+    private int playerID;
+    Socket socket;
     private boolean allPlayer = false;
     private boolean waitGameStart = true;
 
+    /**
+     * Variabeln Player1
+     */
+    private Canon KanonePlayer1;
     private int victoryPlayer1 = 0;
-    private int victoryPlayer2 = 0;
     private boolean player1Finished;
-    private boolean player2Finished;
+    private int missileClipPlayer1;
+    private  ArrayList<Missile> missilePlayer1 = new ArrayList<>();
 
+    /**
+     * Variabeln Player2
+     */
+    private Canon KanonePlayer2;
+    private int victoryPlayer2 = 0;
+    private boolean player2Finished;
+    private int missileClipPlayer2;
+    private  ArrayList<Missile> missilePlayer2 = new ArrayList<>();
+    /**
+     * Radvariabeln
+     */
+    private Wheel rad;
+    private boolean startSpokes = false;
+
+    /**
+     * Constructor für den Server es wird die Auflösung von Player 1 uebergeben
+     */
     public MultiplayerServer(int x, int y){
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * steuer die Laufzeit des Servers
+     */
     private boolean serverrun = true;
 
 	public void start() throws IOException {
@@ -63,12 +71,22 @@ public class MultiplayerServer extends JComponent {
              try {
                  while (serverrun) {
 
+                     /**
+                      * Server wird gestartet
+                      */
                      InputStream is = null;
                      OutputStream os = null;
+
+                     /**
+                      * Socket erzeugen
+                      */
                      ServerSocket serverSocket = new ServerSocket(5000);
                      socket = serverSocket.accept();
 
-                     //Daten empfangen
+                     /**Daten empfangen
+                      * es wird unterschieden anhand der PlayerID ob Daten von
+                      * Player 1 oder 2 kommen und gesendt werden.
+                      */
                      is = socket.getInputStream();
                      ObjectInputStream ois = new ObjectInputStream(is);
                      playerID = (int)ois.readObject();
@@ -114,7 +132,6 @@ public class MultiplayerServer extends JComponent {
                     if (waitGameStart && allPlayer) {
                         rad = new Wheel(this.x, this.y, 4, 2);
                         rad.addSpokes();
-                        starttime = System.currentTimeMillis();
                         waitGameStart=false;
                     }
                      if(allPlayer) {
@@ -223,7 +240,11 @@ public class MultiplayerServer extends JComponent {
                          }
 
                      }
-                     //Daten senden
+
+                     /**
+                      *  Daten senden
+                      */
+
                      os = socket.getOutputStream();
                      ObjectOutputStream oos = new ObjectOutputStream(os);
                      if (playerID == 1) {

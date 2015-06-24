@@ -1,5 +1,6 @@
 package multiplayer;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
@@ -71,10 +72,15 @@ public class MultiplayerClient extends JPanel implements Runnable{
      */
     
     private boolean scorePanel;
+    Icon quit1Icon = new ImageIcon("resources/Quit1.png");
     Icon quitIcon = new ImageIcon("resources/Quit.png");
     Icon replayIcon = new ImageIcon("resources/Replay.png");
+    private Button quit2 = new Button(quit1Icon);
     private Button quit = new Button(quitIcon);
     private Button replay = new Button(replayIcon);
+    private JLabel yourMissles = new JLabel();
+    
+    private Image background;
 
     /**
      * Keybindingsvariabeln
@@ -87,6 +93,13 @@ public class MultiplayerClient extends JPanel implements Runnable{
      */
     public MultiplayerClient(int x, int y, int missileClip, int playerID, String adress) {
     	scorePanel=false;
+    	
+		try {
+			background = ImageIO.read(new File("resources/Hintergrund1.png"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
         this.setFocusable(true);
         this.playerID = playerID;
         this.missileClipPlayer1 = missileClip;
@@ -171,7 +184,15 @@ public class MultiplayerClient extends JPanel implements Runnable{
 			public void actionPerformed(ActionEvent e) {
 				Game.changePanel("menu", MultiplayerClient.this);
 			}
+		});		
+        quit2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("menu", MultiplayerClient.this);
+			}
 		});
+        
 
         //Starts the thread
         start();
@@ -255,6 +276,10 @@ public class MultiplayerClient extends JPanel implements Runnable{
     @Override
     public void paintComponent(Graphics canon) {
         super.paintComponent(canon);
+        
+        canon.drawImage(background, x / 2 - background.getWidth(null)/2, 0, null);
+        quit2.setBounds(this.x / 100 * 80, this.y / 100 * 99, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
+        this.add(quit2);
 
         if(this.waitGameStart==false) {
             KanonePlayer2.setColorRed();
@@ -287,18 +312,13 @@ public class MultiplayerClient extends JPanel implements Runnable{
                 missilePlayer2.remove(this.missilnumber);
             }*/
 
-
-
-
-
-
-
             //verbleibende Geschosse anzeigen
-            canon.setColor(Color.BLACK);
-            canon.drawString("Missles left: " + missileClipPlayer1 , this.x / 100 * 14, this.y / 100 * 95);
+            canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
+            canon.setColor(Color.WHITE);
+            canon.drawString("Missles left: " + missileClipPlayer1 , this.x / 100 * 14, this.y / 100 * 95);;
 
             //Schussstärke anzeigen
-            canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 18, this.y / 100 * 3);
+            canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, 100, this.y / 100 * 3);
             canon.setColor(new Color(0, 128, 128));
             canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
         }
@@ -328,14 +348,10 @@ public class MultiplayerClient extends JPanel implements Runnable{
         	GameResultLose panel = new GameResultLose("mp");
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
         	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		
-			/*yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		yourTime.setText("You failed after " + currentTime / 1000 + " seconds ("+ currentTime + " ms)");
-			yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-			yourMissles.setText("You have " + missileClipPlayer + " missles left.");
 
-    		add(yourTime);
-    		add(yourMissles);*/
+			yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+			yourMissles.setText("You have " + missileClipPlayer1 + " missles left.");
+    		add(yourMissles);
         	
         	this.add(quit);
         	this.add(replay);
@@ -354,21 +370,6 @@ public class MultiplayerClient extends JPanel implements Runnable{
         	GameResultWin panel = new GameResultWin("mp");
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
         	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		
-			//yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-    		//yourTime.setText("You needed " + currentTime / 1000 + " seconds" + " (" + currentTime + " ms).");
-
-			 
-			//nameField.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 100 * 65, 110, 20);
-			//submitScore.setBounds(Game.WIDTH / 10 * 7, Game.HEIGHT / 10 * 6, 150, 45);
-			
-			// Adds elements to ui
-			//add(submitScore);
-			//add(nameField);
-    		
-    		
-    		
-    		//add(yourTime);
         	
         	this.add(quit);
         	this.add(replay);
