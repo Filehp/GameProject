@@ -89,10 +89,12 @@ public class MultiplayerMenu extends JComponent implements Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				if (field.getText().trim().equals("Please enter IP to connect") || field.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please enter an IP and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
 				String adress = field.getText();
                 Game.changePanel("multiplayerClientJoin", MultiplayerMenu.this);
-				//JOptionPane.showMessageDialog(null, "Bitte eine gültige IP Adresse eingeben", "Fehler", JOptionPane.INFORMATION_MESSAGE, null);
-				
+				}
 				}
 
 		});
