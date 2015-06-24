@@ -9,20 +9,30 @@ import java.util.ArrayList;
  * Created by Chris on 09.05.2015.
  */
 public class Canon  implements Serializable {
-    private int missileCounter;
-    private int canonX;
-    private int canonY;
-    private int canonWigth;
-    private int canonHeigth;
-    private int xPositionMissile;
-    private int yPositionMissile;
-    private int grenzeLinks;
-    private int grenzeRechts;
-    private int radiusMissile;
-    private Color canonColor;
-    public ArrayList<Missile> missile=new ArrayList< Missile>();
 
-    //Constructor
+    /**
+     * Umegebungsvariabel
+     */
+    private int missileCounter;                     //Menge der GEschosse der Kanone
+    private int canonX;                             // X Position der Kanone
+    private int canonY;                             // Y Position der Kanone
+    private int canonWigth;                         // Breite der Kanone
+    private int canonHeigth;                        // Höhe der Kanone
+    private int xPositionMissile;                   // X Position der Missile
+    private int yPositionMissile;                   // Y Position der Missile
+    private int grenzeLinks;                        // Linke Begrenzung der Kanone auf dem Bildschirm
+    private int grenzeRechts;                       // REchte Begrenzung der Kanone auf dem Bildschirm
+    private int radiusMissile;                      // Radius der Missile
+    private Color canonColor;                       // FArbe der Kanone
+
+
+    /**
+     *
+     * Constructor
+     * wird die berechnete Auflösung übergeben um die Groesse der Kanone
+     * zu brechnen. Ausserdem Farbe und Anzahl der Missile
+     */
+
     public Canon(int x, int y, int missileCount){
         System.out.println(x + "and"+ y);
         this.canonX = x/100*50;
@@ -38,56 +48,85 @@ public class Canon  implements Serializable {
     }
 
 
-    //Lädt die Kanone
+    /**
+     *
+     * Lädt die Grafik für die Kanone Farbe sowie Positon und groesse
+     */
     public void canonLoad(Graphics canon) {
-
         canon.setColor(canonColor);
         canon.fillRect(this.canonX, this.canonY, canonWigth, canonHeigth);
     }
 
-    //Bewegt die Kanone
+    /**
+     *
+     * Bewegt die Kanone und bekommt die Richtung übergeben left oder right
+     */
     public void moveCanon(String direction){
+
+        /**
+         * ist die übergegeben Richtung links werden 5 px von der X Position abgezogen
+         */
         if(direction.equals("left")){
             this.canonX = this.canonX - 5;
+
+            // Begrenzung auf der linken Seite
             if(this.canonX <= grenzeLinks){
                 this.canonX = grenzeLinks;
             }
 
         }
+        /**
+         * ist die übergegeben Richtung links werden 5 px von der X Position zugepackt
+         */
         if(direction.equals("right")) {
             this.canonX = this.canonX + 5;
-            //System.out.println(this.x);
+
+            //Begrenzung auf der rechten Seite
             if(this.canonX >= (grenzeRechts-canonWigth)){
                 this.canonX = grenzeRechts-canonWigth;
             }
-            //this.x++;
-        }else {
-            //donothing
+
         }
     }
 
-    //Guckt, wo sich die Kanone befindet
+    /**
+     *
+     * Getter für die aktuelle Position der Kanone
+     * Wichtig für den Abschuss einer Missile!!!!
+     */
     public int getAbschussPositionX(){ return this.xPositionMissile = this.canonX +(canonWigth/2)- radiusMissile /2; }
-    public int getAbschussPositionY(){
-        return this.yPositionMissile = this.canonY -(canonHeigth/2);
-    }
+    public int getAbschussPositionY(){return this.yPositionMissile = this.canonY -(canonHeigth/2);}
 
-    //Schießt ein Geschoss
+    /**
+     *
+     * Abschuss Methode für eine Missile
+     */
     public int shotMissile(Graphics missileGrafic, ArrayList<Missile> missile){
-            int missilenumber = 99;
+
+            int missileindex = 99;
+        /**
+         * Lässt die Missile sich bewegen und die neue Position berechnen
+         *
+         */
             for (Missile missil:missile) {
                 missil.loadMissile(missileGrafic);
                 int missilePosition = missil.moveMissile();
+
+                /**
+                 * verlässt die Missile das fenster wird diese entfernt durch das setzen von index 99
+                 */
                 if (missilePosition <= 0) {
-                   missilenumber = missile.indexOf(missil);
-                }else {missilenumber=99;}
+                   missileindex = missile.indexOf(missil);
+                }else {missileindex=99;}
             }
 
-            return missilenumber;
+            return missileindex;
 
     }
-    
-    //Passt die Auflösung an
+
+    /**
+     * Methode zum Anpassen der Auflösung, damit Player 2 richtig angezeigt wird
+     */
     public void aufloesungAnpassen(double faktorX, double faktorY, boolean operator){
         /**
          * operator bestimmt ob der Faktor multipliziert oder geteilt wird
@@ -96,6 +135,10 @@ public class Canon  implements Serializable {
          * Das wird benötigt, wenn der 2. Player eine anderen Auflösung hat
          */
 
+
+        /**
+         * true ist die Auflösung umwandeln von Player 1 zu Player 2
+         */
         if(operator==true) {
             this.canonX = (int) (this.canonX * faktorX);
             this.canonY = (int) (this.canonY * faktorY);
@@ -105,6 +148,10 @@ public class Canon  implements Serializable {
             this.grenzeRechts = (int) (grenzeRechts * faktorX);
             this.radiusMissile = (int) (radiusMissile * faktorX);
         }
+
+        /**
+         * false ist die Auflösung umwandeln von Player 2 zu Player 1
+         */
         if(operator==false) {
             this.canonX = (int) (this.canonX / faktorX);
             this.canonY = (int) (this.canonY / faktorY);
@@ -116,15 +163,17 @@ public class Canon  implements Serializable {
         }
     }
 
-    public void getXY(){
-        System.out.println(this.canonX +" And " + this.canonY);
-    }
+    //Gibt die aktuelle Anzahl an missile wieder
     public int getMissileCounter(){
         return this.missileCounter;
     }
+
+    //Entfernt die geschossenen Missiel aus dem Magazin
     public void shotedmissile(){
         this.missileCounter--;
     }
+
+    //Setz die Farbe der Kanone auf Rot
     public void setColorRed(){
         canonColor=Color.RED;
     }
