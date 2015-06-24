@@ -346,16 +346,6 @@ public class MultiplayerClient extends JPanel implements Runnable{
     	//Öffnet das scorePanel mit Replay oder Quit
     	if (scorePanel) {
         	GameResultLose panel = new GameResultLose("mp");
-        	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-        	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-
-			yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-			yourMissles.setText("You have " + missileClipPlayer1 + " missles left.");
-    		add(yourMissles);
-        	
-        	this.add(quit);
-        	this.add(replay);
-    		
         	this.add(panel);
     	}
     }
@@ -368,11 +358,6 @@ public class MultiplayerClient extends JPanel implements Runnable{
     	//Öffnet das scorePanel mit Replay, Quit und Submit
     	if (scorePanel) {
         	GameResultWin panel = new GameResultWin("mp");
-        	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-        	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-        	
-        	this.add(quit);
-        	this.add(replay);
     		
         	this.add(panel);
     	}

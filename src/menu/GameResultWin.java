@@ -35,10 +35,6 @@ public class GameResultWin extends JPanel{
 	//Constructor
 	public GameResultWin(String str) {
 		
-		//Maﬂe des Panels
-		setBackground(new Color(190, 190, 190));
-		setBounds(0, Game.HEIGHT / 3, Game.WIDTH, Game.HEIGHT / 2);
-		
 		//Laedt das GameWon Bild
 			try {
 				if(str == "sp") {
@@ -51,6 +47,10 @@ public class GameResultWin extends JPanel{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			//Maﬂe des Panels
+			setBackground(new Color(190, 190, 190));
+			setBounds(0, Game.HEIGHT / 3, Game.WIDTH, image.getHeight());
 		
 
 	}

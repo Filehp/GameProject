@@ -284,6 +284,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				if (nameField.getText().trim().equals("What's your name?") || nameField.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please enter a name and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
 				String name = nameField.getText(); // Gets name from the field
 				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Creates date format
 				Date date = new Date(); // Creates Date object
@@ -291,7 +295,7 @@ public class GamePanel extends JPanel implements Runnable {
 				db.insertScore(diff, name, currentTime, dateFormat.format(date)); // Inserts data to database
 				db.close(); // Closes database
 				Game.changePanel("scoreboard", GamePanel.this); // switching ui to main menu at the very end
-			}
+			}}
 		});
 
         //Starts the thread

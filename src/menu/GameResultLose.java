@@ -34,10 +34,6 @@ public class GameResultLose extends JPanel{
 	//Constructor
 	public GameResultLose(String str) {
 		
-		//Maﬂe des Panels
-		setBackground(new Color(190, 190, 190));
-		setBounds(0, Game.HEIGHT / 3, Game.WIDTH, Game.HEIGHT / 2);
-		
 		//Laedt das GameOver Bild
 			try {
 				if(str == "sp") {
@@ -49,6 +45,10 @@ public class GameResultLose extends JPanel{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
+			//Maﬂe des Panels
+			setBackground(new Color(190, 190, 190));
+			setBounds(0, Game.HEIGHT / 3, Game.WIDTH, image.getHeight());
 
 	}
 	//Stellt das Game Over Bild dar
