@@ -5,9 +5,13 @@ import game.Game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,7 +33,6 @@ public class Settings extends JComponent{
 	
 	private static final long serialVersionUID = 1L;
 
-	private JLabel title = new JLabel("Settings");
 	private JSlider musicSlider = new JSlider(JSlider.HORIZONTAL, 0, 10 , 0);
 	
 	Icon okIcon = new ImageIcon("resources/Ok.png");
@@ -50,7 +53,15 @@ public class Settings extends JComponent{
 	
 	private Prefs pref = new Prefs();
 	
+    private Image SettingsLogo;
+	
 	public Settings() {
+		
+		try {
+			SettingsLogo = ImageIO.read(new File("resources/SettingsLogo.png"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		
 		 restartScore.addActionListener(new ActionListener() {
 				
@@ -113,10 +124,11 @@ public class Settings extends JComponent{
 	
 	@Override
 	protected void paintComponent(Graphics g) {
+		
+		g.drawImage(SettingsLogo, Game.getWindowWidth() / 2 - SettingsLogo.getWidth(null) / 2, 0, null);
 
 		g2 = (Graphics2D) g; 
-		
-		title.setBounds(Game.getWindowWidth() / 2 - 25,Game.getWindowHeight() / 25 ,300,70); // Sets title position	
+	
 		
 		//Draws volume string
 	    g.drawString("Music volume", 70, 185);
@@ -132,11 +144,10 @@ public class Settings extends JComponent{
 		
 		
 		// Sets buttons position
-		quit.setBounds(Game.WIDTH / 2 + 25, Game.HEIGHT / 2 + 300, 200, 40);
-		ok.setBounds(Game.WIDTH / 2 - 225, Game.HEIGHT / 2 + 300, 200, 40);
+		quit.setBounds(Game.WIDTH / 9 * 5, Game.HEIGHT / 2 + 300, Menu.getButtonWidth(), Menu.getButtonHeight());
+		ok.setBounds(Game.WIDTH / 9 , Game.HEIGHT / 2 + 300, Menu.getButtonWidth(), Menu.getButtonHeight());
 			    
 		// Adds elemements to the ui     	 
-		add(title);
 		add(musicSlider);
 		add(restartScore);
 		add(musicOff);

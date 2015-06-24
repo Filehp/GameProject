@@ -5,10 +5,14 @@ import game.Game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,11 +30,18 @@ public class Scoreboard extends JComponent {
 	private static final long serialVersionUID = 1L;
 	Icon quitIcon = new ImageIcon("resources/Quit.png");
 
-	private JLabel title = new JLabel("Scoreboard");
 	private JButton back = new Button(quitIcon);
 	private ArrayList<ArrayList<String>> nodes;
+	
+    private Image ScoreboardLogo;
 
 	public Scoreboard() { 
+		
+		try {
+			ScoreboardLogo = ImageIO.read(new File("resources/ScoreboardLogo.png"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		
 		ScoreDB db = new ScoreDB(); // Creates the ScoreDB object
 		nodes = db.seclectScores(); // Gets nodes from db 
@@ -49,9 +60,8 @@ public class Scoreboard extends JComponent {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-
-		// title.setFont(, 60);
-		title.setBounds(Game.getWindowWidth() / 2 - 35, 50, 100, 50);
+		
+		g.drawImage(ScoreboardLogo, Game.getWindowWidth() / 2 - ScoreboardLogo.getWidth(null) / 2, 0, null);
 
 		Graphics2D g2d = (Graphics2D) g;
 
@@ -84,12 +94,9 @@ public class Scoreboard extends JComponent {
 	    		  break; // In case of exception, breaks the loop
 	    	  }
 		 
-
-		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
-
-		add(title);
-		add(back);
-
 	}
+			back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+
+			add(back); 
 	}
 }

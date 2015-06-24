@@ -258,10 +258,12 @@ public class MultiplayerClient extends JPanel implements Runnable{
             if(this.victory==1){
                 System.out.println("Sieg");
                 gameWon();
+                
 
             }else if(this.victory==-1){
                 System.out.println("verloren");
                 gameLost();
+                
             }
 
 
