@@ -126,11 +126,21 @@ public class ScoreDB {
 	/**
 	 * Deletes all data from the table
 	 */
-	public void clearTable(){
+	public void clearTable(Diff diff){
 	  if(ready){
 		try{
+			if (diff.equals(Diff.EASY)) {
 			String sql = "DELETE FROM SCORETABLE"; // Creates SQL statement
 			stm.executeUpdate(sql); // Executes the statement
+			}
+			if (diff.equals(Diff.MEDIUM)) {
+			String sql = "DELETE FROM SCORETABLEMED"; // Creates SQL statement
+			stm.executeUpdate(sql); // Executes the statement
+			}
+			if (diff.equals(Diff.HARD)) {
+			String sql = "DELETE FROM SCORETABLEHARD"; // Creates SQL statement
+			stm.executeUpdate(sql); // Executes the statement
+			}
 		} catch (SQLException e){
 	    	System.out.println("Exception occurred while clearing table:");
 	    	e.printStackTrace();
@@ -142,13 +152,21 @@ public class ScoreDB {
 	 * Gets scores as an ArrayList of ArrayList<String> 
 	 * @return The list of scores, names and dates
 	 */
-	public ArrayList<ArrayList<String>> seclectScores(){
+	public ArrayList<ArrayList<String>> seclectScores(Diff diffi){
 	  if(ready){
 		ArrayList<ArrayList<String>> nodes = new ArrayList<ArrayList<String>>(); // Creates ArrayList object 
-		
-		try{		
-		String sql = "SELECT * FROM SCORETABLE ORDER BY SCORE DESC;"; // Creates SQL statement 
-		ResultSet rs = stm.executeQuery(sql); // Executes statement and saves the result into rs 
+		String sql = null;
+		try{
+		if (diffi.equals(Diff.EASY)) {
+		sql = "SELECT * FROM SCORETABLE ORDER BY SCORE DESC;"; // Creates SQL statement 
+		}
+		if (diffi.equals(Diff.MEDIUM)) {
+		sql = "SELECT * FROM SCORETABLEMED ORDER BY SCORE DESC;"; // Creates SQL statement 
+		}
+		if (diffi.equals(Diff.HARD)) {
+		sql = "SELECT * FROM SCORETABLEHARD ORDER BY SCORE DESC;"; // Creates SQL statement 
+		}
+		ResultSet rs = stm.executeQuery(sql); // Executes statement and saves the result into rs
 		while(rs.next()){ // Loops the result set
 			ArrayList<String> i = new ArrayList<String>(); // Creates new ArrayList
 			

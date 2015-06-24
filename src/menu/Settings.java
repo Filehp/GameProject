@@ -69,14 +69,15 @@ public class Settings extends JComponent{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ScoreDB db = new ScoreDB(Diff.EASY); // Creates database object
-				ScoreDB db1 = new ScoreDB(Diff.MEDIUM); // Creates database object
-				ScoreDB db2 = new ScoreDB(Diff.HARD); // Creates database object
-				db.clearTable(); // Clears database
-				db1.clearTable(); // Clears database
-				db2.clearTable(); // Clears database
+				db.clearTable(Diff.EASY); // Clears database
 				db.close(); // Closes database
+				ScoreDB db1 = new ScoreDB(Diff.MEDIUM); // Creates database object
+				db1.clearTable(Diff.MEDIUM); // Clears database
 				db1.close(); // Closes database
+				ScoreDB db2 = new ScoreDB(Diff.HARD); // Creates database object
+				db2.clearTable(Diff.HARD); // Clears database
 				db2.close(); // Closes database
+
 			}
 		});
 		 
