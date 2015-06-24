@@ -39,19 +39,22 @@ public class GameResultWin extends JPanel{
 			try {
 				if(str == "sp") {
 					image = ImageIO.read(new File (".\\resources\\Success.png"));
+
+					//Maﬂe des Panels
+					setBackground(new Color(190, 190, 190));
+					setBounds(0, Game.HEIGHT / 3, Game.WIDTH, image.getHeight() * 2);
 				}
 				if (str == "mp") {
 					image = ImageIO.read(new File (".\\resources\\YouWon.png"));
+
+					//Maﬂe des Panels
+					setBackground(new Color(190, 190, 190));
+					setBounds(0, Game.HEIGHT / 3, Game.WIDTH, image.getHeight());
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			//Maﬂe des Panels
-			setBackground(new Color(190, 190, 190));
-			setBounds(0, Game.HEIGHT / 3, Game.WIDTH, image.getHeight() * 2);
-		
 
 	}
 	//Stellt das GameWon Bild dar	

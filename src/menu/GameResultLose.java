@@ -38,17 +38,19 @@ public class GameResultLose extends JPanel{
 			try {
 				if(str == "sp") {
 					image = ImageIO.read(new File (".\\resources\\GameOver.png"));
+					//Maﬂe des Panels
+					setBackground(new Color(190, 190, 190));
+					setBounds(0, Game.HEIGHT / 3, Game.WIDTH, image.getHeight() * 2);
 				}
 				if (str == "mp") {
 					image = ImageIO.read(new File (".\\resources\\YouLost.png"));
+					//Maﬂe des Panels
+					setBackground(new Color(190, 190, 190));
+					setBounds(0, Game.HEIGHT / 3, Game.WIDTH, image.getHeight());
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-			//Maﬂe des Panels
-			setBackground(new Color(190, 190, 190));
-			setBounds(0, Game.HEIGHT / 3, Game.WIDTH, image.getHeight() * 2);
 
 	}
 	//Stellt das Game Over Bild dar
