@@ -304,7 +304,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
         this.time = false;
         scorePanel = true; //open scorepanel
         repaint();
-
+//
     }
     private void gameLost() {
         //Stoppt den Thread
