@@ -290,7 +290,7 @@ public class GamePanel extends JPanel implements Runnable {
 				ScoreDB db = new ScoreDB(diff); // and ScoreDB object
 				db.insertScore(diff, name, currentTime, dateFormat.format(date)); // Inserts data to database
 				db.close(); // Closes database
-				Game.changePanel("menu", GamePanel.this); // switching ui to main menu at the very end
+				Game.changePanel("scoreboard", GamePanel.this); // switching ui to main menu at the very end
 			}
 		});
 
@@ -415,7 +415,7 @@ public class GamePanel extends JPanel implements Runnable {
         canon.drawString("Missles left: " + missileClipPlayer , this.x / 100 * 14, this.y / 100 * 95);
         
         //Schussst√§rke anzeigen
-        canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, this.x / 100 * 16, this.y / 100 * 3);
+        canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, 100, this.y / 100 * 3);
         canon.setColor(new Color(0, 128, 128));
         canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
 
@@ -443,9 +443,9 @@ public class GamePanel extends JPanel implements Runnable {
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
         	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		
-			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 100 * 65, Menu.getButtonWidth() * 2, Menu.getButtonHeight());
     		yourTime.setText("You failed after " + currentTime / 1000 + " seconds ("+ currentTime + " ms)");
-			yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+			yourMissles.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
 			yourMissles.setText("You have " + missileClipPlayer + " missles left.");
 
     		add(yourTime);
@@ -467,15 +467,14 @@ public class GamePanel extends JPanel implements Runnable {
     	//÷ffnet das scorePanel mit Replay, Quit und Submit
     	if (scorePanel) {
         	GameResultWin panel = new GameResultWin("sp");
-        	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+        	submitScore.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
         	nextLevel.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
     		
-			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 100 * 63, Menu.getButtonWidth(), Menu.getButtonHeight());
     		yourTime.setText("You needed " + currentTime / 1000 + " seconds" + " (" + currentTime + " ms).");
 
 			 
-			nameField.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 100 * 65, 110, 20);
-			submitScore.setBounds(Game.WIDTH / 10 * 7, Game.HEIGHT / 10 * 6, 150, 45);
+			nameField.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 100 * 65,  Menu.getButtonWidth(), 20);
 			
 			// Adds elements to ui
 			add(submitScore);

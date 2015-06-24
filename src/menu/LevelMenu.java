@@ -175,10 +175,10 @@ public class LevelMenu extends JComponent {
 		g.drawImage(logo2, Game.getWindowWidth() / 2 - logo2.getWidth(null) / 2, 0, null);
 
 		// Setzt die Position und Groesse der Buttons
-		level1.setBounds(Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 - Game.HEIGHT / 9, Game.WIDTH * 15 / 64, Game.HEIGHT * 10 / 72);
-		g.drawImage(twoIcon, Game.WIDTH / 2 + Game.WIDTH / 9, Game.HEIGHT / 2 - Game.HEIGHT / 9, null);
-		g.drawImage(threeIcon, Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 + Game.HEIGHT / 9, null);
-		g.drawImage(fourIcon,Game.WIDTH / 2 + Game.WIDTH / 9, Game.HEIGHT / 2 + Game.HEIGHT / 9, null);
+		level1.setBounds(Game.WIDTH / 4 - oneIcon.getIconWidth() / 2, Game.HEIGHT / 2 - Game.HEIGHT / 9, oneIcon.getIconWidth(), oneIcon.getIconHeight());
+		g.drawImage(twoIcon, Game.WIDTH / 2 + (Game.WIDTH / 4 - oneIcon.getIconWidth() / 2), Game.HEIGHT / 2 - Game.HEIGHT / 9, null);
+		g.drawImage(threeIcon, Game.WIDTH / 4 - oneIcon.getIconWidth() / 2, Game.HEIGHT / 2 + Game.HEIGHT / 9, null);
+		g.drawImage(fourIcon,Game.WIDTH / 2 + (Game.WIDTH / 4 - oneIcon.getIconWidth() / 2), Game.HEIGHT / 2 + Game.HEIGHT / 9, null);
 		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, 
 				Menu.getButtonWidth(), Menu.getButtonHeight());
 

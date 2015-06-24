@@ -37,7 +37,7 @@ public class GameResultWin extends JPanel{
 		
 		//Maﬂe des Panels
 		setBackground(new Color(190, 190, 190));
-		setBounds(0, Game.HEIGHT / 3, Game.WIDTH, Game.WIDTH / 2);
+		setBounds(0, Game.HEIGHT / 3, Game.WIDTH, Game.HEIGHT / 2);
 		
 		//Laedt das GameWon Bild
 			try {
