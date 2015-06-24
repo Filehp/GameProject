@@ -1,14 +1,19 @@
 package multiplayer;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+
 import entity.*;
 import game.Game;
+import game.GamePanel;
+import game.GamePanel.Diff;
 import menu.*;
 import menu.Button;
 import menu.Menu;
@@ -56,8 +61,9 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
     private boolean scorePanel = false;
     Icon quitIcon = new ImageIcon("resources/Quit.png");
+    Icon replayIcon = new ImageIcon("resources/Replay.png");
     private Button quit = new Button(quitIcon);
-
+    private Button replay = new Button(replayIcon);
 
     public MultiplayerClient(int x, int y, int missileClip, int playerID, String adress) {
         this.setFocusable(true);
@@ -129,6 +135,22 @@ public class MultiplayerClient extends JPanel implements Runnable{
                 System.out.println("released");
             }
         });
+        
+      //Buttons in ScorePanel 
+        replay.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("multiplayerClientHost", MultiplayerClient.this);
+		}});
+        
+        quit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("menu", MultiplayerClient.this);
+			}
+		});
 
         //Starts the thread
         start();
@@ -199,10 +221,12 @@ public class MultiplayerClient extends JPanel implements Runnable{
             if(this.victory==1){
                 System.out.println("Sieg");
                 gameWon();
+                repaint();
 
             }else if(this.victory==-1){
                 System.out.println("verloren");
                 gameLost();
+                repaint();
             }
             }
     }
@@ -274,37 +298,62 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
     }
     private void gameLost() {
-        //Stoppt den Thread
-        stop();
-        this.setBackground(Color.RED);
+    	//Stoppt den Thread
+    	stop();
+    	this.setBackground(Color.RED);
+    	
+    	//Öffnet das scorePanel mit Replay oder Quit
+    	if (scorePanel) {
+        	GameResultLose panel = new GameResultLose("mp");
+        	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+        	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+    		
+			/*yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+    		yourTime.setText("You failed after " + currentTime / 1000 + " seconds ("+ currentTime + " ms)");
+			yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+			yourMissles.setText("You have " + missileClipPlayer + " missles left.");
 
-        //Öffnet das scorePanel mit Replay oder Quit
-        if (scorePanel) {
-            GameResultLose panel = new GameResultLose();
-            quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
-
-
-            this.add(quit);
-            this.add(panel);
-
-        }
+    		add(yourTime);
+    		add(yourMissles);*/
+        	
+        	this.add(quit);
+        	this.add(replay);
+    		
+        	this.add(panel);
+    	}
     }
 
     private void gameWon() {
-        //Stoppt den Thread
-        stop();
-        this.setBackground(Color.GREEN);
+    	//Stoppt den Thread
+    	stop();
+    	this.setBackground(Color.GREEN);
+    	
+    	//Öffnet das scorePanel mit Replay, Quit und Submit
+    	if (scorePanel) {
+        	GameResultWin panel = new GameResultWin("mp");
+        	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+        	replay.setBounds(Game.WIDTH / 10 , Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
+    		
+			//yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
+    		//yourTime.setText("You needed " + currentTime / 1000 + " seconds" + " (" + currentTime + " ms).");
 
-        //Öffnet das scorePanel mit Replay oder Quit
-        if (scorePanel) {
-            GameResultWin panel = new GameResultWin();
-            quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
-
-
-
-            this.add(quit);
-            this.add(panel);
-        }
+			 
+			//nameField.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 100 * 65, 110, 20);
+			//submitScore.setBounds(Game.WIDTH / 10 * 7, Game.HEIGHT / 10 * 6, 150, 45);
+			
+			// Adds elements to ui
+			//add(submitScore);
+			//add(nameField);
+    		
+    		
+    		
+    		//add(yourTime);
+        	
+        	this.add(quit);
+        	this.add(replay);
+    		
+        	this.add(panel);
+    	}
 
     }
 
