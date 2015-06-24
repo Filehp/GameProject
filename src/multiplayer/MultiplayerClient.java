@@ -56,11 +56,8 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
     private boolean scorePanel = false;
     Icon quitIcon = new ImageIcon("resources/Quit.png");
-    Icon replayIcon = new ImageIcon("resources/Replay.png");
     private Button quit = new Button(quitIcon);
-    private Button replay = new Button(replayIcon);
-    private JLabel yourTime = new JLabel();
-    private JLabel yourMissles = new JLabel();
+
 
     public MultiplayerClient(int x, int y, int missileClip, int playerID, String adress) {
         this.setFocusable(true);
@@ -206,6 +203,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
         super.paintComponent(canon);
 
         if(this.waitGameStart==false) {
+            KanonePlayer2.setColorRed();
             //Rad laden
             rad.spinWheel();
             rad.loadWheel(canon, startSpokes);
@@ -276,7 +274,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
 
     }
     private void stop() {
-        time = false;
+        this.time = false;
         scorePanel = true; //open scorepanel
         repaint();
 
@@ -292,17 +290,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
             quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
 
 
-            yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
-            yourTime.setText("You failed after " + "seconds.");
-            yourMissles.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 6, menu.Menu.getButtonWidth(), menu.Menu.getButtonHeight());
-            yourMissles.setText("You have " + "missles left.");
-
-            add(yourTime);
-            add(yourMissles);
-
             this.add(quit);
-            this.add(replay);
-
             this.add(panel);
 
         }
@@ -319,14 +307,8 @@ public class MultiplayerClient extends JPanel implements Runnable{
             quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
 
 
-            yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
-            yourTime.setText("You needed " + "seconds.");
-
-            add(yourTime);
 
             this.add(quit);
-            this.add(replay);
-
             this.add(panel);
         }
 

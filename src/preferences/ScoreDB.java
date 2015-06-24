@@ -2,6 +2,7 @@ package preferences;
 import java.sql.*;
 import java.util.ArrayList;
 
+
 public class ScoreDB {
 	
 	private Connection c;

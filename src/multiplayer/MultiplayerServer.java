@@ -123,6 +123,7 @@ public class MultiplayerServer extends JComponent {
                         waitGameStart=false;
                     }
                      if(allPlayer) {
+                         KanonePlayer2.setColorRed();
                          //Rad bewegen auf Player 1 begrenzen
                          rad.spinWheel();
 
@@ -186,8 +187,8 @@ public class MultiplayerServer extends JComponent {
                                          /**
                                           * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft
                                           */
-                                         this.victoryPlayer1 = 1;
-                                         this.victoryPlayer2 = -1;
+                                         this.victoryPlayer1 = -1;
+                                         this.victoryPlayer2 = 1;
                                          //serverrun = false;
                                          System.out.println("Speiche getroffen! Player2 gewinnt");
                                          missilePlayer1.remove(i);
@@ -223,8 +224,8 @@ public class MultiplayerServer extends JComponent {
                                          /**
                                           * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft
                                           */
-                                         this.victoryPlayer1 = -1;
-                                         this.victoryPlayer2 = 1;
+                                         this.victoryPlayer1 = 1;
+                                         this.victoryPlayer2 = -1;
                                          //serverrun = false;
                                          System.out.println("Speiche getroffen! Player1 gewinnt");
                                          missilePlayer2.remove(i);

@@ -19,6 +19,7 @@ public class Canon  implements Serializable {
     private int grenzeLinks;
     private int grenzeRechts;
     private int radiusMissel;
+    private Color canonColor;
     public ArrayList<Missile> missile=new ArrayList< Missile>();
 
     //Constructor
@@ -28,17 +29,19 @@ public class Canon  implements Serializable {
         this.canonY = y/100*75;
         this.canonWigth = x/100*10;
         this.canonHeigth = x/100*3;
-        this.grenzeLinks = x/100*30;
-        this.grenzeRechts = x/100*75;
+        this.grenzeLinks = x/100*40;
+        this.grenzeRechts = x/100*70;
         this.radiusMissel= x/100*3;
         this.missileCounter = missileCount;
+        this.canonColor = Color.BLACK;
+
     }
 
 
     //Lädt die Kanone
     public void canonLoad(Graphics canon) {
 
-        canon.setColor(Color.BLACK);
+        canon.setColor(canonColor);
         canon.fillRect(this.canonX, this.canonY, canonWigth, canonHeigth);
     }
 
@@ -90,6 +93,7 @@ public class Canon  implements Serializable {
          * operator bestimmt ob der Faktor multipliziert oder geteilt wird
          * true = miltiplizieren
          * false = teilen
+         * Das wird benötigt, wenn der 2. Player eine anderen Auflösung hat
          */
 
         if(operator==true) {
@@ -120,5 +124,8 @@ public class Canon  implements Serializable {
     }
     public void shotedmissile(){
         this.missileCounter--;
+    }
+    public void setColorRed(){
+        canonColor=Color.RED;
     }
 }
