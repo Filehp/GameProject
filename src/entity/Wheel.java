@@ -85,14 +85,14 @@ public class Wheel implements Serializable {
     public  void addSpokes(int xKollision){
         //Winkel berechen aus XWert wo die Kollision mit dem Wheel stattfand
         int aktuellerWinkel=0;
-        if(xKollision>wheelX){
+        if(xKollision>=wheelX){
             aktuellerWinkel = 90 - ((xKollision - wheelX)*(90/radius));
         }else if(xKollision<wheelX){
-            aktuellerWinkel = 90 + ((wheelX-xKollision)*(90/radius));
+            aktuellerWinkel = 70 + ((wheelX-xKollision)*(90/radius));
         }
-        //double aktuellerWinkel = (radWinkel2*180)/Math.PI;
+
         System.out.println(aktuellerWinkel);
-        //System.out.println(aktuellerWinkel);
+
         this.spokesList.add(new Spokes(aktuellerWinkel, this.radius, this.wheelX, this.wheelY));
 
     }
