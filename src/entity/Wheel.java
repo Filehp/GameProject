@@ -94,7 +94,7 @@ public class Wheel implements Serializable {
     }
 
     /**
-     * Fügt SPeichen hinzu die beim Start erzeugt werden sollen
+     * Fügt Speichen hinzu die beim Start erzeugt werden sollen
      */
     public void addSpokes(){
 
@@ -122,7 +122,7 @@ public class Wheel implements Serializable {
         }
 
         //System.out.println(aktuellerWinkel);
-        //HInzufügen und erzeugen der neuen SPeiche zu spokeslist
+        //Hinzufügen und erzeugen der neuen Speiche zu spokeslist
         this.spokesList.add(new Spokes(aktuellerWinkel, this.radius, this.wheelX, this.wheelY));
 
     }

@@ -25,19 +25,19 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by Chris on 09.05.2015.
+ *  Klasse, die das Spiel beinhaltet
  */
 public class GamePanel extends JPanel implements Runnable {
 
     /**
-     * Auflösungsvariabeln
+     * Aufloesungsvariablen
      */
     static int x;
     static int y;
 
 
     /**
-     * Variabeln für die ZEit und den Timer
+     * Variablen fuerr die Zeit und den Timer
      */
     boolean time = true;
     int timer;
@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     private long currentTime;
 
     /**
-     * Kanonen und Missile variabeln
+     * Variablen fuer Kanonen und Missile
      */
     private Canon Kanone;
     String direction;
@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
     public ArrayList<Missile> missile = new ArrayList<>();
 
     /**
-     * Rad Variabeln
+     * Rad Variablen
      */
     private Wheel rad;
     boolean startSpokes = true;
@@ -72,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
     ActionMap am;
 
     /**
-     * Thread variabel
+     * Thread Variabel
      */
     private Thread thread;
 
@@ -80,11 +80,19 @@ public class GamePanel extends JPanel implements Runnable {
      * Variablen für das scorePanel
      */
     private boolean scorePanel = false;
+    
+    /**
+     * Laedt die Bilder
+     */
     Icon quitIcon = new ImageIcon("resources/Quit.png");
     Icon quit1Icon = new ImageIcon("resources/Quit1.png");
     Icon replayIcon = new ImageIcon("resources/Replay.png");
     Icon replay2Icon = new ImageIcon("resources/Replay1.png");
     Icon nextLevelIcon = new ImageIcon("resources/NextLevel.png");
+    
+    /**
+     * Erzeugt die Buttons und Labels
+     */
     private Button quit = new Button(quitIcon);
     private Button quit2 = new Button(quit1Icon);
     private Button replay = new Button(replayIcon);
@@ -93,15 +101,22 @@ public class GamePanel extends JPanel implements Runnable {
     private JLabel yourTime = new JLabel();
     private JLabel yourMissles = new JLabel();
     
+    /**
+     * Enum fuer den Schwierigkeitsgrad
+     */
     public enum Diff {
     	EASY, MEDIUM, HARD
     }
-    
+    /**
+     * Textfeld und Submit zum Eintragen in das Scoreboard
+     */
     private JTextField nameField = new JTextField("What's your name?");
     Icon submitIcon = new ImageIcon("resources/Submit.png");
     private Button submitScore = new Button(submitIcon);
     
-	// Hintergrundbild
+	/**
+	 * Hintergrundbild
+	 */
     private Image background;
 
     /**
@@ -121,8 +136,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.timer = time;
         this.missileClipPlayer = missileClip;
 
+        // Laedt Kanone und Rad
         Kanone = new Canon(x, y, missileClip);
-
         rad = new Wheel(x, y, startSpokes, speedWheel);
 
         this.im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
@@ -169,7 +184,7 @@ public class GamePanel extends JPanel implements Runnable {
         });
 
         /**
-         * Halten der Leertaste laedt die GEschwindigkeit
+         * Halten der Leertaste laedt die Geschwindigkeit
          */
         am.put("pressed", new AbstractAction() {
             @Override
@@ -181,12 +196,11 @@ public class GamePanel extends JPanel implements Runnable {
                     missilespeed = 10;
                 }
                 System.out.println(missilespeed);
-                //System.out.println("Pressed");
             }
         });
 
         /**
-         * Los lassen der Leertaste schiesst die Missile ab
+         * Loslassen der Leertaste schiesst die Missile ab
          */
         am.put("released", new AbstractAction() {
             @Override
@@ -194,24 +208,20 @@ public class GamePanel extends JPanel implements Runnable {
                 direction = null;
                 if (Kanone.getMissileCounter() > 0) {
 
-                    //erzegt eine neue missile
+                    // erzeugt eine neue missile
                     missile.add(new Missile(x, Kanone.getAbschussPositionX(), Kanone.getAbschussPositionY(), missilespeed));
                     shotMissile = true;
 
-                    Kanone.shotedmissile();//entfernt missile aus dem Magazin der kanone
+                    Kanone.shotedmissile();// entfernt missile aus dem Magazin der kanone
 
-                    missilespeed = 0;       //setzt die GEschwindigkeit auf null
-                    missileClipPlayer--;    //entfernt missile aus dem Magazin des LEvels
+                    missilespeed = 0;       // setzt die Geschwindigkeit auf Null
+                    missileClipPlayer--;    // entfernt missile aus dem Magazin des LEvels
                 }
-                //System.out.println("released");
             }
         });
 
-
-
-        
-        
-        //Buttons in ScorePanel 
+        // Buttons in ScorePanel 
+        // Startet das jeweilige Level neu
         replay.addActionListener(new ActionListener() {
 
 			@Override
@@ -227,6 +237,7 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 		});
+        // Button, um waehrend des Spiel neu zu starten
         replay2.addActionListener(new ActionListener() {
 
 			@Override
@@ -242,6 +253,7 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 		});
+        // Naechstes Level
         nextLevel.addActionListener(new ActionListener() {
 
 			@Override
@@ -253,11 +265,12 @@ public class GamePanel extends JPanel implements Runnable {
 					Game.changePanel("gameH", GamePanel.this);
 				}
 				if (diff.equals(Diff.HARD)) {
-					Game.changePanel("gameB", GamePanel.this);
+					Game.changePanel("gameS", GamePanel.this);
 				}
+
 			}
 		});
-        
+        // Beendet das Spiel
         quit.addActionListener(new ActionListener() {
 
 			@Override
@@ -265,6 +278,7 @@ public class GamePanel extends JPanel implements Runnable {
 				Game.changePanel("menu", GamePanel.this);
 			}
 		});
+        // Beendet das Spiel
         quit2.addActionListener(new ActionListener() {
 
 			@Override
@@ -272,33 +286,34 @@ public class GamePanel extends JPanel implements Runnable {
 				Game.changePanel("menu", GamePanel.this);
 			}
 		});
-        
+        // Eingabefeld fuer den Namen zur Eintragung in Scoreboard
         nameField.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				nameField.setText(""); 
 			}
 		});
-
+        // Schwierigkeit, Name, Zeit und Datum ins Scoreboard eintragen
 		submitScore.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				// Wenn das Feld nicht ausgefuellt wurde oder leer ist, Fehler
 				if (nameField.getText().trim().equals("What's your name?") || nameField.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Please enter a name and try again.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-				String name = nameField.getText(); // Gets name from the field
-				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Creates date format
-				Date date = new Date(); // Creates Date object
-				ScoreDB db = new ScoreDB(diff); // and ScoreDB object
-				db.insertScore(diff, name, currentTime, dateFormat.format(date)); // Inserts data to database
-				db.close(); // Closes database
-				Game.changePanel("scoreboard", GamePanel.this); // switching ui to main menu at the very end
+				String name = nameField.getText(); 									// Holt den eingetragenen Namen
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 		// Erstellt ein Datumsformat
+				Date date = new Date();												// Erzeugt das Datum
+				ScoreDB db = new ScoreDB(diff); 									// Erzeugt die Datenbank 
+				db.insertScore(diff, name, currentTime, dateFormat.format(date));	// Fuegt die Daten ein
+				db.close();															// Schließt die Datenbank
+				Game.changePanel("scoreboard", GamePanel.this); 					// Wechselt zum Scoreboard
 			}}
 		});
 
-        //Starts the thread
+        // Startet den Thread
         start();
 
     }
@@ -311,22 +326,18 @@ public class GamePanel extends JPanel implements Runnable {
             try {
                 Thread.sleep(20);
 
-
-
-                //Zeit wird berechnet und geprÃ¼ft
+                //Zeit wird berechnet und geprueft
                 currentTime = System.currentTimeMillis() - starttime;
                 currentTimeOutput = (int) (timer - currentTime);
                 minuten = (int) currentTimeOutput / 1000 / 60;
                 sekunden = (int) currentTimeOutput / 1000 % 60;
 
                 if (currentTime >= timer) {
-                    gameLost(); //Method when losing the game
+                    gameLost(); // Methode, wenn verloren
                     System.out.println("Timeout");
                     repaint();
-
                 }
-
-
+                
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -334,12 +345,15 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-
+	// Stellt die Objekte dar
     @Override
     public void paintComponent(Graphics canon) {
         super.paintComponent(canon);
         
+        // Hintergrundbild
         canon.drawImage(background, x / 2 - background.getWidth(null)/2, 0, null);
+        
+        // Buttons
         replay2.setBounds(this.x / 100 * 80, this.y / 100 * 94, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
         quit2.setBounds(this.x / 100 * 80, this.y / 100 * 99, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
         this.add(quit2);
@@ -352,7 +366,7 @@ public class GamePanel extends JPanel implements Runnable {
         //Rad bewegen
         rad.spinWheel();
 
-        //KAnone Laden
+        //Kanone Laden
         Kanone.canonLoad(canon);
 
         //Kanone bewegen
@@ -363,25 +377,24 @@ public class GamePanel extends JPanel implements Runnable {
         //Geschoss abfeuern
         this.missilenumber = Kanone.shotMissile(canon, missile);
         if (this.missilenumber != 99) {
-            //System.out.println(missilenumber);
             missile.remove(this.missilenumber);
         }
 
         //Kollision abfangen
         if (missile.size() > 0) {
             for (int i = 0; i < missile.size(); i++) {
-                //Auf Kollision mit rad prÃ¼fen
-
+                
+            	//Auf Kollision mit rad pruefen
                 boolean Kollirad = missile.get(i).collidesWithWheel(rad);
 
-                //Auf kollision mit Speiche prÃ¼fen
+                //Auf kollision mit Speiche pruefen
                 boolean Kollispeiche = missile.get(i).coollidesWithSpokes(rad.getSpokesList());
 
                 //Kollision mit Rad
                 if (Kollirad && Kollispeiche == false) {
                     //Was soll passieren wenn das Geschoss auf das Rad trifft?
 
-                    //Speiche wird dan der Stelle hinzugefÃ¼gt
+                    //Speiche wird an der Stelle hinzugefuegt
                     rad.addSpokes(missile.get(i).getX());
                     //Geschoss wird entfernt
                     missile.remove(i);
@@ -391,19 +404,17 @@ public class GamePanel extends JPanel implements Runnable {
                     //Kollision mit Speiche
                     if (Kollispeiche) {
                         //Was soll passieren wenn das Geschoss auf eine Speiche trifft?
-                        System.out.println("Speiche getroffen!");
-                        missile.remove(i);
-                        
-                        gameLost(); //Method when losing the game
+                        missile.remove(i); // Geschoss wird entfernt
+                        gameLost(); // Verloren
                         
                     }
                 }
 
             }
-            //Sieges Bedingung !!!!!!
+            // Siegesbedingung 
             if (time == true && this.missileClipPlayer == 0 && missile.size() == 0) {
                 System.out.println("Du hast gewonnen");
-                gameWon();
+                gameWon(); // Gewonnen
 
             }
         }
@@ -418,30 +429,35 @@ public class GamePanel extends JPanel implements Runnable {
         }
         canon.drawString("Missles left: " + missileClipPlayer , this.x / 100 * 14, this.y / 100 * 95);
         
-        //SchussstÃ¤rke anzeigen
+        //Schussstaerke anzeigen
         canon.clearRect(this.x / 100 * 64, this.y / 100 * 85, 100, this.y / 100 * 3);
         canon.setColor(new Color(0, 128, 128));
         canon.fillRect(this.x / 100 * 64, this.y / 100 * 85, loadBar, this.y / 100 * 3);
 
     }
     
+    // Starten
     private void start() {
-		thread = new Thread(this, "Game Loop"); // Creates new thread
-		thread.start(); // Starts thread
+		thread = new Thread(this, "Game Loop"); // Erzeugt neuen Thread
+		thread.start(); // Startet den Thread
 		
 	}
+    
+    // Stoppen
     private void stop() {
-    	time = false;
-    	scorePanel = true; //open scorepanel
+    	time = false; 
+    	scorePanel = true; // Setzt scorepanel auf true
     	repaint();
 
     }
+    
+    // Methode wenn der Spieler verloren hat
     private void gameLost() {
     	//Stoppt den Thread
     	stop();
     	this.setBackground(Color.RED);
     	
-    	//Öffnet das scorePanel mit Replay oder Quit
+    	//Oeffnet das scorePanel mit Infos und Buttons
     	if (scorePanel) {
         	GameResultLose panel = new GameResultLose("sp");
         	quit.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
@@ -452,6 +468,7 @@ public class GamePanel extends JPanel implements Runnable {
 			yourMissles.setBounds(Game.WIDTH / 10, Game.HEIGHT / 10 * 6, Menu.getButtonWidth(), Menu.getButtonHeight());
 			yourMissles.setText("You have " + missileClipPlayer + " missles left.");
 
+			// Fuegt es der GUI hinzu
     		add(yourTime);
     		add(yourMissles);
         	
@@ -463,12 +480,14 @@ public class GamePanel extends JPanel implements Runnable {
     	
     	
     }
+    
+    // Methode wenn der Spieler gewonnen hat
     private void gameWon() {
     	//Stoppt den Thread
     	stop();
     	this.setBackground(Color.GREEN);
     	
-    	//Öffnet das scorePanel mit Replay, Quit und Submit
+    	//Öffnet das scorePanel mit Infos und Buttons
     	if (scorePanel) {
         	GameResultWin panel = new GameResultWin("sp");
         	submitScore.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 10 * 7, Menu.getButtonWidth(), Menu.getButtonHeight());
@@ -477,15 +496,11 @@ public class GamePanel extends JPanel implements Runnable {
 			yourTime.setBounds(Game.WIDTH / 10, Game.HEIGHT / 100 * 63, Menu.getButtonWidth(), Menu.getButtonHeight());
     		yourTime.setText("You needed " + currentTime / 1000 + " seconds" + " (" + currentTime + " ms).");
 
-			 
 			nameField.setBounds(Game.WIDTH / 10 * 5, Game.HEIGHT / 100 * 65,  Menu.getButtonWidth(), 20);
 			
-			// Adds elements to ui
+			// Fuegt Objekte der GUI hinzu
 			add(submitScore);
 			add(nameField);
-    		
-    		
-    		
     		add(yourTime);
         	
         	this.add(quit);
@@ -501,12 +516,3 @@ public class GamePanel extends JPanel implements Runnable {
 
 
 }
-
-
-
-
-
-
-
-
-

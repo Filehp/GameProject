@@ -40,7 +40,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
     private String directionPlayer1;
     private boolean shotMissile = false;
     private double missilespeedPlayer1 = 0;
-    private int loadBar=0;                          //LadeBalken fuer die GEschwindigkeit
+    private int loadBar=0;                          //LadeBalken fuer die Gschwindigkeit
     private int missilnumber = 99;
     private int missileClipPlayer1;
     private ArrayList<Missile> missilePlayer1 = new ArrayList<>();

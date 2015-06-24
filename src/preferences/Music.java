@@ -2,7 +2,6 @@ package preferences;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
@@ -13,13 +12,12 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import menu.Settings;
-
 /**
  * Klasse fuer die Musik im Hintergrund
  */
 
 public class Music {
+
 	private File f;
 	private AudioInputStream sound;
 	private DataLine.Info info;
@@ -27,33 +25,34 @@ public class Music {
 	private FloatControl gainControl;
 	private Prefs pref = new Prefs();
 
-	private static Music instance = null; // Creating the instance for Singleton
+	private static Music instance = null;
 
 	/**
-	 * Plays and loops the music.
+	 * Spielt und loopt die Musik
 	 */
 	public void playMusic() {
+
 		try {
-			int volMusic = pref.getMusicVol(); // Gets the music volume
+			// Holt die Lautstaerke
+			int volMusic = pref.getMusicVol(); 
 
-			URL url = getClass().getResource("/music.wav"); // Gets url to the
-															// file
-			sound = AudioSystem.getAudioInputStream(url); // Converts the file
-															// from url into
-															// AudioInputStream
+			// URL zur Datei
+			URL url = getClass().getResource("/music.wav"); 
+			
+			// Konvertiert die Datei von URL zu AudioInputStream
+			sound = AudioSystem.getAudioInputStream(url); 
 
-			// load the sound into memory (a Clip)
+			// Laedt sound 
 			info = new DataLine.Info(Clip.class, sound.getFormat());
 			clip = (Clip) AudioSystem.getLine(info);
 			clip.open(sound);
 
-			gainControl = (FloatControl) clip
-					.getControl(FloatControl.Type.MASTER_GAIN); // Prepares clip
-																// to change
-																// volume
-			changeVol(volMusic); // Sets the volume
+			// Bereitet den Clip vor die Lautstaerke zu aendern
+			gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN); 
+			// Setzt die Lautstaerke
+			changeVol(volMusic); 
 
-			// Plays and loops clip
+			// Spielt und loopt den Clip
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 			clip.start();
 		} catch (IOException | UnsupportedAudioFileException
@@ -64,41 +63,28 @@ public class Music {
 	}
 
 	/**
-	 * Stops music
+	 * Stoppt die Musik
 	 */
 	public void stopMusic() {
 		clip.stop();
 	}
 
 	/**
-	 * Changes the music volume
-	 * 
-	 * @param vol
-	 *            int which stands for the music volume slider value ( in
-	 *            Settings)
-	 * @see Settings
+	 * Lautstaerke der Musik aendern
 	 */
 	public void changeVol(int vol) {
-		float x = (float) -((100 - (10 * vol)) / 4); // Simple calculation
-														// converts the int to
-														// fit float.
-		gainControl.setValue(x); // Changing volume
+		float x = (float) -((100 - (10 * vol)) / 4); // int zu float
+		gainControl.setValue(x); // Lautstaerke setzen
 	}
 
 	/**
-	 * Gets an instance of this class so you can use the same object in
-	 * different classes. This operation allows us to work (start / stop /
-	 * change volume) with background music.
-	 * 
-	 * @return an instance of current Music object.
+	 * Methode, um eine Instanz dieser Klasse bereitzustellen, damit es einfacher moeglich ist, 
+	 * diese Klasse zu benutzen und die Musik zu starten/stoppen
 	 */
 	public static Music getInstance() {
 		if (instance == null)
-			instance = new Music(); // If instance is null creates new Music
-									// object
-		return instance; // Returns the instance of this object.
+			instance = new Music(); // Wenn es kein Instanz gibt, wir eine neue erzeugt
+		return instance; 
 	}
-
-
 
 }

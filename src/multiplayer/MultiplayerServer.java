@@ -139,7 +139,7 @@ public class MultiplayerServer extends JComponent {
                          //Rad bewegen auf Player 1 begrenzen
                          rad.spinWheel();
 
-                         //Sieges bedingung
+                         //Siegesbedingung
                          if (this.missileClipPlayer1 == 0 && missilePlayer1.size() == 0) {
                              /**
                               * 1 = SPiel gewonnen, -1 = Speil verloren, 0 = Spiel laüft

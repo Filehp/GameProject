@@ -2,6 +2,7 @@ package menu;
 
 import game.Game;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -70,6 +71,7 @@ public class LevelMenu extends JComponent {
 
 			back.addActionListener(new ActionListener() {
 
+				// Ein Menü zurück
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Game.changePanel("difficulty", LevelMenu.this);
@@ -79,6 +81,8 @@ public class LevelMenu extends JComponent {
 
 		// Wenn der gewählte Schwierigkeitsgrad MEDIUM ist
 		if (difficulty == "gameM") {
+			
+			// Lädt das Hintergrundbild
 			try {
 				logo2 = ImageIO.read(new File("resources/background2med.png"));
 			} catch (IOException e1) {
@@ -87,7 +91,7 @@ public class LevelMenu extends JComponent {
 			// Aktion bei Klick eines Buttons
 			level1.addActionListener(new ActionListener() {
 
-				// Wechselt zum Spiel mit dem Schwierigkeitsgrad EASY
+				// Wechselt zum Spiel mit dem Schwierigkeitsgrad MEDIUM
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Game.changePanel("gameM", LevelMenu.this);
@@ -95,6 +99,7 @@ public class LevelMenu extends JComponent {
 				}
 			});
 
+			// Ein Menü zurück
 			back.addActionListener(new ActionListener() {
 
 				@Override
@@ -107,16 +112,17 @@ public class LevelMenu extends JComponent {
 		// Wenn der gewählte Schwierigkeitsgrad HARD ist
 		if (difficulty == "gameH") {
 
+			// Lädt das Hintergrundbild
 			try {
 				logo2 = ImageIO.read(new File("resources/background2hard.png"));
 			} catch (IOException e1) {
-
 				e1.printStackTrace();
 			}
 
 			// Aktion bei Klick eines Buttons
 			level1.addActionListener(new ActionListener() {
 
+				// Wechselt zum Spiel mit dem Schwierigkeitsgrad HARD
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Game.changePanel("gameH", LevelMenu.this);
@@ -126,6 +132,7 @@ public class LevelMenu extends JComponent {
 
 			back.addActionListener(new ActionListener() {
 
+				// Ein Menü zurück
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Game.changePanel("difficulty", LevelMenu.this);
@@ -141,8 +148,11 @@ public class LevelMenu extends JComponent {
 		// Stellt das Hintergrundlogo dar
 		g.drawImage(logo2,
 				Game.getWindowWidth() / 2 - logo2.getWidth(null) / 2, 0, null);
+		
+		g.setFont(new Font("default", Font.BOLD, Game.HEIGHT / 75));
+		g.drawString("created by Christopher Brost and Filip Meyer", Game.WIDTH / 99 , Game.HEIGHT  );
 
-		// Setzt die Position und Groesse der Buttons
+		// Setzt die Position und Groesse der Buttons/Platzhalter
 		level1.setBounds(Game.WIDTH / 4 - oneIcon.getIconWidth() / 2,
 				Game.HEIGHT / 2 - Game.HEIGHT / 9, oneIcon.getIconWidth(),
 				oneIcon.getIconHeight());
@@ -159,7 +169,6 @@ public class LevelMenu extends JComponent {
 
 		// Fuegt die Buttons der GUI hinzu
 		add(level1);
-
 		add(back);
 
 	}

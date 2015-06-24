@@ -2,6 +2,7 @@ package menu;
 
 import game.Game;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -83,6 +84,8 @@ public class Difficulty extends JComponent {
 		// Stellt das Hintergrundlogo dar
 		g.drawImage(logo2,
 				Game.getWindowWidth() / 2 - logo2.getWidth(null) / 2, 0, null);
+		g.setFont(new Font("default", Font.BOLD, Game.HEIGHT / 75));
+		g.drawString("created by Christopher Brost and Filip Meyer", Game.WIDTH / 99 , Game.HEIGHT  );
 
 		// Setzt die Position und Groesse der Buttons
 		easy.setBounds(Menu.getButtonX(), Menu.getButtonY() - Game.HEIGHT / 100

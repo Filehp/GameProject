@@ -2,39 +2,61 @@ package preferences;
 
 import java.util.prefs.Preferences;
 
+/**
+ * Klasse fuer die Einstellungen
+ */
 public class Prefs {
-	
+
 	private Preferences pref;
-	private int musicVol, gameVol;
+	private int musicVol;
 	private boolean musicSwitch;
-	
-	public Prefs(){
-		pref = Preferences.userRoot().node(this.getClass().getName()); // Gets the root 
-		
-		// Gets the values and assigns them to variables 
+
+	/**
+	 * Constructor
+	 */
+	public Prefs() {
+		// Holt die Root
+		pref = Preferences.userRoot().node(this.getClass().getName());
+
+		// Holt die Werte und setzt Variablen
 		musicVol = pref.getInt("musicVol", 0);
 		musicSwitch = pref.getBoolean("musicBool", true);
-		
+
 	}
-	
-	public int getMusicVol() { 
+
+	/**
+	 *  Lautstaerke holen
+	 * @return Musiklautstaerke
+	 */
+	public int getMusicVol() {
 		return musicVol;
 	}
-	
+
+	/**
+	 *  Lautstaerke setzen
+	 * @param musicVol
+	 */
 	public void setMusicVol(int musicVol) {
 		this.musicVol = musicVol;
-		pref.putInt("musicVol", musicVol); // Puts the music volume value 
-		
+		pref.putInt("musicVol", musicVol); // Puts the music volume value
+
 	}
-	
-	
+
+	/**
+	 *  Gucken, ob Musik an/aus ist
+	 * @return musicSwitch
+	 */
 	public boolean isMusicSwitch() {
 		return musicSwitch;
 	}
-	
+
+	/**
+	 *  Musik an/aus
+	 * @param musicSwitch
+	 */
 	public void setMusicSwitch(boolean musicSwitch) {
 		this.musicSwitch = musicSwitch;
-		pref.putBoolean("musicBool", musicSwitch); // Puts the game volume value (true or false)
+		pref.putBoolean("musicBool", musicSwitch);
 	}
 
 }

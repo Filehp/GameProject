@@ -6,12 +6,11 @@ import java.util.ArrayList;
 
 /**
  * Die Kanonenklasse
- * Created by Chris on 09.05.2015.
  */
 public class Canon  implements Serializable {
 
     /**
-     * Umegebungsvariabel
+     * Umgebungsvariabel
      */
     private int missileCounter;                     //Menge der GEschosse der Kanone
     private int canonX;                             // X Position der Kanone
@@ -50,7 +49,7 @@ public class Canon  implements Serializable {
 
     /**
      *
-     * Lädt die Grafik für die Kanone Farbe sowie Positon und groesse
+     * Laedt die Grafik für die Kanone Farbe sowie Positon und groesse
      */
     public void canonLoad(Graphics canon) {
         canon.setColor(canonColor);
@@ -64,7 +63,7 @@ public class Canon  implements Serializable {
     public void moveCanon(String direction){
 
         /**
-         * ist die übergegeben Richtung links werden 5 px von der X Position abgezogen
+         * ist die uebergegeben Richtung links werden 5 px von der X Position abgezogen
          */
         if(direction.equals("left")){
             this.canonX = this.canonX - 5;
@@ -76,7 +75,7 @@ public class Canon  implements Serializable {
 
         }
         /**
-         * ist die übergegeben Richtung links werden 5 px von der X Position zugepackt
+         * ist die uebergegeben Richtung links werden 5 px von der X Position zugepackt
          */
         if(direction.equals("right")) {
             this.canonX = this.canonX + 5;
@@ -92,7 +91,7 @@ public class Canon  implements Serializable {
     /**
      *
      * Getter für die aktuelle Position der Kanone
-     * Wichtig für den Abschuss einer Missile!!!!
+     * Wichtig für den Abschuss einer Missile!
      */
     public int getAbschussPositionX(){ return this.xPositionMissile = this.canonX +(canonWigth/2)- radiusMissile /2; }
     public int getAbschussPositionY(){return this.yPositionMissile = this.canonY -(canonHeigth/2);}
@@ -105,7 +104,7 @@ public class Canon  implements Serializable {
 
             int missileindex = 99;
         /**
-         * Lässt die Missile sich bewegen und die neue Position berechnen
+         * Laesst die Missile sich bewegen und die neue Position berechnen
          *
          */
             for (Missile missil:missile) {
@@ -113,7 +112,7 @@ public class Canon  implements Serializable {
                 int missilePosition = missil.moveMissile();
 
                 /**
-                 * verlässt die Missile das fenster wird diese entfernt durch das setzen von index 99
+                 * verlaesst die Missile das fenster wird diese entfernt durch das setzen von index 99
                  */
                 if (missilePosition <= 0) {
                    missileindex = missile.indexOf(missil);
@@ -125,7 +124,7 @@ public class Canon  implements Serializable {
     }
 
     /**
-     * Methode zum Anpassen der Auflösung, damit Player 2 richtig angezeigt wird
+     * Methode zum Anpassen der Aufloesung, damit Player 2 richtig angezeigt wird
      */
     public void aufloesungAnpassen(double faktorX, double faktorY, boolean operator){
         /**
@@ -137,7 +136,7 @@ public class Canon  implements Serializable {
 
 
         /**
-         * true ist die Auflösung umwandeln von Player 1 zu Player 2
+         * true ist die Aufloesung umwandeln von Player 1 zu Player 2
          */
         if(operator==true) {
             this.canonX = (int) (this.canonX * faktorX);
@@ -150,7 +149,7 @@ public class Canon  implements Serializable {
         }
 
         /**
-         * false ist die Auflösung umwandeln von Player 2 zu Player 1
+         * false ist die Aufloesung umwandeln von Player 2 zu Player 1
          */
         if(operator==false) {
             this.canonX = (int) (this.canonX / faktorX);

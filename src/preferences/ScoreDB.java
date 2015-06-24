@@ -4,7 +4,9 @@ import game.GamePanel.Diff;
 import java.sql.*;
 import java.util.ArrayList;
 
-
+/**
+ * Klasse fuer die Datenbank zum Speichern der Highscores
+ */
 public class ScoreDB {
 	
 	private Connection c;
@@ -14,63 +16,74 @@ public class ScoreDB {
 	private boolean ready = false;
 
 	/**
-	 * Makes an connection to the database. 
+	 * Constructor
+	 * Verbindung zur Datenbank 
 	 */
 	public ScoreDB(Diff diff){
 		c = null;		
 		try {
-		      Class.forName("org.sqlite.JDBC"); // Causes the class named JDBC to be dynamically loaded (at runtime).
-		      c = DriverManager.getConnection("jdbc:sqlite:score.db");	// Connects to the score.db file
-		  	  stm = c.createStatement(); // Creates statement we can work with
+		      Class.forName("org.sqlite.JDBC"); // Laedt die Klasse JDBC
+		      c = DriverManager.getConnection("jdbc:sqlite:score.db");	// Verbindet mit der score.db 
+		  	  stm = c.createStatement(); // Statement
 		  	  
-		  	  // If c isn't null we can proceed to browse database 
+		  	  // Datenbank durchsuchen
 		      if(c != null){			    	
-						dbm = c.getMetaData(); // Gets meta data
+						dbm = c.getMetaData(); // Meta Daten
 						
+						/**
+						 *  Wenn der uebergebene Schwierigkeitsgrad EASY ist, wird ein Datensatz fuer diesen erstellt
+						 */
 						if (diff.equals(Diff.EASY)) {
-							//dbm = c.getMetaData();
-							ResultSet tablesE = dbm.getTables(null, null, "SCORETABLE", null); // Selects table 
-						if (tablesE.next())	ready = true; 	// If table exist database is ready to work with				
-						else {						 		// But if not we need to create new table
-						  // Creates sql statement 
+							ResultSet tablesE = dbm.getTables(null, null, "SCORETABLE", null); // Waehlt den Datensatz
+						if (tablesE.next())	ready = true; 	// Wenn die Tabelle existiert, bereit 				
+						else {						 		// Wenn die Tabelle nicht existiert, neu
+						  // SQL Statement 
 						  String sql = "CREATE TABLE SCORETABLE " +
 				                   "(ID INTEGER PRIMARY KEY   AUTOINCREMENT," +
 				                   " DIFF           TEXT    NOT NULL, " +
 				                   " NAME           TEXT    NOT NULL, " + 
 				                   " SCORE          INT     NOT NULL, " + 
 				                   " DATE          	TEXT    NOT NULL) "; 
-						  stm.executeUpdate(sql); // Executes the statement
-						  ready = true;			  // Makes database ready to work 
+						  stm.executeUpdate(sql); // Ausfuehren des Statements
+						  ready = true;			  // Bereit 
 						}
 						}
+						
+						/**
+						 *  Wenn der uebergebene Schwierigkeitsgrad MEDIUM ist, wird ein Datensatz fuer diesen erstellt
+						 */
 						if (diff.equals(Diff.MEDIUM)) {
-							ResultSet tablesM = dbm.getTables(null, null, "SCORETABLEMED", null); // Selects table 
-						if (tablesM.next())	ready = true; 	// If table exist database is ready to work with				
-						else {						 		// But if not we need to create new table
-						  // Creates sql statement 
+							ResultSet tablesM = dbm.getTables(null, null, "SCORETABLEMED", null); // Waehlt den Datensatz 
+						if (tablesM.next())	ready = true; 	// Wenn die Tabelle existiert, bereit 				
+						else {						 		// Wenn die Tabelle nicht existiert, neu
+							// SQL Statement
 						  String sql = "CREATE TABLE SCORETABLEMED " +
 				                   "(ID INTEGER PRIMARY KEY   AUTOINCREMENT," +
 				                   " DIFF           TEXT    NOT NULL, " +
 				                   " NAME           TEXT    NOT NULL, " + 
 				                   " SCORE          INT     NOT NULL, " + 
 				                   " DATE          	TEXT    NOT NULL) "; 
-						  stm.executeUpdate(sql); // Executes the statement
-						  ready = true;			  // Makes database ready to work 
+						  stm.executeUpdate(sql); // Ausfuehren des Statements
+						  ready = true;			  // Bereit
 						}
 						}
+						
+						/**
+						 *  Wenn der uebergebene Schwierigkeitsgrad HARD ist, wird ein Datensatz fuer diesen erstellt
+						 */
 						if (diff.equals(Diff.HARD)) {
-							ResultSet tablesH = dbm.getTables(null, null, "SCORETABLEHARD", null); // Selects table 
-						if (tablesH.next())	ready = true; 	// If table exist database is ready to work with				
-						else {						 		// But if not we need to create new table
-						  // Creates sql statement 
+							ResultSet tablesH = dbm.getTables(null, null, "SCORETABLEHARD", null); // Waehlt den Datensatz  
+						if (tablesH.next())	ready = true; 	// Wenn die Tabelle existiert, bereit 			
+						else {						 		// Wenn die Tabelle nicht existiert, neu
+						  // SQL Statement 
 						  String sql = "CREATE TABLE SCORETABLEHARD " +
 				                   "(ID INTEGER PRIMARY KEY   AUTOINCREMENT," +
 				                   " DIFF           TEXT    NOT NULL, " +
 				                   " NAME           TEXT    NOT NULL, " + 
 				                   " SCORE          INT     NOT NULL, " + 
 				                   " DATE          	TEXT    NOT NULL) "; 
-						  stm.executeUpdate(sql); // Executes the statement
-						  ready = true;			  // Makes database ready to work 
+						  stm.executeUpdate(sql); // Ausfuehren des Statements
+						  ready = true;			  // Bereit
 						}
 						}
 						
@@ -79,42 +92,44 @@ public class ScoreDB {
 		    } catch (SQLException | ClassNotFoundException e) {
 		    	System.out.println("Exception occurred while connectiong to the database:");
 		    	e.printStackTrace();
-		    	ready = false; // Makes database not ready
+		    	ready = false; // Falls es einen Error gab, nicht bereit
 		    }
 		
 	 }
 	
 	/**
-	 * Inserts score to the database
-	 * @param diff  player's level
-	 * @param name  player's name
-	 * @param score gained points
-	 * @param date  when it happend 
+	 * Fuegt die Daten in die Tabelle ein
+	 * @param diff  Schwierigkeitsgrad
+	 * @param name  Name
+	 * @param time 	Zeit
+	 * @param date  Datum
 	 */
 	public void insertScore(Diff diff, String name, long time, String date){
 	  if(ready){
 		try {
-			// Creates SQL statement
+			// SQL Anweisung, wenn der Schwierigkeitsgrad EASY ist, in den zugehoerigen Datensatz schreiben
 			if (diff.equals(Diff.EASY)) {
 			String sql = "INSERT INTO SCORETABLE (DIFF,NAME,SCORE,DATE) " +
 	            "VALUES (" +
 				"'" + diff + "','" + name + "','" + time + "','" + date + "');"; 	
 			
-			stm.executeUpdate(sql); // Executes the statement
+			stm.executeUpdate(sql); // Fuehrt Anweisung aus
 			}
+			// SQL Anweisung, wenn der Schwierigkeitsgrad MEDIUM ist, in den zugehoerigen Datensatz schreiben
 			if (diff.equals(Diff.MEDIUM)) {
 			String sql = "INSERT INTO SCORETABLEMED (DIFF,NAME,SCORE,DATE) " +
 	            "VALUES (" +
 				"'" + diff + "','" + name + "','" + time + "','" + date + "');"; 	
 			
-			stm.executeUpdate(sql); // Executes the statement
+			stm.executeUpdate(sql); // Fuehrt Anweisung aus
 			}
+			// SQL Anweisung, wenn der Schwierigkeitsgrad HARD ist, in den zugehoerigen Datensatz schreiben
 			if (diff.equals(Diff.HARD)) {
 			String sql = "INSERT INTO SCORETABLEHARD (DIFF,NAME,SCORE,DATE) " +
 	            "VALUES (" +
 				"'" + diff + "','" + name + "','" + time + "','" + date + "');"; 	
 			
-			stm.executeUpdate(sql); // Executes the statement
+			stm.executeUpdate(sql); // Fuehrt Anweisung aus
 			}
 		} catch (SQLException e) {
 	    	System.out.println("Exception occurred while inserting score to the database:");
@@ -124,22 +139,23 @@ public class ScoreDB {
 	}
 	
 	/**
-	 * Deletes all data from the table
+	 * Loescht die Daten aus der Datenbank
 	 */
 	public void clearTable(Diff diff){
 	  if(ready){
 		try{
+			// Fuer den jeweilige Schwierigkeitsgrad
 			if (diff.equals(Diff.EASY)) {
-			String sql = "DELETE FROM SCORETABLE"; // Creates SQL statement
-			stm.executeUpdate(sql); // Executes the statement
+			String sql = "DELETE FROM SCORETABLE"; // SQL Anweisung
+			stm.executeUpdate(sql); // Fuehrt die Anweisung aus
 			}
 			if (diff.equals(Diff.MEDIUM)) {
-			String sql = "DELETE FROM SCORETABLEMED"; // Creates SQL statement
-			stm.executeUpdate(sql); // Executes the statement
+			String sql = "DELETE FROM SCORETABLEMED"; // SQL Anweisung
+			stm.executeUpdate(sql); // Fuehrt die Anweisung aus
 			}
 			if (diff.equals(Diff.HARD)) {
-			String sql = "DELETE FROM SCORETABLEHARD"; // Creates SQL statement
-			stm.executeUpdate(sql); // Executes the statement
+			String sql = "DELETE FROM SCORETABLEHARD"; // SQL Anweisung
+			stm.executeUpdate(sql); // Fuehrt die Anweisung aus
 			}
 		} catch (SQLException e){
 	    	System.out.println("Exception occurred while clearing table:");
@@ -149,40 +165,41 @@ public class ScoreDB {
 	}
 	
 	/**
-	 * Gets scores as an ArrayList of ArrayList<String> 
-	 * @return The list of scores, names and dates
+	 * Holt die eingetragenen Daten
+	 * @return Liste Schwierigkeit, Zeit, Name, Datum
 	 */
 	public ArrayList<ArrayList<String>> seclectScores(Diff diffi){
 	  if(ready){
-		ArrayList<ArrayList<String>> nodes = new ArrayList<ArrayList<String>>(); // Creates ArrayList object 
+		ArrayList<ArrayList<String>> nodes = new ArrayList<ArrayList<String>>(); // Erzeugt eine ArrayList
 		String sql = null;
 		try{
+		// Fuer jeden Schwierigkeitsgrad
 		if (diffi.equals(Diff.EASY)) {
-		sql = "SELECT * FROM SCORETABLE ORDER BY SCORE ASC;"; // Creates SQL statement 
+		sql = "SELECT * FROM SCORETABLE ORDER BY SCORE ASC;"; // SQL Anweisung 
 		}
 		if (diffi.equals(Diff.MEDIUM)) {
-		sql = "SELECT * FROM SCORETABLEMED ORDER BY SCORE ASC;"; // Creates SQL statement 
+		sql = "SELECT * FROM SCORETABLEMED ORDER BY SCORE ASC;"; // SQL Anweisung  
 		}
 		if (diffi.equals(Diff.HARD)) {
-		sql = "SELECT * FROM SCORETABLEHARD ORDER BY SCORE ASC;"; // Creates SQL statement 
+		sql = "SELECT * FROM SCORETABLEHARD ORDER BY SCORE ASC;"; // SQL Anweisung  
 		}
-		ResultSet rs = stm.executeQuery(sql); // Executes statement and saves the result into rs
-		while(rs.next()){ // Loops the result set
-			ArrayList<String> i = new ArrayList<String>(); // Creates new ArrayList
+		ResultSet rs = stm.executeQuery(sql); // Fuehrt die Anweisung aus und speichert
+		while(rs.next()){
+			ArrayList<String> i = new ArrayList<String>(); // Neue ArrayList
 			
-			// Gets data into strings
+			// Holt die Daten in String
 			String diff = rs.getString("DIFF");
 			String name = rs.getString("NAME"); 
 			String score = new Integer(rs.getInt("SCORE")).toString();
 			String date = rs.getString("DATE");
 			
-			// Adds data to the list 
+			// Fuegt die Daten hinzu
 			i.add(diff);
 			i.add(name);
 			i.add(score);
 			i.add(date);
 			
-			nodes.add(i); // Adds list to the list 
+			nodes.add(i); // Fuegt die Liste der Liste hinzu 
 		}				
 		
 		return nodes; // Returns "nodes"  
@@ -193,15 +210,15 @@ public class ScoreDB {
 			return null;
 		}		
 	  }
-	  return null; // If connection is not ready, then returns null 
+	  return null; // Wenn die Datenbank nicht ready ist, null 
 	}
 	
 	/**
-	 *  Closes the database connection
+	 *  Schlieﬂt die Verbindung zur Datenbank
 	 */
 	public void close(){
 		try {
-			if (ready) c.close(); // Closes the connection
+			if (ready) c.close(); // Schlieﬂt
 		} catch (SQLException e) {
 	    	System.out.println("Exception occurred while closing the database:");
 	    	e.printStackTrace();

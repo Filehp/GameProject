@@ -46,7 +46,7 @@ public class Game {
 	public static JPanel panel = new JPanel();
 	public static Menu menuPanel = new Menu();	
 	
-	//Maﬂe
+	// Maﬂe
 	public static final int WIDTH = Game.getWindowWidth();
 	public static final int HEIGHT = Game.getWindowHeight();
 	public static final int HEIGHT2 = HEIGHT + 16;
@@ -105,21 +105,27 @@ public class Game {
 			
 		case "settings":
 			panel.add(new Settings(), BorderLayout.CENTER); break;
-			
-		//Wechselt zum Spiel
-		case "gameE":
-			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),1,30000,4,1, Diff.EASY), BorderLayout.CENTER); break;
-			
-		case "gameM":
-			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),1,26000,6,2, Diff.MEDIUM), BorderLayout.CENTER); break;
-			
-		case "gameH":
-			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),1,16000,8,3, Diff.HARD), BorderLayout.CENTER); break;
 		
-		case "multiplayerClientHost":
+		/**
+		 * Wechselt zum jeweiligen Schwierigkeitsgrad 
+		 * Zeit, Anzahl der Geschosse & Speichen und Geschwindigkeit des Levels wird mitgegeben	
+		 */
+		case "gameE": //Wechselt zum Spiel mit der Schwierigkeit EASY
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),15,30000,6,1, Diff.EASY), BorderLayout.CENTER); break;
+			
+		case "gameM": //Wechselt zum Spiel mit der Schwierigkeit MEDIUM
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),15,26000,8,2, Diff.MEDIUM), BorderLayout.CENTER); break;
+			
+		case "gameH": //Wechselt zum Spiel mit der Schwierigkeit HARD
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),10,16000,8,4, Diff.HARD), BorderLayout.CENTER); break;
+		
+		case "gameS": // Wechselt zum Extra Level
+			panel.add(new GamePanel(Game.getWindowWidth(),Game.getWindowHeight(),5,16000,8,6, Diff.HARD), BorderLayout.CENTER); break;
+		
+		case "multiplayerClientHost": //Multiplayer Host
 			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),10,1, "localhost"), BorderLayout.CENTER); break;
 			
-		case "multiplayerClientJoin":
+		case "multiplayerClientJoin": //Multiplayer Join
 			panel.add(new MultiplayerClient(Game.getWindowWidth(),Game.getWindowHeight(),1,2, MultiplayerMenu.getIp()), BorderLayout.CENTER);
 
 		}
