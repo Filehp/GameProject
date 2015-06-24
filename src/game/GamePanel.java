@@ -391,6 +391,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         //Verbleibende Zeit & Geschosse anzeigen
         canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
+        canon.setColor(Color.WHITE);
         if (sekunden >= 10) {
             canon.drawString("0" + minuten + ":" + sekunden + " (" + currentTime + ")", this.x / 100 * 14, this.y / 100 * 88);
         } else {
