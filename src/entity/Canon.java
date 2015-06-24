@@ -35,12 +35,12 @@ public class Canon  implements Serializable {
 
     public Canon(int x, int y, int missileCount){
         System.out.println(x + "and"+ y);
-        this.canonX = x/100*50;
+        this.canonX = x/100*48;
         this.canonY = y/100*75;
         this.canonWigth = x/100*10;
         this.canonHeigth = x/100*3;
         this.grenzeLinks = x/100*40;
-        this.grenzeRechts = x/100*70;
+        this.grenzeRechts = x/100*65;
         this.radiusMissile = x/100*3;
         this.missileCounter = missileCount;
         this.canonColor = Color.BLACK;
