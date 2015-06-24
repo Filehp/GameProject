@@ -8,7 +8,6 @@ import entity.Canon;
 import entity.Missile;
 import entity.Wheel;
 import menu.Button;
-import menu.Difficulty;
 import menu.GameResultLose;
 import menu.GameResultWin;
 import menu.Menu;
@@ -45,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     boolean shotMissile = false;
     double missilespeed = 0;
     int loadBar = 0;
-    int missilnumber = 99;
+    int missilenumber = 99;
     int missileClipPlayer;
     public ArrayList<Missile> missile = new ArrayList<>();
 
@@ -82,7 +81,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public GamePanel(int x, int y, int missileClip, int time, int startSpokes, int speedWheel,Diff diff) {
         this.setFocusable(true);
-        
+        this.x = x;
+        this.y = y;
         //Laedt das Hintergrundbild
 		try {
 			background = ImageIO.read(new File("resources/Hintergrund.png"));
@@ -156,8 +156,7 @@ public class GamePanel extends JPanel implements Runnable {
         });
 
 
-        this.x = x;
-        this.y = y;
+
         
         
         //Buttons in ScorePanel 
@@ -276,14 +275,13 @@ public class GamePanel extends JPanel implements Runnable {
         //Kanone bewegen
         if (this.direction != null) {
             Kanone.moveCanon(this.direction);
-            this.direction=null;
         }
         //Geschoss abfeuern
 
-        this.missilnumber = Kanone.shotMissile(canon, missile);
-        if (this.missilnumber != 99) {
-            //System.out.println(missilnumber);
-            missile.remove(this.missilnumber);
+        this.missilenumber = Kanone.shotMissile(canon, missile);
+        if (this.missilenumber != 99) {
+            //System.out.println(missilenumber);
+            missile.remove(this.missilenumber);
 
         }
         //Kollision abfangen

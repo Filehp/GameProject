@@ -18,7 +18,7 @@ public class Canon  implements Serializable {
     private int yPositionMissile;
     private int grenzeLinks;
     private int grenzeRechts;
-    private int radiusMissel;
+    private int radiusMissile;
     private Color canonColor;
     public ArrayList<Missile> missile=new ArrayList< Missile>();
 
@@ -31,7 +31,7 @@ public class Canon  implements Serializable {
         this.canonHeigth = x/100*3;
         this.grenzeLinks = x/100*40;
         this.grenzeRechts = x/100*70;
-        this.radiusMissel= x/100*3;
+        this.radiusMissile = x/100*3;
         this.missileCounter = missileCount;
         this.canonColor = Color.BLACK;
 
@@ -67,7 +67,7 @@ public class Canon  implements Serializable {
     }
 
     //Guckt, wo sich die Kanone befindet
-    public int getAbschussPositionX(){ return this.xPositionMissile = this.canonX +(canonWigth/2)-radiusMissel/2; }
+    public int getAbschussPositionX(){ return this.xPositionMissile = this.canonX +(canonWigth/2)- radiusMissile /2; }
     public int getAbschussPositionY(){
         return this.yPositionMissile = this.canonY -(canonHeigth/2);
     }
@@ -103,7 +103,7 @@ public class Canon  implements Serializable {
             this.canonHeigth = (int) (this.canonHeigth * faktorX);
             this.grenzeLinks = (int) (this.grenzeLinks * faktorX);
             this.grenzeRechts = (int) (grenzeRechts * faktorX);
-            this.radiusMissel = (int) (radiusMissel * faktorX);
+            this.radiusMissile = (int) (radiusMissile * faktorX);
         }
         if(operator==false) {
             this.canonX = (int) (this.canonX / faktorX);
@@ -112,7 +112,7 @@ public class Canon  implements Serializable {
             this.canonHeigth = (int) (this.canonHeigth / faktorX);
             this.grenzeLinks = (int) (this.grenzeLinks / faktorX);
             this.grenzeRechts = (int) (grenzeRechts / faktorX);
-            this.radiusMissel = (int) (radiusMissel / faktorX);
+            this.radiusMissile = (int) (radiusMissile / faktorX);
         }
     }
 
