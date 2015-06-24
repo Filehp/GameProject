@@ -227,6 +227,21 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 		});
+        replay2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (diff.equals(Diff.EASY)) {
+				Game.changePanel("gameE", GamePanel.this);
+				}
+				if (diff.equals(Diff.MEDIUM)) {
+				Game.changePanel("gameM", GamePanel.this);
+				}
+				if (diff.equals(Diff.HARD)) {
+				Game.changePanel("gameH", GamePanel.this);
+				}
+			}
+		});
         nextLevel.addActionListener(new ActionListener() {
 
 			@Override
@@ -321,8 +336,8 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(canon);
         
         canon.drawImage(background, x / 2 - background.getWidth(null)/2, 0, null);
-        replay2.setBounds(this.x / 100 * 84, this.y / 100 * 94, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
-        quit2.setBounds(this.x / 100 * 84, this.y / 100 * 99, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
+        replay2.setBounds(this.x / 100 * 80, this.y / 100 * 94, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
+        quit2.setBounds(this.x / 100 * 80, this.y / 100 * 99, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
         this.add(quit2);
         this.add(replay2);
 
