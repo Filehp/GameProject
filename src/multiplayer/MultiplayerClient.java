@@ -139,7 +139,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
         while (time) {
             repaint();
             try {
-                Thread.sleep(87);
+                Thread.sleep(85);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
