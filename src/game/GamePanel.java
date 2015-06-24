@@ -214,8 +214,8 @@ public class GamePanel extends JPanel implements Runnable {
 				String name = nameField.getText(); // Gets name from the field
 				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Creates date format
 				Date date = new Date(); // Creates Date object
-				ScoreDB db = new ScoreDB(); // and ScoreDB object
-				db.insertScore(name, currentTime, dateFormat.format(date)); // Inserts data to database
+				ScoreDB db = new ScoreDB(diff); // and ScoreDB object
+				db.insertScore(diff, name, currentTime, dateFormat.format(date)); // Inserts data to database
 				db.close(); // Closes database
 				Game.changePanel("menu", GamePanel.this); // switching ui to main menu at the very end
 			}

@@ -1,4 +1,6 @@
 package preferences;
+import game.GamePanel.Diff;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -14,7 +16,7 @@ public class ScoreDB {
 	/**
 	 * Makes an connection to the database. 
 	 */
-	public ScoreDB(){
+	public ScoreDB(Diff diff){
 		c = null;		
 		try {
 		      Class.forName("org.sqlite.JDBC"); // Causes the class named JDBC to be dynamically loaded (at runtime).
@@ -24,18 +26,54 @@ public class ScoreDB {
 		  	  // If c isn't null we can proceed to browse database 
 		      if(c != null){			    	
 						dbm = c.getMetaData(); // Gets meta data
-						ResultSet tables = dbm.getTables(null, null, "SCORETABLE", null); // Selects table 
-						if (tables.next())	ready = true; 	// If table exist database is ready to work with				
+						
+						if (diff.equals(Diff.EASY)) {
+							//dbm = c.getMetaData();
+							ResultSet tablesE = dbm.getTables(null, null, "SCORETABLE", null); // Selects table 
+						if (tablesE.next())	ready = true; 	// If table exist database is ready to work with				
 						else {						 		// But if not we need to create new table
 						  // Creates sql statement 
 						  String sql = "CREATE TABLE SCORETABLE " +
 				                   "(ID INTEGER PRIMARY KEY   AUTOINCREMENT," +
+				                   " DIFF           TEXT    NOT NULL, " +
 				                   " NAME           TEXT    NOT NULL, " + 
 				                   " SCORE          INT     NOT NULL, " + 
 				                   " DATE          	TEXT    NOT NULL) "; 
 						  stm.executeUpdate(sql); // Executes the statement
 						  ready = true;			  // Makes database ready to work 
 						}
+						}
+						if (diff.equals(Diff.MEDIUM)) {
+							ResultSet tablesM = dbm.getTables(null, null, "SCORETABLEMED", null); // Selects table 
+						if (tablesM.next())	ready = true; 	// If table exist database is ready to work with				
+						else {						 		// But if not we need to create new table
+						  // Creates sql statement 
+						  String sql = "CREATE TABLE SCORETABLEMED " +
+				                   "(ID INTEGER PRIMARY KEY   AUTOINCREMENT," +
+				                   " DIFF           TEXT    NOT NULL, " +
+				                   " NAME           TEXT    NOT NULL, " + 
+				                   " SCORE          INT     NOT NULL, " + 
+				                   " DATE          	TEXT    NOT NULL) "; 
+						  stm.executeUpdate(sql); // Executes the statement
+						  ready = true;			  // Makes database ready to work 
+						}
+						}
+						if (diff.equals(Diff.HARD)) {
+							ResultSet tablesH = dbm.getTables(null, null, "SCORETABLEHARD", null); // Selects table 
+						if (tablesH.next())	ready = true; 	// If table exist database is ready to work with				
+						else {						 		// But if not we need to create new table
+						  // Creates sql statement 
+						  String sql = "CREATE TABLE SCORETABLEHARD " +
+				                   "(ID INTEGER PRIMARY KEY   AUTOINCREMENT," +
+				                   " DIFF           TEXT    NOT NULL, " +
+				                   " NAME           TEXT    NOT NULL, " + 
+				                   " SCORE          INT     NOT NULL, " + 
+				                   " DATE          	TEXT    NOT NULL) "; 
+						  stm.executeUpdate(sql); // Executes the statement
+						  ready = true;			  // Makes database ready to work 
+						}
+						}
+						
 		      } 
 				
 		    } catch (SQLException | ClassNotFoundException e) {
@@ -48,19 +86,36 @@ public class ScoreDB {
 	
 	/**
 	 * Inserts score to the database
+	 * @param diff  player's level
 	 * @param name  player's name
 	 * @param score gained points
 	 * @param date  when it happend 
 	 */
-	public void insertScore(String name, long time, String date){
+	public void insertScore(Diff diff, String name, long time, String date){
 	  if(ready){
 		try {
 			// Creates SQL statement
-			String sql = "INSERT INTO SCORETABLE (NAME,SCORE,DATE) " +
+			if (diff.equals(Diff.EASY)) {
+			String sql = "INSERT INTO SCORETABLE (DIFF,NAME,SCORE,DATE) " +
 	            "VALUES (" +
-				"'" + name + "','" + time + "','" + date + "');"; 	
+				"'" + diff + "','" + name + "','" + time + "','" + date + "');"; 	
 			
 			stm.executeUpdate(sql); // Executes the statement
+			}
+			if (diff.equals(Diff.MEDIUM)) {
+			String sql = "INSERT INTO SCORETABLEMED (DIFF,NAME,SCORE,DATE) " +
+	            "VALUES (" +
+				"'" + diff + "','" + name + "','" + time + "','" + date + "');"; 	
+			
+			stm.executeUpdate(sql); // Executes the statement
+			}
+			if (diff.equals(Diff.HARD)) {
+			String sql = "INSERT INTO SCORETABLEHARD (DIFF,NAME,SCORE,DATE) " +
+	            "VALUES (" +
+				"'" + diff + "','" + name + "','" + time + "','" + date + "');"; 	
+			
+			stm.executeUpdate(sql); // Executes the statement
+			}
 		} catch (SQLException e) {
 	    	System.out.println("Exception occurred while inserting score to the database:");
 	    	e.printStackTrace();
@@ -98,11 +153,13 @@ public class ScoreDB {
 			ArrayList<String> i = new ArrayList<String>(); // Creates new ArrayList
 			
 			// Gets data into strings
+			String diff = rs.getString("DIFF");
 			String name = rs.getString("NAME"); 
 			String score = new Integer(rs.getInt("SCORE")).toString();
 			String date = rs.getString("DATE");
 			
 			// Adds data to the list 
+			i.add(diff);
 			i.add(name);
 			i.add(score);
 			i.add(date);

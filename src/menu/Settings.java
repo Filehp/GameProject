@@ -1,6 +1,7 @@
 package menu;
 
 import game.Game;
+import game.GamePanel.Diff;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -67,9 +68,15 @@ public class Settings extends JComponent{
 				
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ScoreDB db = new ScoreDB(); // Creates database object
+				ScoreDB db = new ScoreDB(Diff.EASY); // Creates database object
+				ScoreDB db1 = new ScoreDB(Diff.MEDIUM); // Creates database object
+				ScoreDB db2 = new ScoreDB(Diff.HARD); // Creates database object
 				db.clearTable(); // Clears database
+				db1.clearTable(); // Clears database
+				db2.clearTable(); // Clears database
 				db.close(); // Closes database
+				db1.close(); // Closes database
+				db2.close(); // Closes database
 			}
 		});
 		 
