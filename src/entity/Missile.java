@@ -23,8 +23,6 @@ public class Missile implements Serializable {
 
 
     public void loadMissile(Graphics missile){
-
-
         missile.setColor(Color.BLACK);
         missile.fillOval(this.x, this.y, this.radius, this.radius);
         //missilePlayer1.setColor(Color.BLACK);

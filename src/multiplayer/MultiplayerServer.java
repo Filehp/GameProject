@@ -122,16 +122,6 @@ public class MultiplayerServer extends JComponent {
                          //Rad bewegen auf Player 1 begrenzen
                          rad.spinWheel();
 
-                         //Zeit wird berechnet und geprüft
-                         long currentTime = System.currentTimeMillis() - starttime;
-                         int currentTimeOutput = (int) (timer - currentTime);
-                         minuten = (int) currentTimeOutput / 1000 / 60;
-                         sekunden = (int) currentTimeOutput / 1000 % 60;
-                         if (currentTime >= timer) {
-                             time = false;
-                             System.out.println("Timeout");
-                         }
-
                          //Sieges bedingung
                          if (this.missileClipPlayer1 == 0 && missilePlayer1.size() == 0) {
                              /**
@@ -243,8 +233,6 @@ public class MultiplayerServer extends JComponent {
                          oos.writeObject(rad);
                          rad.aufloesungAnpassen(faktorX, faktorY, true);
                      }
-                     oos.writeObject(minuten);
-                     oos.writeObject(sekunden);
 
                      if (playerID == 1) {
                          oos.writeObject(KanonePlayer2);
