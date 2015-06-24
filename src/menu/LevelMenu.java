@@ -22,17 +22,17 @@ public class LevelMenu extends JComponent {
 
 	//Laedt die Bilder fuer die Buttons
 	Icon oneIcon = new ImageIcon("resources/Level1.png");
-	Icon twoIcon = new ImageIcon("resources/Level2.png");
-	Icon threeIcon = new ImageIcon("resources/Level3.png");
-	Icon fourIcon = new ImageIcon("resources/Level4.png");
+	Image twoIcon;
+	Image threeIcon;
+	Image fourIcon;
 	Icon backIcon = new ImageIcon("resources/Back.png");
 	
 	//private Image logo2 = new ImageIcon(getClass().getResource("/background2.png")).getImage();
 
 	private Button level1 = new Button(oneIcon);
-	private Button level2 = new Button(twoIcon);
-	private Button level3 = new Button(threeIcon);
-	private Button level4 = new Button(fourIcon);
+	//private Button level2 = new Button(twoIcon);
+	//private Button level3 = new Button(threeIcon);
+	//private Button level4 = new Button(fourIcon);
 	private Button back = new Button(backIcon);
 	private Image logo2;
 
@@ -41,6 +41,9 @@ public class LevelMenu extends JComponent {
 		
 		try {
 			logo2 = ImageIO.read(new File("resources/background2.png"));
+			twoIcon = ImageIO.read(new File("resources/ComingSoon.png"));
+			threeIcon = ImageIO.read(new File("resources/ComingSoon.png"));
+			fourIcon = ImageIO.read(new File("resources/ComingSoon.png"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -153,18 +156,16 @@ public class LevelMenu extends JComponent {
 		g.drawImage(logo2, 0, 0, null);
 
 		// Setzt die Position und Groesse der Buttons
-		level1.setBounds(Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 - Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
-		level2.setBounds(Game.WIDTH / 2 + Game.WIDTH / 9, Game.HEIGHT / 2 - Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
-		level3.setBounds(Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 + Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
-		level4.setBounds(Game.WIDTH / 2 + Game.WIDTH / 9, Game.HEIGHT / 2 + Game.HEIGHT / 9, Game.WIDTH / 5, Game.HEIGHT / 8);
+		level1.setBounds(Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 - Game.HEIGHT / 9, Game.WIDTH * 15 / 64, Game.HEIGHT * 10 / 72);
+		g.drawImage(twoIcon, Game.WIDTH / 2 + Game.WIDTH / 9, Game.HEIGHT / 2 - Game.HEIGHT / 9, null);
+		g.drawImage(threeIcon, Game.WIDTH / 2 - Game.WIDTH / 3, Game.HEIGHT / 2 + Game.HEIGHT / 9, null);
+		g.drawImage(fourIcon,Game.WIDTH / 2 + Game.WIDTH / 9, Game.HEIGHT / 2 + Game.HEIGHT / 9, null);
 		back.setBounds(Menu.getButtonX(), Menu.getButtonY() + Game.HEIGHT / 100 * 75 / 2, 
 				Menu.getButtonWidth(), Menu.getButtonHeight());
 
 		// Fuegt die Buttons der GUI hinzu 
 		add(level1);
-		add(level2);
-		add(level3);
-		add(level4);
+
 		add(back);
 
 	}

@@ -152,8 +152,8 @@ public class Settings extends JComponent{
 		
 		
 		// Sets buttons position
-		quit.setBounds(Game.WIDTH / 9 * 5, Game.HEIGHT / 2 + 300, Menu.getButtonWidth(), Menu.getButtonHeight());
-		ok.setBounds(Game.WIDTH / 9 , Game.HEIGHT / 2 + 300, Menu.getButtonWidth(), Menu.getButtonHeight());
+		quit.setBounds(Game.WIDTH / 9 * 5, Menu.getButtonY()+ Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
+		ok.setBounds(Game.WIDTH / 9 , Menu.getButtonY()+ Game.HEIGHT / 100 * 75 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());
 			    
 		// Adds elemements to the ui     	 
 		add(musicSlider);
