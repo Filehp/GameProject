@@ -79,7 +79,7 @@ public class Difficulty extends JComponent {
 	protected void paintComponent(Graphics g) {
 		
 		//Stellt das Hintergrundlogo dar
-		g.drawImage(logo2, 0, 0, null); 
+		g.drawImage(logo2, Game.getWindowWidth() / 2 - logo2.getWidth(null)/2, 0, null); 
 
 		//Setzt die Position und Groesse der Buttons
 		easy.setBounds(Menu.getButtonX(), Menu.getButtonY() - Game.HEIGHT / 100 * 25 / 2, Menu.getButtonWidth(), Menu.getButtonHeight());

@@ -81,10 +81,14 @@ public class GamePanel extends JPanel implements Runnable {
      */
     private boolean scorePanel = false;
     Icon quitIcon = new ImageIcon("resources/Quit.png");
+    Icon quit1Icon = new ImageIcon("resources/Quit1.png");
     Icon replayIcon = new ImageIcon("resources/Replay.png");
+    Icon replay2Icon = new ImageIcon("resources/Replay1.png");
     Icon nextLevelIcon = new ImageIcon("resources/NextLevel.png");
     private Button quit = new Button(quitIcon);
+    private Button quit2 = new Button(quit1Icon);
     private Button replay = new Button(replayIcon);
+    private Button replay2 = new Button(replay2Icon);
     private Button nextLevel = new Button (nextLevelIcon);
     private JLabel yourTime = new JLabel();
     private JLabel yourMissles = new JLabel();
@@ -109,7 +113,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.y = y;
         //Laedt das Hintergrundbild
 		try {
-			background = ImageIO.read(new File("resources/Hintergrund.png"));
+			background = ImageIO.read(new File("resources/Hintergrund1.png"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -246,6 +250,13 @@ public class GamePanel extends JPanel implements Runnable {
 				Game.changePanel("menu", GamePanel.this);
 			}
 		});
+        quit2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.changePanel("menu", GamePanel.this);
+			}
+		});
         
         nameField.addMouseListener(new MouseAdapter() {
 			@Override
@@ -309,7 +320,11 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics canon) {
         super.paintComponent(canon);
         
-        canon.drawImage(background, 0, 0, null);
+        canon.drawImage(background, x / 2 - background.getWidth(null)/2, 0, null);
+        replay2.setBounds(this.x / 100 * 84, this.y / 100 * 94, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
+        quit2.setBounds(this.x / 100 * 84, this.y / 100 * 99, Menu.getButtonWidth() / 2, Menu.getButtonHeight() / 2);
+        this.add(quit2);
+        this.add(replay2);
 
         //Rad laden
         rad.loadWheel(canon, startSpokes);
@@ -376,6 +391,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         //Verbleibende Zeit & Geschosse anzeigen
         canon.setFont(new Font("default", Font.BOLD, this.y / 100 * 3));
+        canon.setColor(Color.WHITE);
         if (sekunden >= 10) {
             canon.drawString("0" + minuten + ":" + sekunden + " (" + currentTime + ")", this.x / 100 * 14, this.y / 100 * 88);
         } else {

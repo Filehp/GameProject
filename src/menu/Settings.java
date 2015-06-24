@@ -139,11 +139,11 @@ public class Settings extends JComponent{
 	
 		
 		//Draws volume string
-	    g.drawString("Music volume", 70, 185);
+	    g.drawString("Music volume", Game.WIDTH / 9, Game.HEIGHT * 10 / 40);
 		
 	    // Sets slider's background and position
 		musicSlider.setBackground(new Color(190, 190, 190));
-		musicSlider.setBounds(70,200,500,20);
+		musicSlider.setBounds(Game.WIDTH / 9, Game.HEIGHT * 10 / 36,Game.WIDTH / 9 * 7,20);
 		
 		// Sets buttons position
 		restartScore.setBounds(Menu.getButtonX(), Menu.getButtonY(), Menu.getButtonWidth(), Menu.getButtonHeight());
