@@ -130,12 +130,6 @@ public class MultiplayerServer extends JComponent {
                       * GameStart: das Spiel startet wenn gameStart auf true und allPlayer ebenfalls auf true ist
                       */
                     if (waitGameStart && allPlayer) {
-                        try {
-
-                            Thread.sleep(1500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
                         rad = new Wheel(this.x, this.y, 4, 2);
                         rad.addSpokes();
                         waitGameStart=false;
