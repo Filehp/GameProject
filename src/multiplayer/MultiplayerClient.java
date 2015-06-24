@@ -28,25 +28,10 @@ public class MultiplayerClient extends JPanel implements Runnable{
     static int x;
     static int y;
 
-    boolean time=true;
-    int timer;
-    int minuten;
-    int sekunden;
-    long starttime = System.currentTimeMillis();
     String adress;
     private int playerID;
 
-    String directionPlayer1;
 
-    boolean shotMissile = false;
-    double missilespeedPlayer1 = 0;
-
-    int loadBar=0;
-    int missilnumber = 99;
-    int missileClipPlayer1;
-
-    public ArrayList<Missile> missilePlayer1 = new ArrayList<>();
-    public ArrayList<Missile> missilePlayer2 = new ArrayList<>();
 
     boolean startSpokes = true;
 
@@ -69,8 +54,6 @@ public class MultiplayerClient extends JPanel implements Runnable{
      * Rad Variabeln
      */
     private Wheel rad;
-    InputMap im;
-    ActionMap am;
 
 
     /**
