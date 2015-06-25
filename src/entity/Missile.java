@@ -72,7 +72,7 @@ public class Missile implements Serializable {
          */
         for(Spokes spoke:spokes){
             double c = Math.sqrt(Math.pow(this.x - spoke.getX(), 2) + Math.pow(this.y - spoke.getY(), 2));
-            if (spoke.getRadius()*2 >= c) {
+            if (spoke.getRadius()*1.6 >= c) {
                 return true;
             }
         }

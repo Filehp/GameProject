@@ -34,7 +34,7 @@ public class Canon  implements Serializable {
 
     public Canon(int x, int y, int missileCount){
         System.out.println(x + "and"+ y);
-        this.canonX = x/100*48;
+        this.canonX = x/100*46;
         this.canonY = y/100*75;
         this.canonWigth = x/100*10;
         this.canonHeigth = x/100*3;
