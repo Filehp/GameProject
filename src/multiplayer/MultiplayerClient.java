@@ -195,11 +195,7 @@ public class MultiplayerClient extends JPanel implements Runnable{
         
 
         //Starts the thread
-
         start();
-
-
-
     }
 
     @Override
